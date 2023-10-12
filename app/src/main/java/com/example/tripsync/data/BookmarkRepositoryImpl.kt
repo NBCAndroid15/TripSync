@@ -37,7 +37,7 @@ class BookmarkRepositoryImpl {
                     val userBookmark = result.documents[0].toObject(UserBookmark::class.java)
                     val bookmarkList = userBookmark?.travelList?.toMutableList()
                     bookmarkList?.find {
-                        it.title == travel.title && it.imageUrl == travel.imageUrl && it.content == travel.content
+                        it.title == travel.title && it.imageUrl == travel.imageUrl
                     } != null
                 }
 
@@ -83,7 +83,7 @@ class BookmarkRepositoryImpl {
                 val userBookmark = result.documents[0].toObject(UserBookmark::class.java)
                 val bookmarkList = userBookmark?.travelList?.toMutableList()
                 bookmarkList?.remove(bookmarkList.find {
-                    it.title == travel.title && it.imageUrl == travel.imageUrl && it.content == travel.content
+                    it.title == travel.title && it.imageUrl == travel.imageUrl
                 })
                 val newBookmark = userBookmark?.copy(travelList = bookmarkList) ?: UserBookmark()
                 bookmarksRef.document(result.documents[0].id).set(newBookmark).await()
