@@ -38,29 +38,13 @@
                 android:textSize="30sp"
                 android:textStyle="bold" />
 
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.5"
-                android:layout_margin="10dp"
-                app:cardCornerRadius="100dp"
-                app:strokeColor="#FFFFFF"
-                android:backgroundTint="#F2F2F2"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <TextView
-                    android:id="@+id/bookmark_manage_category_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:textSize="20sp"
-                    android:padding="5dp"
-                    android:text="편집"/>
-
-            </com.google.android.material.card.MaterialCardView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/bookmark_manage_edit_btn"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:text="편집"
+                android:background="@drawable/button_sub_solid"
+                android:stateListAnimator="@null"/>
 
 
         </LinearLayout>

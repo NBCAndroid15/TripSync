@@ -45,6 +45,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:backgroundTint="#F2F2F2"
+            android:background="@drawable/button_main_stroke"
             android:text="계정 관리" />
 
         <TextView
@@ -90,6 +91,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="#F2F2F2"
+            android:background="@drawable/button_main_stroke"
             android:text="로그아웃" />
 
 
