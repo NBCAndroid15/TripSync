@@ -1,22 +1,10 @@
 package com.example.tripsync.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
-import com.example.tripsync.data.AuthRepositoryImpl
-import com.example.tripsync.data.BookmarkRepositoryImpl
-import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
-import com.example.tripsync.model.Bookmark
-import com.example.tripsync.model.Plan
-import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.ui.fragment.LoginFragment
-import com.naver.maps.map.MapFragment
-import com.naver.maps.map.NaverMap
-import com.naver.maps.map.OnMapReadyCallback
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {

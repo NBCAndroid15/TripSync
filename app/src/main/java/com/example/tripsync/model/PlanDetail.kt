@@ -5,5 +5,5 @@ data class PlanDetail(
     val title: String? = null,
     val group: List<String>? = null,
     val content: String? = null,
-    val bookmarkList: List<Bookmark>? = null
+    val travelList: List<Travel>? = null
 )
