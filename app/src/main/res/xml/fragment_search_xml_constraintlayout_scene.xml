@@ -58,10 +58,11 @@
             android:id="@+id/recyclerView4" />
         <Constraint
             android:layout_height="30dp"
-            motion:layout_editor_absoluteX="332dp"
+            motion:layout_editor_absoluteX="337dp"
             android:layout_width="30dp"
             motion:layout_constraintTop_toBottomOf="@+id/search_tv_label"
-            android:id="@+id/button3"
-            motion:layout_constraintBottom_toBottomOf="@+id/3221" />
+            android:id="@+id/search_btn_search"
+            motion:layout_constraintBottom_toBottomOf="@+id/3221"
+            android:layout_marginTop="36dp" />
     </ConstraintSet>
 </MotionScene>
