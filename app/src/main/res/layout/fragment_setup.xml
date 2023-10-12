@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.SetupFragment">
+    tools:context=".ui.fragment.setup.SetupFragment">
 
     <TextView
         android:id="@+id/textView"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton2"
+        android:id="@+id/setup_title_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
@@ -33,7 +33,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/appCompatButton"
+        android:id="@+id/setup_date_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -43,7 +43,7 @@
         android:text="@string/setup_select_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatButton2" />
+        app:layout_constraintTop_toBottomOf="@+id/setup_title_btn" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="0dp"
@@ -52,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appCompatButton" />
+        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
