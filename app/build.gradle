@@ -36,6 +36,7 @@ android {
     buildFeatures {
         viewBinding = true
     }
+
 }
 
 dependencies {
@@ -88,4 +89,7 @@ dependencies {
 
     //Naver Map API
     implementation 'com.naver.maps:map-sdk:3.17.0'
+
+    // material calendar
+    implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
 }
