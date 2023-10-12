@@ -1,14 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="10dp"
     tools:context=".ui.fragment.SignupFragment">
 
-    <!-- TODO: Update blank fragment layout -->
     <TextView
+        android:id="@+id/signup_id_text"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="wrap_content"
+        android:text="아이디 입력"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <EditText
+        android:id="@+id/signup_id_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border_user_edit"
+        android:hint="tripsync@abc.com"
+        android:layout_marginTop="10dp"
+        android:textSize="15sp"
+        android:drawableEnd="@drawable/button_signup_remove"
+        android:paddingEnd="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_id_text" />
+
+    <TextView
+        android:id="@+id/signup_pw_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 입력"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/signup_id_edittext" />
+
+    <EditText
+        android:id="@+id/signup_pw_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border_user_edit"
+        android:hint="6자리이상 입력해 주세요."
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_pw_text" />
+
+    <TextView
+        android:id="@+id/signup_checkpw_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="비밀번호 확인"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/signup_pw_edittext" />
+
+    <EditText
+        android:id="@+id/signup_checkpw_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border_user_edit"
+        android:hint="다시한번 입력해 주세요."
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_checkpw_text" />
+
+    <TextView
+        android:id="@+id/signup_nickname_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:layout_marginTop="30dp"
+        android:textSize="20sp"
+        app:layout_constraintTop_toBottomOf="@+id/signup_checkpw_edittext" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:text="중복체크"
+        android:background="@drawable/button_sub_solid"
+        android:stateListAnimator="@null"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_nickname_text"
+        app:layout_constraintEnd_toEndOf="@+id/signup_nickname_text"
+        app:layout_constraintTop_toTopOf="@+id/signup_nickname_text" />
+
+    <EditText
+        android:id="@+id/signup_nickname_edittext"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/border_user_edit"
+        android:hint="닉네임을 입력해 주세요."
+        android:textSize="15sp"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signup_nickname_text" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:text="회원가입"
+        android:layout_marginTop="100dp"
+        android:textColor="@color/white"
+        android:background="@drawable/button_main_solid"
+        app:layout_constraintTop_toBottomOf="@+id/signup_nickname_edittext" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
