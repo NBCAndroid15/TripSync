@@ -1,10 +1,15 @@
 package com.example.tripsync.ui.activity
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
+import com.example.tripsync.data.AuthRepositoryImpl
+import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.ui.fragment.LoginFragment
+import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -19,6 +24,27 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .add(R.id.main_frame, LoginFragment.newInstance())
             .commit()
+
+        lifecycleScope.launch {
+            val travelRepositoryImpl = TravelRepositoryImpl()
+
+            val travelList1 = travelRepositoryImpl.getTravelInfoWithPosition(1, 126.9885339952, 37.5665544247)
+            Log.d("getTravelInfoWithPosition", travelList1.toString())
+
+            val travelList2 = travelRepositoryImpl.getTravelInfo(1, "서울")
+            Log.d("getTravelInfo", travelList2.toString())
+
+            val travelList3 = travelRepositoryImpl.getFestivalInfo(1)
+            Log.d("getFestivalInfo", travelList3.toString())
+        }
+
+        lifecycleScope.launch {
+            // 실패하면 null 반환
+            val repo = AuthRepositoryImpl()
+            repo.register("test@abc.com", "abcd1234")
+            val result = repo.login("test@abc.com", "abcd1234")
+            Log.d("fbuser", result?.user.toString())
+        }
 
         /*
         val fm = supportFragmentManager
