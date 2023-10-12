@@ -9,6 +9,8 @@ import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.ui.fragment.LoginFragment
+import com.example.tripsync.ui.fragment.MyPageFragment
+import com.example.tripsync.ui.fragment.MyPlanFragment
 import kotlinx.coroutines.launch
 
 
@@ -22,7 +24,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, LoginFragment.newInstance())
+            .add(R.id.main_frame, MyPlanFragment.newInstance())
             .commit()
 
         lifecycleScope.launch {

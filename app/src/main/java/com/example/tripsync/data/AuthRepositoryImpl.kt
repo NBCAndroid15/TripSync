@@ -37,4 +37,23 @@ class AuthRepositoryImpl {
                 null
             }
         }
+
+    fun logout() {
+        auth.currentUser?.let {
+            auth.signOut()
+        }
+    }
+
+    suspend fun getCurrentUserInfo() = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                val docs = usersRef.whereEqualTo("uid", auth.currentUser!!.uid).get().await()
+                if (docs.documents.size == 0) null else docs.documents[0].toObject(User::class.java)
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
 }
