@@ -45,7 +45,7 @@
             motion:layout_constraintHorizontal_bias="0.515"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="377dp"
-            android:id="@+id/3221"
+            android:id="@+id/search_et_searchbar"
             motion:layout_constraintTop_toBottomOf="@+id/search_tv_label" />
         <Constraint
             android:layout_height="400dp"
@@ -54,7 +54,7 @@
             motion:layout_constraintBottom_toBottomOf="parent"
             motion:layout_constraintEnd_toEndOf="parent"
             android:layout_width="match_parent"
-            motion:layout_constraintTop_toBottomOf="@+id/3221"
+            motion:layout_constraintTop_toBottomOf="@+id/search_et_searchbar"
             android:id="@+id/recyclerView4" />
         <Constraint
             android:layout_height="30dp"
@@ -62,7 +62,7 @@
             android:layout_width="30dp"
             motion:layout_constraintTop_toBottomOf="@+id/search_tv_label"
             android:id="@+id/search_btn_search"
-            motion:layout_constraintBottom_toBottomOf="@+id/3221"
+            motion:layout_constraintBottom_toBottomOf="@+id/search_et_searchbar"
             android:layout_marginTop="36dp" />
     </ConstraintSet>
 </MotionScene>
