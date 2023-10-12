@@ -1,11 +1,14 @@
-package com.example.tripsync.ui.fragment
+package com.example.tripsync.ui.fragment.setup
 
+import android.app.DatePickerDialog
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.example.tripsync.databinding.FragmentSetupBinding
+import java.util.Calendar
 
 class SetupFragment : Fragment() {
 
@@ -18,12 +21,11 @@ class SetupFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSetupBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        val view = binding.root
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        //doSomething
+        initView()
+
+        return view
     }
 
     override fun onDestroyView() {
@@ -36,4 +38,24 @@ class SetupFragment : Fragment() {
             return SetupFragment()
         }
     }
+
+    private fun initView() = with(binding) {
+        setupTitleBtn.setOnClickListener {
+            val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
+                setupTitleBtn.text = title
+            }
+            setupTitleDialog.show()
+        }
+
+        setupDateBtn.setOnClickListener {
+            val setupCalendarView = SetupCalendarView()
+            setupCalendarView.show(childFragmentManager, "SetupCalendarView")
+        }
+
+    }
 }
+
+
+
+
+
