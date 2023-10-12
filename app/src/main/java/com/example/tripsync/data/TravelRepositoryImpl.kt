@@ -11,7 +11,6 @@ class TravelRepositoryImpl {
             val response = api.getTravelInfo(pageNo = pageNo, keyword = keyword)
 
             if (response.isSuccessful) {
-
             }
         } catch (e: Exception) {
 

@@ -1,9 +1,7 @@
 package com.example.tripsync.data
 
 import android.util.Log
-import com.example.tripsync.model.Bookmark
 import com.example.tripsync.model.Plan
-import com.example.tripsync.model.UserBookmark
 import com.example.tripsync.model.UserPlan
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
