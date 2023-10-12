@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
 
+<?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,8 +9,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp">
+        android:layout_height="match_parent">
 
         <ImageView
             android:id="@+id/detail_iv_image"
@@ -33,7 +32,7 @@
             android:id="@+id/detail_tv_region"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:layout_marginTop="20dp"
             android:text="지역명"
             android:textColor="#336DF3"
@@ -46,21 +45,21 @@
             android:id="@+id/detail_tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:text="관광지명"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_tv_region" />
 
-
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/detail_btn_bookmark"
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:layout_marginTop="20dp"
-            android:layout_marginEnd="24dp"
+            android:layout_marginEnd="40dp"
             android:background="@drawable/ic_plus"
+            android:backgroundTint="#00FFFFFF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_iv_image" />
 
@@ -68,18 +67,19 @@
             android:id="@+id/detail_tv_addr"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="32dp"
             android:text="주소"
             android:textColor="#979797"
             android:textSize="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_tv_name" />
 
+
         <View
 
             android:id="@+id/view"
 
-            android:layout_width="match_parent"
+            android:layout_width="363dp"
 
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
@@ -113,40 +113,38 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </ScrollView>
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/detail_btn_detail_location"
-            android:layout_width="match_parent"
+            android:layout_width="359dp"
             android:layout_height="48dp"
             android:layout_marginTop="30dp"
             android:background="@drawable/border_user_edit"
             android:text="자세한 위치 보기"
             android:textAllCaps="false"
-            android:textColor="#414447"
             app:cornerRadius="15dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/detail_btn_wish_list"
             android:layout_width="150dp"
             android:layout_height="48dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="27dp"
             android:background="@drawable/button_main_stroke"
             android:text="찜 목록"
-            android:textColor="#336DF3"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_btn_detail_location" />
 
-        <androidx.appcompat.widget.AppCompatButton
+        <Button
             android:id="@+id/detail_btn_go_plan"
             android:layout_width="150dp"
             android:layout_height="48dp"
             android:layout_marginTop="27dp"
+            android:layout_marginEnd="24dp"
             android:background="@drawable/button_main_solid"
-            android:text="계획 짜볼까?"
-            android:textColor="#FFFFFF"
-            android:textStyle="bold"
+            android:text="Button"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_btn_detail_location" />
 
