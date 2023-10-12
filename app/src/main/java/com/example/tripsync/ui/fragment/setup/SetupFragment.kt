@@ -1,11 +1,11 @@
-package com.example.tripsync.ui.fragment
+package com.example.tripsync.ui.fragment.setup
 
 import android.app.DatePickerDialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.example.tripsync.databinding.FragmentSetupBinding
 import java.util.Calendar
@@ -23,11 +23,7 @@ class SetupFragment : Fragment() {
         _binding = FragmentSetupBinding.inflate(inflater, container, false)
         val view = binding.root
 
-        val selectDateButton = binding.appCompatButton
-
-        selectDateButton.setOnClickListener {
-            showDatePicker()
-        }
+        initView()
 
         return view
     }
@@ -37,22 +33,27 @@ class SetupFragment : Fragment() {
         _binding = null
     }
 
-    private fun showDatePicker() {
-        val calendar = Calendar.getInstance()
-        val year = calendar.get(Calendar.YEAR)
-        val month = calendar.get(Calendar.MONTH)
-        val day = calendar.get(Calendar.DAY_OF_MONTH)
 
-        val datePickerDialog = DatePickerDialog(requireContext(), { _, year, month, dayOfMonth ->
-            val selectedDate = "$year-${month + 1}-$dayOfMonth"
-        }, year, month, day)
-        datePickerDialog.show()
-    }
 
     companion object {
         fun newInstance(): SetupFragment {
             return SetupFragment()
         }
+    }
+
+    private fun initView() = with(binding) {
+        setupTitleBtn.setOnClickListener {
+            val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
+                setupTitleBtn.text = title
+            }
+            setupTitleDialog.show()
+        }
+
+        setupDateBtn.setOnClickListener {
+            val setupCalendarView = SetupCalendarView()
+            setupCalendarView.show(childFragmentManager, "SetupCalendarView")
+        }
+
     }
 }
 

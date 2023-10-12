@@ -12,4 +12,6 @@
     <string name="plan_call_bookmark">여행지 북마크 불러오기</string>
     <string name="plan_search_destination">여행지 검색하기</string>
     <string name="plan_save_btn">저장</string>
+    <string name="setup_cancel_dialog">cancel</string>
+    <string name="setup_save_dialog">save</string>
 </resources>
