@@ -33,8 +33,6 @@ class SetupFragment : Fragment() {
         _binding = null
     }
 
-
-
     companion object {
         fun newInstance(): SetupFragment {
             return SetupFragment()
