@@ -10,6 +10,7 @@
         android:id="@+id/constraintLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_margin="10dp"
         app:layoutDescription="@xml/fragment_search_xml_constraintlayout_scene">
 
         <ImageView
@@ -36,10 +37,11 @@
 
         <EditText
             android:id="@+id/search_et_searchbar"
-            android:layout_width="377dp"
+            android:layout_width="match_parent"
             android:layout_height="59dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/border_user_edit"
+            android:backgroundTintMode="add"
             android:hint="가고 싶은 여행지를 검색하세요"
             android:textSize="15sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -47,12 +49,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/search_tv_label" />
 
-        <Button
-            android:id="@+id/button3"
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_btn_search"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginEnd="44dp"
+            android:layout_marginEnd="32dp"
             android:background="@drawable/ic_search"
+            android:backgroundTint="#000000"
             app:layout_constraintBottom_toBottomOf="@+id/search_et_searchbar"
             app:layout_constraintEnd_toEndOf="@+id/search_et_searchbar"
             app:layout_constraintTop_toTopOf="@+id/search_et_searchbar"
