@@ -10,15 +10,26 @@
     <style name="Theme.TripSync" parent="Base.Theme.TripSync" />
 
     <style name="CalenderViewCustom" parent="Theme.AppCompat">
+        <item name="android:textColor">@drawable/calendar_selector_textcolor</item>
+        <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@android:color/black</item>
-        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+    <style name="CalendarWidgetHeader">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/gray_medium</item>
     </style>
 
     <style name="CalenderViewWeekCustomText" parent="android:TextAppearance.DeviceDefault.Small">
-        <item name="android:textColor">@color/black</item>
-        <item name="android:weekNumberColor">@android:color/holo_red_light</item>
+        <item name="android:textColor">@color/gray_medium</item>
     </style>
+
+    <style name="CalenderViewDateCustomText" parent="android:TextAppearance.DeviceDefault.Small">
+        <item name="android:textColor">@drawable/calendar_selector_textcolor</item>
+    </style>
+
+
+
+
+
+
 </resources>
