@@ -26,6 +26,7 @@ class MyPlanViewModel(private val planRepositoryImpl: PlanRepositoryImpl) : View
     fun deletePlan(plan: Plan) {
         viewModelScope.launch {
             planRepositoryImpl.deletePlan(plan)
+            _planList.value = planRepositoryImpl.getPlanList()
         }
     }
 }
