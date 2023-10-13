@@ -71,7 +71,7 @@ class SetupFragment : Fragment() {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
      this.selectedDates.clear()
         this.selectedDates.addAll(selectedDates)
-        adapter.submitList(selectedDates.toList().map { it.day })
+        adapter.submitList(selectedDates.toList())
     }
 }
 

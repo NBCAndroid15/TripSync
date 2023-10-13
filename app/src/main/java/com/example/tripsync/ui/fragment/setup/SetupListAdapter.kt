@@ -7,14 +7,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.SetupRecyclerDateItemBinding
+import com.prolificinteractive.materialcalendarview.CalendarDay
 
-class SetupListAdapter : ListAdapter<Int, SetupListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
+class SetupListAdapter : ListAdapter<CalendarDay, SetupListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<CalendarDay>() {
+        override fun areItemsTheSame(oldItem: CalendarDay, newItem: CalendarDay): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: CalendarDay, newItem: CalendarDay): Boolean {
             return oldItem == newItem
         }
 
@@ -31,8 +32,8 @@ class SetupListAdapter : ListAdapter<Int, SetupListAdapter.ViewHolder>(
     }
 
     class ViewHolder(private val binding: SetupRecyclerDateItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(date: Int) = with(binding) {
-            setupMakingBtn.text = "$date"
+        fun bind(date: CalendarDay) = with(binding) {
+            setupMakingBtn.text = "${date.year}년 ${date.month}월 ${date.day}일"
 
         }
     }
