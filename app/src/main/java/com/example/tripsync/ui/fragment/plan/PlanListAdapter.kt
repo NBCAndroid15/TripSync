@@ -70,6 +70,11 @@ class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapt
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Plan) = with(binding) {
 
+            planSaveBtn.setOnClickListener {
+                onItemChecked(absoluteAdapterPosition, item)
+
+            }
+
         }
     }
 }

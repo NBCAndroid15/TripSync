@@ -24,9 +24,12 @@ class PlanFragment : Fragment() {
     ): View? {
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
 
-        val recyclerView = binding.planRecycler
-        recyclerView.adapter = planListAdapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        planListAdapter = PlanListAdapter{ position, plan ->
+
+        }
+
+        binding.planRecycler.adapter = planListAdapter
+        binding.planRecycler.layoutManager = LinearLayoutManager(context)
 
         binding.planEditBtn.setOnClickListener {
             isEditMode = !isEditMode
@@ -55,6 +58,28 @@ class PlanFragment : Fragment() {
 
     private fun updateView() = with(binding) {
         if(isEditMode) {
+            planListAdapter.submitList(getEditedPlanList())
+        } else {
+            planListAdapter.submitList(getNormalPlanList())
         }
         }
+
+    private fun getEditedPlanList(): List<Plan> {
+        val editedPlans = mutableListOf<Plan>()
+        for (originalPlan in planListAdapter.currentList) {
+            val editedPlan = originalPlan.copy(viewType = PlanViewType.Edit.INT)
+            editedPlans.add(editedPlan)
+        }
+        return editedPlans
+
+    }
+
+    private fun getNormalPlanList(): List<Plan> {
+        val normalPlans = mutableListOf<Plan>()
+        for (originalPlan in planListAdapter.currentList) {
+            val normalPlan = originalPlan.copy(viewType = PlanViewType.Normal.INT)
+            normalPlans.add(normalPlan)
+        }
+        return normalPlans
+    }
 }
