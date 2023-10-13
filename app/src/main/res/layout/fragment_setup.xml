@@ -25,8 +25,9 @@
         android:layout_marginTop="24dp"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/setup_btn_round"
+        android:background="@drawable/plan_btn_background"
         android:text="@string/setup_travel_name"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -39,20 +40,34 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/setup_btn_round"
+        android:background="@drawable/plan_btn_background"
+        android:textColor="@color/white"
         android:text="@string/setup_select_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_title_btn" />
 
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="25dp"
+        android:text="@string/setup_making_plan"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn" />
+
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/setup_recycler"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
