@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -9,19 +10,91 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        >
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
 
         <ImageView
-            android:id="@+id/mypage_appimage"
+            android:id="@+id/mypage_app_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/mypage_profile_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <TextView
+            android:id="@+id/mypage_profile_nickname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="닉네임" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mypage_config_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_launcher_foreground" />
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#F2F2F2"
+            android:background="@drawable/button_main_stroke"
+            android:text="계정 관리" />
+
+        <TextView
+            android:id="@+id/mypage_email_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Email"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mypage_profile_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="userEmail" />
+
+        <TextView
+            android:id="@+id/mypage_travel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="내 여행 돌아보기"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/mypage_travellist_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="여행지리스트"
+            android:textColor="#336DF3" />
+
+        <TextView
+            android:id="@+id/mypage_friend_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:text="친구목록"
+            android:textStyle="bold" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/mypage_logout_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#F2F2F2"
+            android:background="@drawable/button_main_stroke"
+            android:text="로그아웃" />
+
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
