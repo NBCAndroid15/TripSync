@@ -28,8 +28,6 @@ class PlanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
-        binding.lifecycleOwner = this
-        binding.planViewModel = viewModel
 
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
@@ -67,8 +65,11 @@ class PlanFragment : Fragment() {
 
     }
 
-    private fun showMemoDialog() {
+    private fun showMemoDialog() = with(binding) {
         val dialogFragment = PlanMemoFragment(requireContext())
+        dialogFragment.setOnSaveListener { memoText ->
+            planTextView.text = memoText
+        }
         dialogFragment.show()
 
     }

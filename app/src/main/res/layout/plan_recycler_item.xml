@@ -2,12 +2,12 @@
 
 <layout>
 
-    <data>
+<!--    <data>-->
 
-        <variable
-            name="plan"
-            type="com.example.tripsync.model.Plan" />
-    </data>
+<!--        <variable-->
+<!--            name="plan"-->
+<!--            type="com.example.tripsync.model.Plan" />-->
+<!--    </data>-->
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="@{plan.title}"
+                    android:text="여행지"
                     app:layout_constraintStart_toEndOf="@+id/plan_item_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -77,7 +77,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="5dp"
-                    android:text="@{plan.planDetailList.toString()}"
+                    android:text="장소"
                     android:textColor="#838080"
                     app:layout_constraintStart_toEndOf="@+id/plan_item_image"
                     app:layout_constraintTop_toBottomOf="@+id/plan_item_title" />
