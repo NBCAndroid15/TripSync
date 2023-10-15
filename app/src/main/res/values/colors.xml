@@ -2,6 +2,7 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="red">#FF6067</color>
     <color name="btn_stroke">#DDDDDD</color>
     <color name="main_defalt">#336DF3</color>
     <color name="main_light">#EBF1FD</color>
