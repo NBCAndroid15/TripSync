@@ -5,10 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
+import com.example.tripsync.ui.fragment.setup.SetupFragment
 
 class HomeFragment : Fragment() {
 
@@ -47,6 +47,13 @@ class HomeFragment : Fragment() {
         homeFestivalAdapter = HomeFestivalAdapter(festivalList)
         binding.homeFestivalRv.adapter = homeFestivalAdapter
         binding.homeFestivalRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
+
+        binding.homeStartplanBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, SetupFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         return binding.root
     }
