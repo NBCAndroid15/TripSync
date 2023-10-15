@@ -41,7 +41,6 @@ class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapt
                 .load(item.planDetailList)
                 .into(planItemImage)
 
-            executePendingBindings()
 
 
         }

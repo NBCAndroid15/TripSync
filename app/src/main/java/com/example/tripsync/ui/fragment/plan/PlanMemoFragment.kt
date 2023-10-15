@@ -11,6 +11,7 @@ import com.example.tripsync.databinding.FragmentPlanMemoBinding
 class PlanMemoFragment(private val context: Context) : Dialog(context) {
 
     private lateinit var binding: FragmentPlanMemoBinding
+    private lateinit var onSaveListener: (String) -> Unit
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,11 +30,22 @@ class PlanMemoFragment(private val context: Context) : Dialog(context) {
         }
 
         dialogSaveBtn.setOnClickListener {
-            if(dialogText.text.isNullOrBlank()) {
-                Toast.makeText(context, "여행 계획을 정해주세요!!", Toast.LENGTH_SHORT).show()
-            } else {
+            val memoText = dialogText.text.toString()
+            if (memoText.isNotBlank()) {
+                onSaveListener(memoText)
                 dismiss()
+            } else{
+                Toast.makeText(context, "여행 계획을 정해주세요", Toast.LENGTH_SHORT).show()
             }
+//            if(dialogText.text.isNullOrBlank()) {
+//                Toast.makeText(context, "여행 계획을 정해주세요!!", Toast.LENGTH_SHORT).show()
+//            } else {
+//                dismiss()
+//            }
         }
+    }
+
+    fun setOnSaveListener(listener: (String) -> Unit) {
+        onSaveListener = listener
     }
 }
