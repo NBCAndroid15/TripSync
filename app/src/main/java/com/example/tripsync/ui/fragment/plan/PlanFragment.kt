@@ -5,35 +5,34 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
-import com.example.tripsync.model.Plan
+import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
 
 class PlanFragment : Fragment() {
+
 
     private var _binding: FragmentPlanBinding? = null
     private val binding: FragmentPlanBinding
         get() = _binding!!
 
-    private lateinit var planListAdapter: PlanListAdapter
-    private var isEditMode = false
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PlanListAdapter
+    private val viewModel: PlanViewModel by viewModels()
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
-
-        planListAdapter = PlanListAdapter{ position, plan ->
-
-        }
-
-        binding.planRecycler.adapter = planListAdapter
-        binding.planRecycler.layoutManager = LinearLayoutManager(context)
+        binding.lifecycleOwner = this
+        binding.planViewModel = viewModel
 
         binding.planEditBtn.setOnClickListener {
-            isEditMode = !isEditMode
-            updateView()
+            showMemoDialog()
         }
 
 
@@ -56,30 +55,21 @@ class PlanFragment : Fragment() {
         }
     }
 
-    private fun updateView() = with(binding) {
-        if(isEditMode) {
-            planListAdapter.submitList(getEditedPlanList())
-        } else {
-            planListAdapter.submitList(getNormalPlanList())
-        }
+    private fun initView() = with(binding) {
+        recyclerView = planRecycler
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        adapter = PlanListAdapter{ position, plan ->
+
         }
 
-    private fun getEditedPlanList(): List<Plan> {
-        val editedPlans = mutableListOf<Plan>()
-        for (originalPlan in planListAdapter.currentList) {
-            val editedPlan = originalPlan.copy(viewType = PlanViewType.Edit.INT)
-            editedPlans.add(editedPlan)
-        }
-        return editedPlans
+        recyclerView.adapter = adapter
 
     }
 
-    private fun getNormalPlanList(): List<Plan> {
-        val normalPlans = mutableListOf<Plan>()
-        for (originalPlan in planListAdapter.currentList) {
-            val normalPlan = originalPlan.copy(viewType = PlanViewType.Normal.INT)
-            normalPlans.add(normalPlan)
-        }
-        return normalPlans
+    private fun showMemoDialog() {
+        val dialogFragment = PlanMemoFragment(requireContext())
+        dialogFragment.show()
+
     }
 }
