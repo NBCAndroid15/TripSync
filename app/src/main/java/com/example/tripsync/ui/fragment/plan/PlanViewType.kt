@@ -7,11 +7,11 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 sealed class PlanViewType : Parcelable {
 
-    data object Normal : PlanViewType() {
+    object Normal : PlanViewType() {
         const val INT = 0
     }
 
-    data object Edit : PlanViewType() {
+    object Edit : PlanViewType() {
         const val INT = 1
     }
 }
