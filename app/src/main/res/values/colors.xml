@@ -10,4 +10,5 @@
     <color name="gray_medium">#979797</color>
     <color name="gray_semilight">#DDDDDD</color>
     <color name="gray_light">#F2F2F2</color>
+    <color name="plan_item_color">#BED8F8</color>
 </resources>
