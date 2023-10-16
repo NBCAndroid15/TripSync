@@ -6,12 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.tripsync.databinding.FragmentMainBinding
+import com.example.tripsync.ui.adapter.ViewPagerFragmentAdapter
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
 
     private var _binding: FragmentMainBinding? = null
     private val binding: FragmentMainBinding
         get() = _binding!!
+
+    private val title = arrayOf("홈", "북마크", "검색", "내 정보")
+
+    private val adapter by lazy {
+        ViewPagerFragmentAdapter(requireActivity())
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -23,7 +31,14 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //doSomething
+        initView()
+    }
+
+    private fun initView() {
+        binding.mainViewPager.adapter = adapter
+        TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->
+            tab.text = title[position]
+        }.attach()
     }
 
     override fun onDestroyView() {

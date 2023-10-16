@@ -49,7 +49,7 @@ class AuthRepositoryImpl {
             if (auth.currentUser == null) {
                 null
             } else {
-                val docs = usersRef.whereEqualTo("uid", auth.currentUser!!.uid).get().await()
+                val docs = usersRef.whereEqualTo("email", auth.currentUser!!.email).get().await()
                 if (docs.documents.size == 0) null else docs.documents[0].toObject(User::class.java)
             }
         } catch (e: Exception) {
