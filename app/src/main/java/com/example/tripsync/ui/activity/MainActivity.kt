@@ -24,6 +24,15 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    override fun onStart() {
+        super.onStart()
+        lifecycleScope.launch {
+            val repo = AuthRepositoryImpl()
+            repo.register("test@abc.com", "abcd1234")
+            val result = repo.login("test@abc.com", "abcd1234")
+            Log.d("fbuser", result?.user.toString())
+        }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -31,9 +40,9 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, SetupFragment.newInstance())
+            .add(R.id.main_frame, LoginFragment.newInstance())
             .commit()
-
+        /*
         lifecycleScope.launch {
             val travelRepositoryImpl = TravelRepositoryImpl()
 
@@ -45,8 +54,23 @@ class MainActivity : AppCompatActivity() {
 
             val travelList3 = travelRepositoryImpl.getFestivalInfo(1)
             Log.d("getFestivalInfo", travelList3.toString())
-        }
 
+            val repo = AuthRepositoryImpl()
+            repo.register("test@abc.com", "abcd1234")
+            val result = repo.login("test@abc.com", "abcd1234")
+            Log.d("fbuser", result?.user.toString())
+
+            val bookmarkRepositoryImpl = BookmarkRepositoryImpl()
+
+            travelList2.forEach {
+                bookmarkRepositoryImpl.addBookmark(it)
+            }
+
+        }
+        */
+
+
+        /*
         lifecycleScope.launch {
             // 실패하면 null 반환
             val repo = AuthRepositoryImpl()
@@ -54,6 +78,8 @@ class MainActivity : AppCompatActivity() {
             val result = repo.login("test@abc.com", "abcd1234")
             Log.d("fbuser", result?.user.toString())
         }
+
+         */
 
         /*
         val fm = supportFragmentManager

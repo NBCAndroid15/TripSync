@@ -9,11 +9,13 @@ import com.example.tripsync.model.User
 import kotlinx.coroutines.launch
 
 class MyPageViewModel (private val authRepositoryImpl: AuthRepositoryImpl) : ViewModel() {
-    var curUser: User? = null
+    private var _curUser: MutableLiveData<User?> = MutableLiveData<User?>()
+    val curUser: LiveData<User?>
+        get() = _curUser
 
     init {
         viewModelScope.launch {
-            curUser = authRepositoryImpl.getCurrentUserInfo()
+            _curUser.value = authRepositoryImpl.getCurrentUserInfo()
         }
     }
 
