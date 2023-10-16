@@ -1,6 +1,7 @@
 package com.example.tripsync.ui.fragment.plan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -28,6 +29,11 @@ class PlanFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
+        recyclerView = binding.planRecycler
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
+        initView()
+        recyclerView.adapter = adapter
 
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
@@ -39,7 +45,6 @@ class PlanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        getDate()
 
     }
 
@@ -55,14 +60,11 @@ class PlanFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-        recyclerView = planRecycler
-        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+
 
         adapter = PlanListAdapter{ position, plan ->
 
         }
-
-        recyclerView.adapter = adapter
 
     }
 
@@ -70,16 +72,10 @@ class PlanFragment : Fragment() {
         val dialogFragment = PlanMemoFragment(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
             planTextView.text = memoText
+            planEditBtn.visibility = View.GONE
         }
         dialogFragment.show()
 
     }
 
-    private fun getDate()= with(binding) {
-        val selectedDate = arguments?.getString("selectedDate")
-
-        if(selectedDate != null) {
-            planDate.text = "$selectedDate"
-        }
-    }
 }
