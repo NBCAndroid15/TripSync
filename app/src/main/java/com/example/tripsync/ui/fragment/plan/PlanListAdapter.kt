@@ -9,13 +9,13 @@ import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Plan
 
-class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapter<Plan, PlanListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<Plan>() {
-        override fun areItemsTheSame(oldItem: Plan, newItem: Plan): Boolean {
-            return oldItem.planDetailList == newItem.planDetailList
+class PlanListAdapter(private val onItemChecked: (Int, TestModel) -> Unit): ListAdapter<TestModel, PlanListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<TestModel>() {
+        override fun areItemsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Plan, newItem: Plan): Boolean {
+        override fun areContentsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
             return oldItem == newItem
         }
     }
@@ -34,10 +34,12 @@ class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapt
 
     class ViewHolder(private val binding: PlanRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: Plan) = with(binding) {
+        fun bind(item: TestModel) = with(binding) {
             Glide.with(itemView)
-                .load(item.planDetailList)
+                .load(item.id)
                 .into(planItemImage)
+
+            planItemTitle.text = item.name
         }
     }
 

@@ -43,8 +43,10 @@ class PlanFragment : Fragment() {
         recyclerView = binding.planRecycler
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        initView()
+        adapter = PlanListAdapter { position, plan -> }
         recyclerView.adapter = adapter
+
+        initView()
 
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
@@ -70,11 +72,8 @@ class PlanFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
-
-
-        adapter = PlanListAdapter{ position, plan ->
-
-        }
+        val itemList = planViewModel.itemList
+        adapter.submitList(itemList)
 
     }
 
