@@ -160,10 +160,10 @@
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
 
-            <ImageView
-                android:id="@+id/imageView"
+            <com.naver.maps.map.MapView
+                android:id="@+id/naver_map"
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/plan_map_test"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -177,7 +177,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView" />
+                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_to_listbtn"
