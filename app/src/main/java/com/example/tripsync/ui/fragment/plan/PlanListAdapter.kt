@@ -5,76 +5,42 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tripsync.databinding.FragmentPlanBinding
-import com.example.tripsync.databinding.PlanEditViewBinding
+import com.bumptech.glide.Glide
+import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Plan
 
-class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapter<Plan, RecyclerView.ViewHolder>(
-    object : DiffUtil.ItemCallback<Plan>() {
-        override fun areItemsTheSame(oldItem: Plan, newItem: Plan): Boolean {
-            return oldItem.planDetailList == newItem.planDetailList
+class PlanListAdapter(private val onItemChecked: (Int, TestModel) -> Unit): ListAdapter<TestModel, PlanListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<TestModel>() {
+        override fun areItemsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Plan, newItem: Plan): Boolean {
+        override fun areContentsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
             return oldItem == newItem
         }
     }
 ) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when(viewType) {
-            PlanViewType.Normal.INT -> {
-                val view = FragmentPlanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ViewHolder(view)
-            }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = PlanRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
 
-            PlanViewType.Edit.INT -> {
-                val view = PlanEditViewBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                EditViewHolder(view, onItemChecked )
-            }
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(getItem(position))
+    }
 
-            else -> {
-                val view = FragmentPlanBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-                ViewHolder(view)
-            }
+
+
+    class ViewHolder(private val binding: PlanRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: TestModel) = with(binding) {
+            Glide.with(itemView)
+                .load(item.id)
+                .into(planItemImage)
+
+            planItemTitle.text = item.name
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when(holder) {
-            is ViewHolder -> {
-                holder.bind(getItem(position))
-            }
-
-            is EditViewHolder -> {
-                holder.bind(getItem(position))
-            }
-        }
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        return getItem(position).viewType
-    }
-
-
-    class ViewHolder(private val binding: FragmentPlanBinding) : RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(item: Plan) = with(binding) {
-
-
-        }
-    }
-
-    class EditViewHolder(
-        private val binding: PlanEditViewBinding, private val onItemChecked: (Int, Plan) -> Unit
-    ) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: Plan) = with(binding) {
-
-            planSaveBtn.setOnClickListener {
-                onItemChecked(absoluteAdapterPosition, item)
-
-            }
-
-        }
-    }
 }
