@@ -22,6 +22,8 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     private val binding: FragmentNaverMapBinding
         get() = _binding!!
 
+    private val testModel = PlanViewModel()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,17 +43,22 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         return binding.root
     }
 
+
     override fun onMapReady(p0: NaverMap) {
-        val markerLatLng = LatLng(35.1795543,129.0756416 )
-        p0.mapType = NaverMap.MapType.Basic
-        p0.minZoom = 10.0
 
-        val cameraPosition = CameraPosition(markerLatLng, 10.0)
-        p0.cameraPosition = cameraPosition
+        for(item in testModel.itemList) {
+            val latLng = LatLng(item.latitude, item.longitude)
+            p0.mapType = NaverMap.MapType.Basic
+            p0.minZoom = 5.0
 
-        val marker = Marker()
-        marker.position = markerLatLng
-        marker.map = p0
+            val cameraPosition = CameraPosition(latLng, 10.0)
+            p0.cameraPosition = cameraPosition
+
+            val marker = Marker()
+            marker.position = latLng
+            marker.map = p0
+        }
+
     }
 
     override fun onDestroyView() {
