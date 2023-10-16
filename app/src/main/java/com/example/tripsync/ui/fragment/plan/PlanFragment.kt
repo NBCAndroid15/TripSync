@@ -6,11 +6,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapFragment
@@ -28,7 +31,8 @@ class PlanFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlanListAdapter
-    private val viewModel: PlanViewModel by viewModels()
+    private val planViewModel: PlanViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     override fun onCreateView(
@@ -45,7 +49,7 @@ class PlanFragment : Fragment() {
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
         }
-
+        getTitleOrDate()
         return binding.root
     }
 
@@ -81,6 +85,22 @@ class PlanFragment : Fragment() {
             planEditBtn.visibility = View.GONE
         }
         dialogFragment.show()
+
+    }
+
+    private fun getTitleOrDate () = with(binding) {
+
+        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
+            planTextTitle.text = it
+        })
+
+        sharedViewModel.sharedDate.observe(viewLifecycleOwner, Observer { date ->
+            if(date.isNotEmpty()) {
+                val dateText = date.joinToString { "${it.year}년 ${it.month}월 ${it.day}일"}
+                binding.planDate.text = dateText
+            }
+        })
+
 
     }
 

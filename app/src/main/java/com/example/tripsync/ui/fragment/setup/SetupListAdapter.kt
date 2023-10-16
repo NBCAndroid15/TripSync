@@ -36,7 +36,6 @@ class SetupListAdapter : ListAdapter<CalendarDay, SetupListAdapter.ViewHolder>(
             setupMakingBtn.text = "${date.year}년 ${date.month}월 ${date.day}일"
 
             setupMakingBtn.setOnClickListener {
-                Log.d("SetupListAdapter", "Item clicked: ${date.year}년 ${date.month}월 ${date.day}일")
                 itemClickListener?.onItemClick(date)
 
 
