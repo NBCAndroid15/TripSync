@@ -5,14 +5,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class PlanViewModel: ViewModel() {
-    private val _planText = MutableLiveData<String>("your initial text")
-    val planText: LiveData<String> get() = _planText
+    private val _getTitle = MutableLiveData<String>()
+    val getTitle: LiveData<String> get() = _getTitle
 
-    fun updatePlanText(newText: String) {
-        _planText.value = newText
-    }
-
-    fun getCurrentPlanText(): String? {
-        return _planText.value
+    fun updateGetTitle(title: String) {
+        _getTitle.value = title
     }
 }

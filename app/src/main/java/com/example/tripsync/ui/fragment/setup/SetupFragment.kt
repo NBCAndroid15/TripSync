@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentSetupBinding
@@ -20,6 +23,9 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     private val selectedDates = mutableSetOf<CalendarDay>()
     private val adapter = SetupListAdapter()
+
+    private val setupViewModel: SetupViewModel by viewModels()
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -55,9 +61,15 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
+                sharedViewModel.updateSharedTitle(setupTitleBtn.text as String)
+
             }
             setupTitleDialog.show()
         }
+
+        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
+            setupTitleBtn.text = it as String
+        })
 
         setupDateBtn.setOnClickListener {
             val setupCalendarView = SetupCalendarView(selectedDates) { dates ->
@@ -66,18 +78,19 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             setupCalendarView.show(childFragmentManager, "SetupCalendarView")
         }
 
-
-
     }
 
     fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
-        this.selectedDates.clear()
-        this.selectedDates.addAll(selectedDates)
+//        this.selectedDates.clear()
+//        this.selectedDates.addAll(selectedDates)
         adapter.submitList(selectedDates.toList())
     }
 
     override fun onItemClick(date: CalendarDay) {
+
+        sharedViewModel.updateSharedDate(setOf(date))
+
         val planFragment = PlanFragment()
         val bundle = Bundle()
         bundle.putParcelable("selectedDate", date)
@@ -89,7 +102,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             .commit()
         Log.d("setup", "$selectedDates")
     }
-
 
 }
 
