@@ -7,11 +7,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentSetupBinding
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
 
-class SetupFragment : Fragment() {
+class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     private var _binding: FragmentSetupBinding? = null
     private val binding: FragmentSetupBinding
@@ -31,6 +32,8 @@ class SetupFragment : Fragment() {
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+
+        adapter.setOnItemClickListener(this)
 
         initView()
 
@@ -63,14 +66,30 @@ class SetupFragment : Fragment() {
             setupCalendarView.show(childFragmentManager, "SetupCalendarView")
         }
 
+
+
     }
 
     fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
-     this.selectedDates.clear()
+        this.selectedDates.clear()
         this.selectedDates.addAll(selectedDates)
         adapter.submitList(selectedDates.toList())
     }
+
+    override fun onItemClick(date: CalendarDay) {
+        val planFragment = PlanFragment()
+        val bundle = Bundle()
+        bundle.putParcelable("selectedDate", date)
+        planFragment.arguments = bundle
+
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame, planFragment)
+            .addToBackStack(null)
+            .commit()
+        Log.d("setup", "$selectedDates")
+    }
+
 
 }
 
