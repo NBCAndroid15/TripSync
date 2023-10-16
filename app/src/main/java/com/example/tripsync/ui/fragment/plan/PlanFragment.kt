@@ -19,7 +19,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.NaverMapOptions
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
-class PlanFragment : Fragment(), OnMapReadyCallback {
+class PlanFragment : Fragment() {
 
 
     private var _binding: FragmentPlanBinding? = null
@@ -30,7 +30,6 @@ class PlanFragment : Fragment(), OnMapReadyCallback {
     private lateinit var adapter: PlanListAdapter
     private val viewModel: PlanViewModel by viewModels()
 
-    private lateinit var mapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -46,10 +45,6 @@ class PlanFragment : Fragment(), OnMapReadyCallback {
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
         }
-
-        mapView = binding.naverMap
-        mapView.getMapAsync(this)
-
 
         return binding.root
     }
@@ -87,19 +82,6 @@ class PlanFragment : Fragment(), OnMapReadyCallback {
         }
         dialogFragment.show()
 
-    }
-
-    override fun onMapReady(p0: NaverMap) {
-
-        val options = NaverMapOptions()
-            .camera(CameraPosition(LatLng(35.1795543, 129.0756416), 10.0))
-            .mapType(NaverMap.MapType.Basic)
-            .enabledLayerGroups(NaverMap.LAYER_GROUP_BUILDING)
-        MapFragment.newInstance(options)
-
-        val marker = Marker()
-        marker.position = LatLng(35.1795543, 129.0756416)
-        marker.map = p0
     }
 
 }
