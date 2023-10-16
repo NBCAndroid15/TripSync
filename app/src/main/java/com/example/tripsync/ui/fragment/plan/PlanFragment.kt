@@ -11,9 +11,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
-import com.prolificinteractive.materialcalendarview.CalendarDay
-
-class PlanFragment : Fragment() {
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraPosition
+import com.naver.maps.map.MapFragment
+import com.naver.maps.map.MapView
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.NaverMapOptions
+import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
+class PlanFragment : Fragment(), OnMapReadyCallback {
 
 
     private var _binding: FragmentPlanBinding? = null
@@ -23,6 +29,8 @@ class PlanFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlanListAdapter
     private val viewModel: PlanViewModel by viewModels()
+
+    private lateinit var mapView: MapView
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +46,9 @@ class PlanFragment : Fragment() {
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
         }
+
+        mapView = binding.naverMap
+        mapView.getMapAsync(this)
 
 
         return binding.root
@@ -76,6 +87,19 @@ class PlanFragment : Fragment() {
         }
         dialogFragment.show()
 
+    }
+
+    override fun onMapReady(p0: NaverMap) {
+
+        val options = NaverMapOptions()
+            .camera(CameraPosition(LatLng(35.1795543, 129.0756416), 10.0))
+            .mapType(NaverMap.MapType.Basic)
+            .enabledLayerGroups(NaverMap.LAYER_GROUP_BUILDING)
+        MapFragment.newInstance(options)
+
+        val marker = Marker()
+        marker.position = LatLng(35.1795543, 129.0756416)
+        marker.map = p0
     }
 
 }
