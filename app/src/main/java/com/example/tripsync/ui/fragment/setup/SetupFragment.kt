@@ -1,17 +1,15 @@
 package com.example.tripsync.ui.fragment.setup
 
-import android.app.DatePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.databinding.FragmentSetupBinding
+import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.prolificinteractive.materialcalendarview.CalendarDay
-import java.util.Calendar
 
 class SetupFragment : Fragment() {
 
@@ -73,6 +71,7 @@ class SetupFragment : Fragment() {
         this.selectedDates.addAll(selectedDates)
         adapter.submitList(selectedDates.toList())
     }
+
 }
 
 

@@ -40,9 +40,6 @@ class PlanListAdapter(private val onItemChecked: (Int, Plan) -> Unit): ListAdapt
             Glide.with(itemView)
                 .load(item.planDetailList)
                 .into(planItemImage)
-
-
-
         }
     }
 

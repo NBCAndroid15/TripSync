@@ -63,13 +63,4 @@ class SetupCalendarView(private val selectedDates: Set<CalendarDay>,
         }
 
     }
-
-
-
-//        setupCalendar.setOnDateChangedListener { widget, date, selected ->
-
-//
-//            dismiss()
-//        }
-
 }

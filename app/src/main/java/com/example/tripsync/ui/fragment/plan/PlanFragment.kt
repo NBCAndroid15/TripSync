@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
+import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class PlanFragment : Fragment() {
 
@@ -21,7 +22,6 @@ class PlanFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlanListAdapter
     private val viewModel: PlanViewModel by viewModels()
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +39,8 @@ class PlanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //doSomething
+        getDate()
+
     }
 
     override fun onDestroyView() {
@@ -72,5 +73,13 @@ class PlanFragment : Fragment() {
         }
         dialogFragment.show()
 
+    }
+
+    private fun getDate()= with(binding) {
+        val selectedDate = arguments?.getString("selectedDate")
+
+        if(selectedDate != null) {
+            planDate.text = "$selectedDate"
+        }
     }
 }
