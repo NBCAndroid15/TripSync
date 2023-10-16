@@ -2,6 +2,7 @@ package com.example.tripsync.ui.fragment
 
 import android.app.Activity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -122,6 +123,7 @@ class LoginFragment : Fragment() {
                             .addToBackStack(null)
                             .commit()
                     } else {
+                        Log.d("logincheck", result.exception.toString())
                         Toast.makeText(context, "로그인 정보가 올바르지 않습니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
                     }
                 }

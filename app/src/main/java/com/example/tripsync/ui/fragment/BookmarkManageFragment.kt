@@ -5,11 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentBookmarkManageBinding
+import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.adapter.BookmarkManageAdapter
+import com.example.tripsync.ui.dialog.ConfirmDialog
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
@@ -23,7 +27,10 @@ class BookmarkManageFragment : Fragment() {
 
     private val adapter by lazy {
         BookmarkManageAdapter {
-            viewModel.deleteBookmarkList(it)
+            ConfirmDialog.newInstance(it).let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "ConfirmDialog")
+            }
         }
     }
 
@@ -48,10 +55,17 @@ class BookmarkManageFragment : Fragment() {
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }
+
+        setFragmentResultListener("deleteConfirm") { _, bundle ->
+            if (bundle.getBoolean("isConfirm")) {
+                viewModel.deleteBookmarkList(bundle.getParcelable("travel") ?: Travel())
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
+        clearFragmentResultListener("deleteConfirm")
         _binding = null
     }
 
