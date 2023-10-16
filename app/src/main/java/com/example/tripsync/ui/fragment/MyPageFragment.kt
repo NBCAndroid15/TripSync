@@ -43,7 +43,9 @@ class MyPageFragment : Fragment() {
                 .replace(R.id.main_frame, LoginFragment.newInstance())
                 .commit()
         }
-        binding.mypageProfileEmail.text = viewModel.curUser?.email ?: "unknown"
+        viewModel.curUser.observe(viewLifecycleOwner) {
+            binding.mypageProfileEmail.text = it?.email ?: "unknown"
+        }
     }
 
     override fun onDestroyView() {

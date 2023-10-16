@@ -48,7 +48,7 @@ class LoginFragment : Fragment() {
                     .addOnCompleteListener { result ->
                         if (result.isSuccessful) {
                             requireActivity().supportFragmentManager.beginTransaction()
-                                .replace(R.id.main_frame, HomeFragment())
+                                .replace(R.id.main_frame, MainFragment.newInstance())
                                 .addToBackStack(null)
                                 .commit()
                         } else {
