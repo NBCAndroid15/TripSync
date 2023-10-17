@@ -37,11 +37,6 @@ class PlanMemoFragment(private val context: Context) : Dialog(context) {
             } else{
                 Toast.makeText(context, "여행 계획을 정해주세요", Toast.LENGTH_SHORT).show()
             }
-//            if(dialogText.text.isNullOrBlank()) {
-//                Toast.makeText(context, "여행 계획을 정해주세요!!", Toast.LENGTH_SHORT).show()
-//            } else {
-//                dismiss()
-//            }
         }
     }
 

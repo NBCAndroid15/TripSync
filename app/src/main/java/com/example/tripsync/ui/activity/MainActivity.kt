@@ -7,7 +7,12 @@ import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
 import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
+import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.LoginFragment
+import com.example.tripsync.ui.fragment.BookmarkManageFragment
+import com.example.tripsync.ui.fragment.plan.PlanFragment
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
+import com.example.tripsync.ui.fragment.search.SearchFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
 import kotlinx.coroutines.launch
 
@@ -31,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, LoginFragment.newInstance())
+            .add(R.id.main_frame, PlanFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {
