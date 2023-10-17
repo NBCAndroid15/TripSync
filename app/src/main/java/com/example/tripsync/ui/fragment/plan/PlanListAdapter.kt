@@ -7,12 +7,12 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
-import com.example.tripsync.model.Plan
+import com.example.tripsync.model.Travel
 
-class PlanListAdapter(private val onItemChecked: (Int, TestModel) -> Unit): ListAdapter<TestModel, PlanListAdapter.ViewHolder>(
+class PlanListAdapter(private val onItemChecked: (Int, Travel) -> Unit): ListAdapter<TestModel, PlanListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<TestModel>() {
         override fun areItemsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.imageUrl == newItem.imageUrl
         }
 
         override fun areContentsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
@@ -30,17 +30,21 @@ class PlanListAdapter(private val onItemChecked: (Int, TestModel) -> Unit): List
         holder.bind(getItem(position))
     }
 
-
-
     class ViewHolder(private val binding: PlanRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: TestModel) = with(binding) {
             Glide.with(itemView)
-                .load(item.id)
+                .load(item.imageUrl)
                 .into(planItemImage)
 
-            planItemTitle.text = item.name
+            planItemTitle.text = item.title
+            planItemWhere.text = item.area
         }
+    }
+
+    fun addItem(travel: TestModel) {
+        currentList.toMutableList().add(travel)
+        submitList(currentList)
     }
 
 }

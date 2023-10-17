@@ -82,8 +82,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
-//        this.selectedDates.clear()
-//        this.selectedDates.addAll(selectedDates)
         adapter.submitList(selectedDates.toList())
     }
 
@@ -92,9 +90,9 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         sharedViewModel.updateSharedDate(setOf(date))
 
         val planFragment = PlanFragment()
-        val bundle = Bundle()
-        bundle.putParcelable("selectedDate", date)
-        planFragment.arguments = bundle
+//        val bundle = Bundle()
+//        bundle.putParcelable("selectedDate", date)
+//        planFragment.arguments = bundle
 
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_frame, planFragment)

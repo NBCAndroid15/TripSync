@@ -17,7 +17,7 @@ class BookmarkManageViewModel(private val bookmarkRepositoryImpl: BookmarkReposi
         getBookmarkList()
     }
 
-    private fun getBookmarkList() {
+    fun getBookmarkList() {
         viewModelScope.launch {
             _bookmarkList.value = bookmarkRepositoryImpl.getBookmarkList() ?: listOf()
         }
