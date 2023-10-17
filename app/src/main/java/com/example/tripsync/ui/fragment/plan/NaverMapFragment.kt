@@ -5,7 +5,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import com.example.tripsync.databinding.FragmentNaverMapBinding
+import com.example.tripsync.viewmodel.BookmarkManageViewModel
+import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapView
@@ -23,7 +26,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         get() = _binding!!
 
     private val testModel = PlanViewModel()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,8 +48,8 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
 
-////        for(item in testModel) {
-//            val latLng = LatLng(item.mapX!!, item.mapY!!)
+//        for(item in viewModel) {
+//            val latLng = LatLng()
 //            p0.mapType = NaverMap.MapType.Basic
 //            p0.minZoom = 5.0
 //
@@ -57,7 +59,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 //            val marker = Marker()
 //            marker.position = latLng
 //            marker.map = p0
-////        }
+//        }
 
     }
 
