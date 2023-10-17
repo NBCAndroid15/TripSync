@@ -20,15 +20,6 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    override fun onStart() {
-        super.onStart()
-        lifecycleScope.launch {
-            val repo = AuthRepositoryImpl()
-            repo.register("test@abc.com", "abcd1234")
-            val result = repo.login("test@abc.com", "abcd1234")
-            Log.d("fbuser", result?.user.toString())
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
