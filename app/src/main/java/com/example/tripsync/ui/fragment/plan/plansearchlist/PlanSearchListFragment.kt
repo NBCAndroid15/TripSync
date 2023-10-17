@@ -13,6 +13,7 @@ import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,8 +21,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBoomarkListBinding
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
+import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
@@ -32,10 +35,12 @@ class PlanSearchListFragment : DialogFragment() {
         get() = _binding!!
 
     private val viewModel: SearchViewModel by viewModels { SearchViewModelFactory() }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     private val adapter by lazy {
-        PlanBookmarkListAdapter {item ->
+        PlanSearchListAdapter {item ->
+            sendItem(item)
         }
     }
 
@@ -96,6 +101,14 @@ class PlanSearchListFragment : DialogFragment() {
                 return true
             }
         })
+
+        viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+        })
+
+        planSearchClose.setOnClickListener {
+            dismiss()
+        }
     }
 
     private fun performSearch(keyword: String) {
@@ -119,6 +132,10 @@ class PlanSearchListFragment : DialogFragment() {
         fun newInstance(): PlanSearchListFragment {
             return PlanSearchListFragment()
         }
+    }
+
+    private fun sendItem(item: Travel) {
+        sharedViewModel.updatePlanSearchItem(item)
     }
 
 
