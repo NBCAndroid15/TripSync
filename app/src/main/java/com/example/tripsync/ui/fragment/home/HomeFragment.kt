@@ -1,20 +1,31 @@
 package com.example.tripsync.ui.fragment.home
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
+import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.setup.SetupFragment
+import com.example.tripsync.viewmodel.FestivalViewModel
+import com.example.tripsync.viewmodel.FestivalViewModelFactory
+import com.example.tripsync.viewmodel.TravelViewModel
+import com.example.tripsync.viewmodel.TravelViewModelFactory
 
 class HomeFragment : Fragment() {
 
     private lateinit var homeAreaAdapter: HomeAreaAdapter
-    private lateinit var homeTravelAdapter: HomeTravelAdapter
-    private lateinit var homeFestivalAdapter: HomeFestivalAdapter
+    private var homeTravelAdapter = HomeTravelAdapter(listOf())
+    private var homeFestivalAdapter = HomeFestivalAdapter(listOf())
+    private val travelViewModel: TravelViewModel by viewModels { TravelViewModelFactory() }
+    private val festivalViewModel: FestivalViewModel by viewModels { FestivalViewModelFactory() }
+
+
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding!!
@@ -25,26 +36,24 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val areaList = mutableListOf("전체", "서울", "경기", "대전", "대구", "부산", "울산", "광주")
+        val areaList = mutableListOf("전체", "서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종", "경기", "강원", "충북", "충남", "경북", "경남", "전북", "전남", "제주")
         homeAreaAdapter = HomeAreaAdapter(areaList)
+
+        // 지역
         binding.homeCategoryRv.adapter = homeAreaAdapter
         binding.homeCategoryRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
 
-        val travelList = mutableListOf<Pair<Any, String>>()
-        travelList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        travelList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        travelList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        travelList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        homeTravelAdapter = HomeTravelAdapter(travelList)
+        homeAreaAdapter.itemClick = object : HomeAreaAdapter.ItemClick {
+            override fun onClick(keyword: String) {
+                travelViewModel.updateKeyword(keyword)
+            }
+        }
+
+        // 여행
         binding.homeTravelRv.adapter = homeTravelAdapter
         binding.homeTravelRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
 
-        val festivalList = mutableListOf<Pair<Any, String>>()
-        festivalList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        festivalList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        festivalList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        festivalList.add(Pair(R.drawable.item_sample, "제주도 돌하르방 축제"))
-        homeFestivalAdapter = HomeFestivalAdapter(festivalList)
+        // 축제
         binding.homeFestivalRv.adapter = homeFestivalAdapter
         binding.homeFestivalRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL,false)
 
@@ -60,7 +69,28 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //doSomething
+
+        // 여행 아이템 목록 업데이트
+        travelViewModel.getTravelList()
+        travelViewModel.travelData.observe(viewLifecycleOwner) { travelList ->
+            val items = travelList.map {
+                Travel(imageUrl = it.imageUrl, title = it.title)
+            }
+            requireActivity().runOnUiThread {
+                homeTravelAdapter.updateItems(items)
+            }
+        }
+
+        // 축제 아이템 목록 업데이트
+        festivalViewModel.getFestivalList()
+        festivalViewModel.festivalData.observe(viewLifecycleOwner) { travelList ->
+            val items = travelList.map {
+                Travel(imageUrl = it.imageUrl, startDate = it.startDate, endDate = it.endDate, area = it.area, title = it.title)
+            }
+            requireActivity().runOnUiThread {
+                homeFestivalAdapter.updateItems(items)
+            }
+        }
     }
 
     override fun onDestroyView() {

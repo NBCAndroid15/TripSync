@@ -73,7 +73,9 @@ class TravelRepositoryImpl {
                         mapY = it.mapy.toDouble(),
                         category = MyUtil.categoryIdToCategory(it.contenttypeid.toInt()),
                         area = MyUtil.areaCodeToArea(it.areacode.toInt()),
-                        tel = it.tel
+                        tel = it.tel,
+                        startDate = it.eventstartdate,
+                        endDate = it.eventenddate
                     )
                 }
             }

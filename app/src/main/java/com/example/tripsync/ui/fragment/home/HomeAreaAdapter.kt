@@ -1,17 +1,14 @@
 package com.example.tripsync.ui.fragment.home
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tripsync.R
 import com.example.tripsync.databinding.AreaItemBinding
 
 class HomeAreaAdapter(private var items: MutableList<String>): RecyclerView.Adapter<HomeAreaAdapter.ViewHolder>() {
 
     interface ItemClick {
-        fun onClick(view : View, position : Int)
+        fun onClick(keyword: String)
     }
     var itemClick : ItemClick? = null
 
@@ -22,6 +19,10 @@ class HomeAreaAdapter(private var items: MutableList<String>): RecyclerView.Adap
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
+        holder.itemView.setOnClickListener {
+            val keyword = items[position]
+            itemClick?.onClick(keyword)
+        }
     }
 
     override fun getItemCount(): Int {
