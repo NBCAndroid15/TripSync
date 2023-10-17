@@ -12,5 +12,7 @@ data class Travel(
     val mapY: Double? = null,
     val category: String? = null,
     val area: String? = null,
-    val tel: String? = null
+    val tel: String? = null,
+    val startDate: String? = null,
+    val endDate: String? = null,
 ) : Parcelable
