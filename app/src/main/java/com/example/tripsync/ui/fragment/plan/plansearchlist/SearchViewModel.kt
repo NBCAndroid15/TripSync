@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,7 +16,8 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
 
     fun updateSearchItem (keyword: String) {
         viewModelScope.launch {
-            _getSearchItem.value = travelRepositoryImpl.getTravelInfo(1, keyword )
+            Log.d("Plan", "keyword: $keyword") // 검색어 로그
+            _getSearchItem.value = travelRepositoryImpl.getTravelInfo(2, keyword )
         }
     }
 }
