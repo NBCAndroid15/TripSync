@@ -46,18 +46,18 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
 
-        for(item in testModel.itemList) {
-            val latLng = LatLng(item.latitude, item.longitude)
-            p0.mapType = NaverMap.MapType.Basic
-            p0.minZoom = 5.0
-
-            val cameraPosition = CameraPosition(latLng, 10.0)
-            p0.cameraPosition = cameraPosition
-
-            val marker = Marker()
-            marker.position = latLng
-            marker.map = p0
-        }
+////        for(item in testModel) {
+//            val latLng = LatLng(item.mapX!!, item.mapY!!)
+//            p0.mapType = NaverMap.MapType.Basic
+//            p0.minZoom = 5.0
+//
+//            val cameraPosition = CameraPosition(latLng, 10.0)
+//            p0.cameraPosition = cameraPosition
+//
+//            val marker = Marker()
+//            marker.position = latLng
+//            marker.map = p0
+////        }
 
     }
 
