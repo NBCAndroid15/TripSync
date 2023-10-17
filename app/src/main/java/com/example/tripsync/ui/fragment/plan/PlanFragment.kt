@@ -69,6 +69,10 @@ class PlanFragment : Fragment() {
                     adapter.submitList(it)
                 }
             })
+
+            planSearchItem.observe(viewLifecycleOwner, Observer {
+                adapter.submitList(it)
+            })
         }
     }
 
