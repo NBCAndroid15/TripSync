@@ -10,6 +10,8 @@ import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.ui.fragment.LoginFragment
 import com.example.tripsync.ui.fragment.BookmarkManageFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
+import com.example.tripsync.ui.fragment.search.SearchFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
 import kotlinx.coroutines.launch
 

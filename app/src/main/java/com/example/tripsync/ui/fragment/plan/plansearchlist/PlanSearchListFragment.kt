@@ -1,7 +1,10 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
 import android.app.Activity
+import android.app.Dialog
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBoomarkListBinding
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
+import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
@@ -35,11 +39,13 @@ class PlanSearchListFragment : DialogFragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        dialog?.window?.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.WRAP_CONTENT)
-
 
     }
 
@@ -55,6 +61,11 @@ class PlanSearchListFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val width = WindowManager.LayoutParams.MATCH_PARENT
+        val height = WindowManager.LayoutParams.MATCH_PARENT
+
+        dialog?.window?.setLayout(width, height)
+
         initView()
     }
 
@@ -65,9 +76,9 @@ class PlanSearchListFragment : DialogFragment() {
 
         planSearchListSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
-            override fun onQueryTextSubmit(query: String?): Boolean {
-                if (query != null && query.isNotEmpty()) {
-                    performSearch(query)
+            override fun onQueryTextSubmit(keyword: String): Boolean {
+                if (keyword != null && keyword.isNotEmpty()) {
+                    performSearch(keyword)
                     val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                     imm.hideSoftInputFromWindow(planSearchListSearch.windowToken, 0)
                 }
@@ -88,18 +99,26 @@ class PlanSearchListFragment : DialogFragment() {
     }
 
     private fun performSearch(keyword: String) {
+        Log.d("PlanSearchListFragment", "Searching for: $keyword") // 검색어 로그
+
         viewModel.updateSearchItem(keyword)
 
         viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
+            Log.d("PlanSearchListFragment", "Search results: $it") // 검색 결과 로그
+
         })
-
-
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        fun newInstance(): PlanSearchListFragment {
+            return PlanSearchListFragment()
+        }
     }
 
 
