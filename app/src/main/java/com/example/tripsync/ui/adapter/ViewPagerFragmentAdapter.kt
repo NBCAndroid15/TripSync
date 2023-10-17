@@ -5,7 +5,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tripsync.ui.fragment.BookmarkManageFragment
 import com.example.tripsync.ui.fragment.MyPageFragment
-import com.example.tripsync.ui.fragment.SearchFragment
+import com.example.tripsync.ui.fragment.search.SearchFragment
 import com.example.tripsync.ui.fragment.home.HomeFragment
 
 class ViewPagerFragmentAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
