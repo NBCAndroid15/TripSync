@@ -1,10 +1,6 @@
 package com.example.tripsync.ui.fragment
 
-import android.icu.lang.UCharacter.GraphemeClusterBreak.V
-import android.opengl.Visibility
 import android.os.Bundle
-import android.provider.ContactsContract.CommonDataKinds.Email
-import android.provider.ContactsContract.CommonDataKinds.Nickname
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +9,6 @@ import android.widget.Toast
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentSignupBinding
 import com.example.tripsync.model.User
-import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
@@ -49,7 +44,7 @@ class SignupFragment : Fragment() {
                                     .commit()
                             }
                             .addOnFailureListener {
-                                Toast.makeText(context, "회원 정보 저장에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, "회원가입에 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                             }
                     } else if (result.exception?.message.isNullOrEmpty()) {
                         Toast.makeText(context, "올바르지 않은 정보가 있습니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
@@ -95,7 +90,7 @@ class SignupFragment : Fragment() {
             val inputNickname = binding.signupNicknameEdittext.text.toString().trim()
 
             if (inputId.isNotEmpty() && inputPw.isNotEmpty() && inputPwRe.isNotEmpty() && inputNickname.isNotEmpty()) {
-                if (inputPw == inputPwRe) {
+                if (inputPw == inputPwRe && inputPw.length >= 6) {
                     checkEmailAndNickname(inputId, inputNickname) { isAvailable ->
                         if (isAvailable) {
                             signup(inputId, inputPw, inputNickname)
