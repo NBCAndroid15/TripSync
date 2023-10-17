@@ -43,9 +43,7 @@ class SharedViewModel : ViewModel() {
         _sharedDate.value = date
     }
 
-//    fun <T> updateListItems(travel: T) {
-//        val travel = when ()
-//    }
+
 
 
 }

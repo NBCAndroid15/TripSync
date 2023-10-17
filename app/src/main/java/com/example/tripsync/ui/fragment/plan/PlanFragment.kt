@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
 import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
@@ -87,6 +88,11 @@ class PlanFragment : Fragment() {
         binding.planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListFragment()
             fragment.show(parentFragmentManager, "bookmarkListDialog")
+        }
+
+        binding.planSearchBtn.setOnClickListener {
+            val fragment = PlanSearchListFragment()
+            fragment.show(parentFragmentManager, "searchListDialog")
         }
     }
 
