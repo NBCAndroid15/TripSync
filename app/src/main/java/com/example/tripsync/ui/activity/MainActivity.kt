@@ -12,7 +12,9 @@ import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
+import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.BookmarkManageFragment
+import com.example.tripsync.ui.fragment.FriendManageFragment
 import com.example.tripsync.ui.fragment.LoginFragment
 import com.example.tripsync.ui.fragment.MyPlanFragment
 import com.example.tripsync.ui.fragment.setup.SetupCalendarView
@@ -31,6 +33,12 @@ class MainActivity : AppCompatActivity() {
             repo.register("test@abc.com", "abcd1234")
             val result = repo.login("test@abc.com", "abcd1234")
             Log.d("fbuser", result?.user.toString())
+
+            repo.addFriend(User("test1@test.com", "test1", listOf()))
+            repo.addFriend(User("test2@test.com", "test2", listOf()))
+            repo.addFriend(User("test3@test.com", "test3", listOf()))
+            repo.addFriend(User("test4@test.com", "test4", listOf()))
+            repo.addFriend(User("test5@test.com", "test5", listOf()))
         }
     }
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +48,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, LoginFragment.newInstance())
+            .add(R.id.main_frame, FriendManageFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {

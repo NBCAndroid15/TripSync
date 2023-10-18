@@ -21,7 +21,9 @@ class MyPlanAdapter : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
     }
 
     fun setList(planList : List<Plan>) {
+        val curSize = this.planList.size
         this.planList = planList
+        notifyItemRangeRemoved(0, curSize)
         notifyItemRangeChanged(0, this.planList.size)
     }
 

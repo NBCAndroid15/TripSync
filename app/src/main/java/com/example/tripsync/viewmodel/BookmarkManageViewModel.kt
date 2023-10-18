@@ -25,8 +25,10 @@ class BookmarkManageViewModel(private val bookmarkRepositoryImpl: BookmarkReposi
 
     fun deleteBookmarkList(travel: Travel) {
         viewModelScope.launch {
-            bookmarkRepositoryImpl.deleteBookmark(travel)
-            _bookmarkList.value = bookmarkRepositoryImpl.getBookmarkList() ?: listOf()
+            val result = bookmarkRepositoryImpl.deleteBookmark(travel)
+            result?.let {
+                _bookmarkList.value = it
+            }
         }
     }
 }
