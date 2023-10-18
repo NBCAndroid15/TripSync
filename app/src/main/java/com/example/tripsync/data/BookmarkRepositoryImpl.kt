@@ -64,6 +64,7 @@ class BookmarkRepositoryImpl {
                 bookmarkList?.add(travel)
                 val newBookmark = userBookmark?.copy(travelList = bookmarkList) ?: UserBookmark()
                 bookmarksRef.document(result.documents[0].id).set(newBookmark).await()
+                bookmarkList
             }
 
         } catch (e: Exception) {
@@ -87,6 +88,7 @@ class BookmarkRepositoryImpl {
                 })
                 val newBookmark = userBookmark?.copy(travelList = bookmarkList) ?: UserBookmark()
                 bookmarksRef.document(result.documents[0].id).set(newBookmark).await()
+                bookmarkList
             }
 
 
