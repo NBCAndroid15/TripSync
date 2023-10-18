@@ -12,6 +12,8 @@ data class Travel(
     val mapX: Double? = null,
     val mapY: Double? = null,
     val category: String? = null,
+    val contentId: Int? = null,
+    val contentTypeId: Int? = null,
     val area: String? = null,
     val tel: String? = null,
     val startDate: String? = null,
