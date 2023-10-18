@@ -1,31 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<layout>
-
-    <data>
-
-        <variable
-            name="plan"
-            type="com.example.tripsync.model.Plan" />
-    </data>
-
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
         android:background="@color/plan_item_color">
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/plan_list_number"
+        android:layout_width="38dp"
+        android:layout_height="41dp"
+        android:background="@drawable/ic_plan_item_number"
+        android:text="1"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        android:backgroundTint="@color/plan_number_color"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/plan_item_cardView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <androidx.cardview.widget.CardView
+    <androidx.cardview.widget.CardView
             android:id="@+id/plan_item_cardView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
+            android:layout_marginStart="50dp"
             android:layout_marginTop="10dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             app:cardCornerRadius="10dp"
-            app:cardElevation="4dp"
+            app:cardElevation="2dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -35,17 +41,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <TextView
-                    android:id="@+id/plan_item_number"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:text="1"
-                    android:textSize="20dp"
-                    android:textStyle="bold"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/plan_item_image"
@@ -57,7 +52,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintHorizontal_bias="0.113"
-                    app:layout_constraintStart_toEndOf="@+id/plan_item_number"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintVertical_bias="0.0" />
 
@@ -68,6 +63,8 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="20dp"
                     android:text="여행지"
+                    android:maxLines="2"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toEndOf="@+id/plan_item_image"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -90,4 +87,3 @@
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</layout>
