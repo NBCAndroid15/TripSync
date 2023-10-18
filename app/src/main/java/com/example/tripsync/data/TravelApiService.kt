@@ -31,7 +31,7 @@ interface TravelApiService {
         @Query("MobileApp") mobileApp: String = "TripSync",
         @Query("_type") type: String = "json",
         @Query("listYN") listYN: String = "Y",
-        @Query("arrange") arrange: String = "O",
+        @Query("arrange") arrange: String = "R",
         @Query("keyword") keyword: String,
         @Query("contentTypeId") contentTypeId: String = "12",
         @Query("serviceKey") serviceKey: String = AUTH_HEADER

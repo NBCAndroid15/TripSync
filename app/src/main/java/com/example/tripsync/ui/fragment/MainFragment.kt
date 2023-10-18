@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tripsync.databinding.FragmentMainBinding
 import com.example.tripsync.ui.adapter.ViewPagerFragmentAdapter
 import com.google.android.material.tabs.TabLayoutMediator
@@ -26,6 +27,14 @@ class MainFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+
+        // 첫 번째 페이지만 비활성화
+        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                binding.mainViewPager.isUserInputEnabled = position != 0
+            }
+        })
+
         return binding.root
     }
 
