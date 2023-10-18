@@ -5,13 +5,16 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.TestModel
+import com.naver.maps.geometry.LatLng
 import com.prolificinteractive.materialcalendarview.CalendarDay
 
 class SharedViewModel : ViewModel() {
 
+    // setup에서 plan으로 타이틀을 전달하기 위한 라이브 객체
     private val _sharedTitle = MutableLiveData<String>()
     val sharedTitle: LiveData<String> get() = _sharedTitle
 
+    // setup에서 plan으로 날짜를 전달하기 위한 라이브 객체
     private val _sharedDate = MutableLiveData<Set<CalendarDay>>()
     val sharedDate: LiveData<Set<CalendarDay>> get() = _sharedDate
 
@@ -20,6 +23,9 @@ class SharedViewModel : ViewModel() {
 
     private val _planSearchItem: MutableLiveData<List<TestModel>> = MutableLiveData()
     val planSearchItem: LiveData<List<TestModel>> get() = _planSearchItem
+
+    private val _selectedLocation = MutableLiveData<List<TestModel>>()
+    val selectedLocation: LiveData<List<TestModel>> get() = _selectedLocation
 
     fun udatePlanBookItem(item: Travel) {
         val currentList = planBookItem.value?.toMutableList() ?: mutableListOf()
@@ -55,6 +61,9 @@ class SharedViewModel : ViewModel() {
         _planSearchItem.value = currentList
     }
 
+    fun updateSelectedLocation(latLng: TestModel) {
+        _selectedLocation.value = listOf(latLng)
+    }
 
     fun updateSharedTitle(title: String) {
         _sharedTitle.value = title

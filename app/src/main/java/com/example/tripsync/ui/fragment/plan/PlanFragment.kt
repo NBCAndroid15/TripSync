@@ -6,17 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
 import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
 class PlanFragment : Fragment() {
 
@@ -28,6 +26,7 @@ class PlanFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: PlanListAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var naverMapFragment: NaverMapFragment
 
 
 
@@ -50,6 +49,11 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+//        naverMapFragment = NaverMapFragment.newInstance()
+//        childFragmentManager.beginTransaction()
+//            .replace(R.id.mapContainer, naverMapFragment)
+//            .commit()
+
         initView()
         initViewModel()
 
@@ -69,6 +73,7 @@ class PlanFragment : Fragment() {
                     adapter.submitList(it)
                 }
             })
+
 
             planSearchItem.observe(viewLifecycleOwner, Observer {
                 adapter.submitList(it)

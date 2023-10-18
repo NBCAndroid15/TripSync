@@ -82,7 +82,6 @@ class PlanBoomarkListFragment : DialogFragment() {
         }
     }
 
-
     private fun sendItem(item: Travel) {
         sharedViewModel.udatePlanBookItem(item)
     }
