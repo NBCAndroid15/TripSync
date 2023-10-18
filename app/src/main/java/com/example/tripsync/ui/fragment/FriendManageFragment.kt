@@ -35,6 +35,7 @@ class FriendManageFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        viewModel.init()
         _binding = FragmentFriendManageBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -46,6 +47,7 @@ class FriendManageFragment : Fragment() {
 
     private fun initView() {
         binding.friendManageFriendRv.adapter = adapter
+        binding.friendManageFriendRv.itemAnimator = null
         binding.friendManageFriendRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         viewModel.curUser.observe(viewLifecycleOwner) {

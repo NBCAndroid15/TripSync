@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentLoginBinding
+import com.example.tripsync.model.User
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -18,6 +19,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
+import com.google.firebase.firestore.FirebaseFirestore
 import java.util.regex.Pattern
 
 class LoginFragment : Fragment() {
@@ -84,6 +86,8 @@ class LoginFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleResults(task)
+        } else {
+            Log.d("googlelogin", result.toString())
         }
     }
 
@@ -95,7 +99,32 @@ class LoginFragment : Fragment() {
             if (account != null) {
                 // 사용자 정보를 Firebase Authentication으로 전달하여 로그인 완료
                 updateUi(account)
+
+                val email = account.email
+                val displayName = account.displayName
+                // 사용자 정보 DB에 저장
+                saveUserInfoToDatabase(email, displayName)
             }
+        }
+        else {
+            Log.d("googlelogin", task.exception.toString())
+        }
+    }
+
+    private fun saveUserInfoToDatabase(email: String?, displayName: String?) {
+        if (email != null && displayName != null) {
+            val db = FirebaseFirestore.getInstance()
+            val usersRef = db.collection("users")
+
+            // 사용자 정보를 Firebase Firestore에 저장
+            val user = User(email = email, nickname = displayName)
+            usersRef.document(auth.currentUser!!.uid).set(user)
+                .addOnSuccessListener {
+                    Toast.makeText(context, "Google 로그인을 통해 가입되었습니다.", Toast.LENGTH_SHORT).show()
+                }
+                .addOnFailureListener {
+                    Toast.makeText(context, "Google 로그인이 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                }
         }
     }
 

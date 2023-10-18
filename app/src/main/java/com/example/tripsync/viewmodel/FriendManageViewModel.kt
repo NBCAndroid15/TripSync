@@ -17,11 +17,10 @@ class FriendManageViewModel(private val authRepositoryImpl: AuthRepositoryImpl) 
     val friendList : LiveData<List<User>>
         get() = _friendList
 
-    init {
+    fun init() {
         getCurrentUserInfo()
+        _friendList.value = listOf()
     }
-
-
 
     fun getFriendList(query: String) {
         viewModelScope.launch {

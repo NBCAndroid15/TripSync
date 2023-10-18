@@ -10,7 +10,7 @@
     <string name="plan_write_plan">여행 계획 작성하기</string>
     <string name="plan_destination">여행지 : </string>
     <string name="plan_date">날짜 : </string>
-    <string name="plan_call_bookmark">여행지 북마크 불러오기</string>
+    <string name="plan_call_bookmark">여행지 불러오기</string>
     <string name="plan_search_destination">여행지 검색하기</string>
     <string name="plan_save_btn">저장</string>
     <string name="setup_cancel_dialog">cancel</string>

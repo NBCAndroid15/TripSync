@@ -60,8 +60,8 @@ class BookmarkRepositoryImpl {
                 bookmarksRef.document().set(userBookmark).await()
             } else {
                 val userBookmark = result.documents[0].toObject(UserBookmark::class.java)
-                val bookmarkList = userBookmark?.travelList?.toMutableList()
-                bookmarkList?.add(travel)
+                val bookmarkList = userBookmark?.travelList?.toMutableList() ?: mutableListOf()
+                bookmarkList.add(travel)
                 val newBookmark = userBookmark?.copy(travelList = bookmarkList) ?: UserBookmark()
                 bookmarksRef.document(result.documents[0].id).set(newBookmark).await()
                 bookmarkList

@@ -1,7 +1,7 @@
 package com.example.tripsync.ui.fragment.setup
 
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,10 +31,24 @@ class SetupListAdapter : ListAdapter<CalendarDay, SetupListAdapter.ViewHolder>(
         holder.bind(item)
     }
 
-    class ViewHolder(private val binding: SetupRecyclerDateItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: SetupRecyclerDateItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(date: CalendarDay) = with(binding) {
             setupMakingBtn.text = "${date.year}년 ${date.month}월 ${date.day}일"
 
+            setupMakingBtn.setOnClickListener {
+                itemClickListener?.onItemClick(date)
+
+
+            }
         }
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(date: CalendarDay)
+    }
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 }
