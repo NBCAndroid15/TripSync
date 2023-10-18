@@ -36,6 +36,7 @@ class HomeTravelAdapter(private var items: List<Travel>): RecyclerView.Adapter<H
             val title = binding.travelItemText
             Glide.with(binding.root)
                 .load(item.imageUrl)
+                .error(R.drawable.item_error)
                 .into(image)
             title.text = item.title
         }
