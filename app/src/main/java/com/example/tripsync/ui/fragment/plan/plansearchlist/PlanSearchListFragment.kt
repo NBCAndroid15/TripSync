@@ -90,10 +90,6 @@ class PlanSearchListFragment : DialogFragment() {
             }
         })
 
-        viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
         planSearchClose.setOnClickListener {
             dismiss()
         }

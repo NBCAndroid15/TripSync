@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentNaverMapBinding
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.naver.maps.geometry.LatLng
@@ -16,6 +17,7 @@ import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
 import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
 
 
 class NaverMapFragment : Fragment(), OnMapReadyCallback {
@@ -57,52 +59,27 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         sharedViewModel.selectedLocation.observe(viewLifecycleOwner, Observer { locations ->
             Log.d("map", "Selected locations: $locations")
 
+            // 지도 초기화
 //            markers.forEach { it.map = null }
 //            markers.clear()
 
-
-            locations.forEach { location ->
-                if (location.mapX != null && location.mapY != null) {
+            locations.forEachIndexed { index, location ->
+                if (location.mapY != null && location.mapX != null) {
                     val marker = Marker()
-                    marker.position = LatLng(location.mapX, location.mapY)
+                    marker.position = LatLng(location.mapY, location.mapX)
                     marker.map = naverMap
+                    marker.icon = OverlayImage.fromResource(R.drawable.ic_plan_item_number)
+                    marker.captionText = (index + 1).toString()
                     naverMap.minZoom = 5.0
                     markers.add(marker)
                     Log.d("map", "Selected locations: ${location.mapX}, ${location.mapY}")
 
-//                    val cameraPosition = CameraPosition(LatLng(location.mapX, location.mapY), 10.0)
-//                    naverMap.cameraPosition = cameraPosition
-                }
-            }
-        })
-//        observeSelectedLocation()
-
-
-    }
-
-    private fun observeSelectedLocation() {
-        sharedViewModel.selectedLocation.observe(viewLifecycleOwner, Observer { locations ->
-            Log.d("map", "Selected locations: $locations")
-
-//            markers.forEach { it.map = null }
-//            markers.clear()
-
-            for (location in locations) {
-                if (location.mapX != null && location.mapY != null) {
-                    val marker = Marker()
-                    marker.position = LatLng(location.mapX, location.mapY)
-                    marker.map = naverMap
-//                    markers.add(marker)
-                    Log.d("map", "Selected locations: ${location.mapX}, ${location.mapY}")
-
-
-//                    val cameraPosition = CameraPosition(LatLng(location.mapX, location.mapY), 10.0)
-//                    naverMap.cameraPosition = cameraPosition
+                    val cameraPosition = CameraPosition(LatLng(location.mapY, location.mapX), 10.0)
+                    naverMap.cameraPosition = cameraPosition
                 }
             }
         })
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -1,6 +1,7 @@
 package com.example.tripsync.ui.fragment.plan.planbookmarklist
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.tripsync.databinding.FragmentPlanBoomarkListBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.adapter.BookmarkManageAdapter
 import com.example.tripsync.ui.dialog.ConfirmDialog
+import com.example.tripsync.ui.fragment.plan.TestModel
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
@@ -84,6 +86,15 @@ class PlanBoomarkListFragment : DialogFragment() {
 
     private fun sendItem(item: Travel) {
         sharedViewModel.udatePlanBookItem(item)
+
+        Log.d("bookmap", "SharedViewModel: $item")
+        sharedViewModel.updateSelectedLocation(
+            TestModel(
+                mapX = item.mapX,
+                mapY = item.mapY
+            )
+        )
+        Log.d("bookmap", "SharedViewModel: ${item.mapX}, ${item.mapY}")
     }
 
 

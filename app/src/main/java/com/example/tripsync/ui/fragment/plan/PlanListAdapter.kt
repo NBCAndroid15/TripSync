@@ -21,30 +21,31 @@ class PlanListAdapter(private val onItemChecked: (Int, Travel) -> Unit): ListAda
     }
 ) {
 
+    private var itemNumber = 1
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = PlanRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(getItem(position))
+        holder.bind(getItem(position), itemNumber)
+        itemNumber++
+
     }
 
     class ViewHolder(private val binding: PlanRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TestModel) = with(binding) {
+        fun bind(item: TestModel, itemNumber: Int) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
                 .into(planItemImage)
 
             planItemTitle.text = item.title
             planItemWhere.text = item.area
+            planListNumber.text = itemNumber.toString()
         }
-    }
 
-    fun addItem(travel: TestModel) {
-        currentList.toMutableList().add(travel)
-        submitList(currentList)
     }
 
 }
