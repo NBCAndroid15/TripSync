@@ -1,5 +1,6 @@
 package com.example.tripsync.data
 
+import com.example.tripsync.model.detail.DetailResponse
 import com.example.tripsync.model.festival.FestivalInfoResponse
 import com.example.tripsync.model.travel.TravelInfoResponse
 import com.example.tripsync.util.Constants.Companion.AUTH_HEADER
@@ -49,5 +50,25 @@ interface TravelApiService {
         @Query("eventStartDate") eventStartDate: String = "20231001",
         @Query("serviceKey") serviceKey: String = AUTH_HEADER
     ): Response<FestivalInfoResponse>
+
+    @GET("detailCommon1")
+    suspend fun getDetailInfo(
+        @Query("numOfRows") numOfRows: Int = 10,
+        @Query("pageNo") pageNo: Int = 1,
+        @Query("MobileOS") mobileOS: String = "AND",
+        @Query("MobileApp") mobileApp: String = "TripSync",
+        @Query("_type") type: String = "json",
+        @Query("contentId") contentId: Int,
+        @Query("contentTypeId") contentTypeId: Int = 12, // 12: 관광지, 15: 축제
+        @Query("defaultYN") defaultYN: String = "Y",
+        @Query("firstImageYN") firstImageYN: String = "Y",
+        @Query("areacodeYN") areacodeYN: String = "Y",
+        @Query("catcodeYN") catcodeYN: String = "Y",
+        @Query("addrinfoYN") addrinfoYN: String = "Y",
+        @Query("overviewYN") overviewYN: String = "Y",
+        @Query("serviceKey") serviceKey: String = AUTH_HEADER
+    ): Response<DetailResponse>
+
+
 
 }

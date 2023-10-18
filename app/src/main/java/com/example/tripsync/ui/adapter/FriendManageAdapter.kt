@@ -1,0 +1,44 @@
+package com.example.tripsync.ui.adapter
+
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.tripsync.databinding.FriendmanageFriendItemBinding
+import com.example.tripsync.model.User
+
+class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerView.Adapter<FriendManageAdapter.ViewHolder>() {
+
+    private var friendList = listOf<User>()
+
+    class ViewHolder (private val binding : FriendmanageFriendItemBinding, private val deleteFriend: (User) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(user: User) {
+            binding.friendManageEmail.text = user.email
+            binding.friendManageNickname.text = user.nickname
+            binding.friendManageDeleteFriendBtn.setOnClickListener {
+                deleteFriend(user)
+            }
+        }
+    }
+
+    fun setList(friendList : List<User>) {
+        var curSize = this.friendList.size
+        this.friendList = friendList
+        notifyItemRangeRemoved(0, curSize)
+        notifyItemRangeInserted(0, this.friendList.size)
+    }
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        return ViewHolder(FriendmanageFriendItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), deleteFriend)
+    }
+
+
+    override fun getItemCount(): Int {
+        return friendList.size
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        holder.bind(friendList[position])
+    }
+}

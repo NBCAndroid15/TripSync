@@ -56,4 +56,97 @@ class AuthRepositoryImpl {
             null
         }
     }
+
+    suspend fun addFriend(user: User) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                val docs = usersRef.whereEqualTo("email", auth.currentUser!!.email).get().await()
+
+                if (docs.documents.size == 0) {
+                    null
+                } else {
+                    val doc = docs.documents[0].toObject(User::class.java)
+
+                    if (doc == null) {
+                        null
+                    }
+                    else {
+                        val friends = doc.friends?.toMutableList() ?: mutableListOf()
+
+                        if (friends.none { it.nickname == user.nickname }) {
+                            friends.add(user)
+                            val newDoc = doc.copy(friends = friends)
+                            usersRef.document(docs.documents[0].id)
+                                .set(newDoc).await()
+                            newDoc
+                        } else {
+                            null
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun deleteFriend(user: User) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                val docs = usersRef.whereEqualTo("email", auth.currentUser!!.email).get().await()
+
+                if (docs.documents.size == 0) {
+                    null
+                } else {
+                    val doc = docs.documents[0].toObject(User::class.java)
+
+                    if (doc == null) {
+                        null
+                    }
+                    else {
+                        val friends = doc.friends?.toMutableList()
+
+                        if (friends?.filter { it.nickname == user.nickname }.isNullOrEmpty()) {
+                            null
+                        } else {
+                            friends?.remove(user)
+                            val newDoc = doc.copy(friends = friends)
+                            usersRef.document(docs.documents[0].id).set(newDoc).await()
+                            newDoc
+                        }
+                    }
+                }
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun searchFriend(query: String) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                val docs = usersRef
+                    .whereGreaterThanOrEqualTo("nickname", query)
+                    .whereLessThanOrEqualTo("nickname", query + "\uf8ff")
+                    .get()
+                    .await()
+
+                docs.documents.map {
+                    it.toObject(User::class.java)!!
+                }.filter {
+                    it.email != auth.currentUser!!.email
+                }
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+
 }

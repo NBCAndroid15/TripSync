@@ -20,6 +20,8 @@ class TravelRepositoryImpl {
                         addr = it.addr1,
                         mapX = it.mapx.toDouble(),
                         mapY = it.mapy.toDouble(),
+                        contentId = it.contentid.toInt(),
+                        contentTypeId = it.contenttypeid.toInt(),
                         category = MyUtil.categoryIdToCategory(it.contenttypeid.toInt()),
                         area = MyUtil.areaCodeToArea(it.areacode.toInt()),
                         tel = it.tel
@@ -45,6 +47,8 @@ class TravelRepositoryImpl {
                         addr = it.addr1,
                         mapX = it.mapx.toDouble(),
                         mapY = it.mapy.toDouble(),
+                        contentId = it.contentid.toInt(),
+                        contentTypeId = it.contenttypeid.toInt(),
                         category = MyUtil.categoryIdToCategory(it.contenttypeid.toInt()),
                         area = MyUtil.areaCodeToArea(it.areacode.toInt()),
                         tel = it.tel
@@ -71,6 +75,8 @@ class TravelRepositoryImpl {
                         addr = it.addr1,
                         mapX = it.mapx.toDouble(),
                         mapY = it.mapy.toDouble(),
+                        contentId = it.contentid.toInt(),
+                        contentTypeId = it.contenttypeid.toInt(),
                         category = MyUtil.categoryIdToCategory(it.contenttypeid.toInt()),
                         area = MyUtil.areaCodeToArea(it.areacode.toInt()),
                         tel = it.tel,
@@ -84,6 +90,27 @@ class TravelRepositoryImpl {
             }
         } catch (e: Exception) {
             listOf()
+        }
+    }
+
+    suspend fun getTravelDetailInfo(contentId: Int, contentTypeId: Int) = withContext(Dispatchers.IO) {
+        try {
+            val response = api.getDetailInfo(contentId = contentId, contentTypeId = contentTypeId)
+
+            if (response.isSuccessful) {
+                val data = response.body()?.response?.body?.items?.item
+
+                if (data.isNullOrEmpty()) {
+                    ""
+                } else {
+                    data[0].overview
+                }
+            } else {
+                ""
+            }
+
+        } catch (e: Exception) {
+            ""
         }
     }
 }
