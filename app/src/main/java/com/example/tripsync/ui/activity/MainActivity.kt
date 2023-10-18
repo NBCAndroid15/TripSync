@@ -6,19 +6,14 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
 import com.example.tripsync.data.AuthRepositoryImpl
-import com.example.tripsync.data.BookmarkRepositoryImpl
-import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.model.Plan
-import com.example.tripsync.model.PlanDetail
-import com.example.tripsync.model.User
-import com.example.tripsync.ui.fragment.BookmarkManageFragment
-import com.example.tripsync.ui.fragment.FriendManageFragment
 import com.example.tripsync.ui.fragment.LoginFragment
-import com.example.tripsync.ui.fragment.MyPlanFragment
-import com.example.tripsync.ui.fragment.setup.SetupCalendarView
+import com.example.tripsync.ui.fragment.BookmarkManageFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
+import com.example.tripsync.ui.fragment.search.SearchFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
 import kotlinx.coroutines.launch
 
@@ -26,21 +21,6 @@ import kotlinx.coroutines.launch
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    override fun onStart() {
-        super.onStart()
-        lifecycleScope.launch {
-            val repo = AuthRepositoryImpl()
-            repo.register("test@abc.com", "abcd1234")
-            val result = repo.login("test@abc.com", "abcd1234")
-            Log.d("fbuser", result?.user.toString())
-
-            repo.addFriend(User("test1@test.com", "test1", listOf()))
-            repo.addFriend(User("test2@test.com", "test2", listOf()))
-            repo.addFriend(User("test3@test.com", "test3", listOf()))
-            repo.addFriend(User("test4@test.com", "test4", listOf()))
-            repo.addFriend(User("test5@test.com", "test5", listOf()))
-        }
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -48,7 +28,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, FriendManageFragment.newInstance())
+            .add(R.id.main_frame, LoginFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {

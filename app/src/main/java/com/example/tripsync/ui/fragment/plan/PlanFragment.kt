@@ -5,36 +5,43 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
-import com.example.tripsync.model.Plan
+import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
+import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.example.tripsync.viewmodel.BookmarkManageViewModel
+import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
 class PlanFragment : Fragment() {
+
 
     private var _binding: FragmentPlanBinding? = null
     private val binding: FragmentPlanBinding
         get() = _binding!!
 
-    private lateinit var planListAdapter: PlanListAdapter
-    private var isEditMode = false
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var adapter: PlanListAdapter
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlanBinding.inflate(inflater, container, false)
+        recyclerView = binding.planRecycler
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        planListAdapter = PlanListAdapter{ position, plan ->
-
+        adapter = PlanListAdapter { position, travel ->
         }
-
-        binding.planRecycler.adapter = planListAdapter
-        binding.planRecycler.layoutManager = LinearLayoutManager(context)
-
-        binding.planEditBtn.setOnClickListener {
-            isEditMode = !isEditMode
-            updateView()
-        }
+        recyclerView.adapter = adapter
 
 
         return binding.root
@@ -42,7 +49,31 @@ class PlanFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //doSomething
+
+        initView()
+        initViewModel()
+
+        binding.planEditBtn.setOnClickListener {
+            showMemoDialog()
+        }
+
+        getTitleOrDate()
+
+    }
+
+    private fun initViewModel() {
+        with(sharedViewModel){
+            planBookItem.observe(viewLifecycleOwner, Observer {
+
+                if(it != null) {
+                    adapter.submitList(it)
+                }
+            })
+
+            planSearchItem.observe(viewLifecycleOwner, Observer {
+                adapter.submitList(it)
+            })
+        }
     }
 
     override fun onDestroyView() {
@@ -56,30 +87,43 @@ class PlanFragment : Fragment() {
         }
     }
 
-    private fun updateView() = with(binding) {
-        if(isEditMode) {
-            planListAdapter.submitList(getEditedPlanList())
-        } else {
-            planListAdapter.submitList(getNormalPlanList())
-        }
+    private fun initView() = with(binding) {
+
+        binding.planCallBtn.setOnClickListener {
+            val fragment = PlanBoomarkListFragment()
+            fragment.show(parentFragmentManager, "bookmarkListDialog")
         }
 
-    private fun getEditedPlanList(): List<Plan> {
-        val editedPlans = mutableListOf<Plan>()
-        for (originalPlan in planListAdapter.currentList) {
-            val editedPlan = originalPlan.copy(viewType = PlanViewType.Edit.INT)
-            editedPlans.add(editedPlan)
+        binding.planSearchBtn.setOnClickListener {
+            val fragment = PlanSearchListFragment()
+            fragment.show(parentFragmentManager, "searchListDialog")
         }
-        return editedPlans
+    }
+
+    private fun showMemoDialog() = with(binding) {
+        val dialogFragment = PlanMemoFragment(requireContext())
+        dialogFragment.setOnSaveListener { memoText ->
+            planTextView.text = memoText
+            planEditBtn.visibility = View.GONE
+        }
+        dialogFragment.show()
 
     }
 
-    private fun getNormalPlanList(): List<Plan> {
-        val normalPlans = mutableListOf<Plan>()
-        for (originalPlan in planListAdapter.currentList) {
-            val normalPlan = originalPlan.copy(viewType = PlanViewType.Normal.INT)
-            normalPlans.add(normalPlan)
-        }
-        return normalPlans
+    private fun getTitleOrDate () = with(binding) {
+
+        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
+            planTextTitle.text = it
+        })
+
+        sharedViewModel.sharedDate.observe(viewLifecycleOwner, Observer { date ->
+            if(date.isNotEmpty()) {
+                val dateText = date.joinToString { "${it.year}년 ${it.month}월 ${it.day}일"}
+                binding.planDate.text = dateText
+            }
+        })
+
+
     }
+
 }

@@ -73,7 +73,9 @@ class TravelRepositoryImpl {
                         mapY = it.mapy.toDouble(),
                         category = MyUtil.categoryIdToCategory(it.contenttypeid.toInt()),
                         area = MyUtil.areaCodeToArea(it.areacode.toInt()),
-                        tel = it.tel
+                        tel = it.tel,
+                        startDate = it.eventstartdate,
+                        endDate = it.eventenddate
                     )
                 }
             }
@@ -82,6 +84,27 @@ class TravelRepositoryImpl {
             }
         } catch (e: Exception) {
             listOf()
+        }
+    }
+
+    suspend fun getTravelDetailInfo(contentId: Int, contentTypeId: Int) = withContext(Dispatchers.IO) {
+        try {
+            val response = api.getDetailInfo(contentId = contentId, contentTypeId = contentTypeId)
+
+            if (response.isSuccessful) {
+                val data = response.body()?.response?.body?.items?.item
+
+                if (data.isNullOrEmpty()) {
+                    ""
+                } else {
+                    data[0].overview
+                }
+            } else {
+                ""
+            }
+
+        } catch (e: Exception) {
+            ""
         }
     }
 }

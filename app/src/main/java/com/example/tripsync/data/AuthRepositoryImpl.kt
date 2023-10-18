@@ -73,10 +73,10 @@ class AuthRepositoryImpl {
                         null
                     }
                     else {
-                        val friends = doc.friends?.toMutableList()
+                        val friends = doc.friends?.toMutableList() ?: mutableListOf()
 
-                        if (friends?.filter { it.nickname == user.nickname }.isNullOrEmpty()) {
-                            friends?.add(user)
+                        if (friends.none { it.nickname == user.nickname }) {
+                            friends.add(user)
                             val newDoc = doc.copy(friends = friends)
                             usersRef.document(docs.documents[0].id)
                                 .set(newDoc).await()
