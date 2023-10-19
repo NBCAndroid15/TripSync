@@ -2,6 +2,8 @@ package com.example.tripsync.ui.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.ui.fragment.LoginFragment
