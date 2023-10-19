@@ -32,75 +32,66 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="32dp"
-                android:text="@string/plan_write_plan"
-                android:textSize="25dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+<!--            <TextView-->
+<!--                android:id="@+id/textView2"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:layout_marginTop="32dp"-->
+<!--                android:text="@string/plan_write_plan"-->
+<!--                android:textSize="25dp"-->
+<!--                android:textStyle="bold"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <TextView
                 android:id="@+id/plan_text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="24dp"
                 android:text="계획제목"
-                android:textStyle="bold"
                 android:textSize="17dp"
+                android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/plan_text_where"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="여행장소(ex:부산)"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />
+<!--            <TextView-->
+<!--                android:id="@+id/plan_text_where"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginStart="10dp"-->
+<!--                android:text="여행장소(ex:부산)"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />-->
 
-            <View
-                android:id="@+id/plan_view"
-                android:layout_width="1dp"
-                android:layout_height="15dp"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="4dp"
-                android:background="@color/gray_medium"
-                app:layout_constraintStart_toEndOf="@+id/plan_text_where"
-                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />
+<!--            <View-->
+<!--                android:id="@+id/plan_view"-->
+<!--                android:layout_width="1dp"-->
+<!--                android:layout_height="15dp"-->
+<!--                android:layout_marginStart="4dp"-->
+<!--                android:layout_marginTop="4dp"-->
+<!--                android:background="@color/gray_medium"-->
+<!--                app:layout_constraintStart_toEndOf="@+id/plan_text_where"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />-->
 
             <TextView
                 android:id="@+id/plan_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
+                android:layout_marginStart="10dp"
                 android:text="2222년 10월 12일"
-                app:layout_constraintStart_toEndOf="@+id/plan_view"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />
 
-            <TextView
-                android:id="@+id/plan_user_name"
-                android:layout_width="wrap_content"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/plan_username_recycler"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:text="김현준"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_text_where" />
-
-            <ImageButton
-                android:id="@+id/plan_user_plus_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:background="@drawable/ic_plan_user"
-                app:layout_constraintStart_toEndOf="@+id/plan_user_name"
-                app:layout_constraintTop_toBottomOf="@+id/plan_date" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_date"
+                />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/plan_cardview"
@@ -112,7 +103,7 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_user_plus_btn">
+                app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler">
 
                 <TextView
                     android:id="@+id/plan_text_view"

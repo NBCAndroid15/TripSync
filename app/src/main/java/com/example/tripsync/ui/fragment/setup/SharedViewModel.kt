@@ -1,9 +1,11 @@
 package com.example.tripsync.ui.fragment.setup
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.tripsync.model.Travel
+import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.plan.TestModel
 import com.naver.maps.geometry.LatLng
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -20,6 +22,16 @@ class SharedViewModel : ViewModel() {
 
     private val _planItems = MutableLiveData<List<TestModel>>()
     val planItems: LiveData<List<TestModel>> get() = _planItems
+
+    private val _userNickName = MutableLiveData<List<User>>()
+    val userNickName : LiveData<List<User>> get() = _userNickName
+
+    fun getUserNickName(nickName: User) {
+        val currentName = _userNickName.value.orEmpty().toMutableList()
+        currentName?.add(nickName)
+        _userNickName.value = currentName ?: listOf()
+        Log.d("setup", _userNickName.value!!.size.toString())
+    }
 
     fun updatePlanBookItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()

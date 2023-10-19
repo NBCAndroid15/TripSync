@@ -37,8 +37,6 @@ class SetupListAdapter : ListAdapter<CalendarDay, SetupListAdapter.ViewHolder>(
 
             setupMakingBtn.setOnClickListener {
                 itemClickListener?.onItemClick(date)
-
-
             }
         }
     }
