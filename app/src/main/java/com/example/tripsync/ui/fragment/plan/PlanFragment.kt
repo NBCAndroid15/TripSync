@@ -6,16 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
-import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
-import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
-import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
+import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
+import com.example.tripsync.ui.fragment.plan.planuseradd.PlanUserAddDialog
+import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 
 class PlanFragment : Fragment() {
@@ -69,6 +68,7 @@ class PlanFragment : Fragment() {
         }
 
         getTitleOrDate()
+        showUserDialog()
 
     }
 
@@ -103,23 +103,32 @@ class PlanFragment : Fragment() {
     private fun initView() = with(binding) {
 
         binding.planCallBtn.setOnClickListener {
-            val fragment = PlanBoomarkListFragment()
+            val fragment = PlanBoomarkListDialog()
             fragment.show(parentFragmentManager, "bookmarkListDialog")
         }
 
         binding.planSearchBtn.setOnClickListener {
-            val fragment = PlanSearchListFragment()
+            val fragment = PlanSearchListDialog()
             fragment.show(parentFragmentManager, "searchListDialog")
         }
     }
 
     private fun showMemoDialog() = with(binding) {
-        val dialogFragment = PlanMemoFragment(requireContext())
+        val dialogFragment = PlanMemoDialog(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
             planTextView.text = memoText
             planEditBtn.visibility = View.GONE
         }
         dialogFragment.show()
+
+    }
+
+    private fun showUserDialog() = with(binding) {
+        planUserPlusBtn.setOnClickListener {
+            val dialogFragmet = PlanUserAddDialog()
+
+            dialogFragmet.show(parentFragmentManager, "planUserAddDialog")
+        }
 
     }
 
