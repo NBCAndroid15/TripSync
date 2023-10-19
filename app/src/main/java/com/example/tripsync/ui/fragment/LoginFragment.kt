@@ -135,7 +135,6 @@ class LoginFragment : Fragment() {
             if (it.isSuccessful) {
                 requireActivity().supportFragmentManager.beginTransaction()
                     .replace(R.id.main_frame, MainFragment.newInstance())
-                    .addToBackStack(null)
                     .commit()
             }
         }
@@ -149,7 +148,6 @@ class LoginFragment : Fragment() {
                     if (result.isSuccessful) {
                         requireActivity().supportFragmentManager.beginTransaction()
                             .replace(R.id.main_frame, MainFragment.newInstance())
-                            .addToBackStack(null)
                             .commit()
                     } else {
                         Log.d("logincheck", result.exception.toString())
