@@ -86,6 +86,8 @@ class LoginFragment : Fragment() {
         if (result.resultCode == Activity.RESULT_OK) {
             val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
             handleResults(task)
+        } else {
+            Log.d("googlelogin", result.toString())
         }
     }
 
@@ -103,6 +105,9 @@ class LoginFragment : Fragment() {
                 // 사용자 정보 DB에 저장
                 saveUserInfoToDatabase(email, displayName)
             }
+        }
+        else {
+            Log.d("googlelogin", task.exception.toString())
         }
     }
 
