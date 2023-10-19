@@ -1,5 +1,7 @@
 package com.example.tripsync.ui.fragment.plan
 
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
 import android.graphics.Canvas
 import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -48,7 +50,7 @@ class SwipeToDeleteCallback(private val recyclerViewAdapter : PlanListAdapter)  
     // 스와이프 일어날 때 동작
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         // 스와와이프 끝까지 하면 해당 데이터 삭제하기 -> 스와이프 후 <삭제> 버튼 눌러야 삭제 되도록 변경
-//         recyclerViewAdapter.deleteItem(viewHolder.layoutPosition)
+
     }
 
     // -------------swipe 됐을 때 일어날 동작---------------

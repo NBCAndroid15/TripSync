@@ -27,8 +27,9 @@ class PlanFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private val viewmodel: PlanViewModel by viewModels()
     private lateinit var adapter : PlanListAdapter
+
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
 
 
@@ -42,6 +43,7 @@ class PlanFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = PlanListAdapter {
+            deletePlanItem(it)
         }
 
         recyclerView.adapter = adapter
@@ -49,8 +51,8 @@ class PlanFragment : Fragment() {
         val swipeToDeleteCallback = SwipeToDeleteCallback(adapter).apply {
             setClamp(resources.displayMetrics.widthPixels.toFloat() / 4 )
         }
-        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.planRecycler)
-
+        itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(binding.planRecycler)
 
         return binding.root
     }
@@ -71,14 +73,17 @@ class PlanFragment : Fragment() {
     }
 
     private fun initViewModel() {
+
         with(sharedViewModel) {
-            planBookItem.observe(viewLifecycleOwner, Observer { planBookItems ->
-                adapter.submitList(planBookItems)
+            planItems.observe(viewLifecycleOwner, Observer { planItems ->
+                val oldItemSize = adapter.currentList.size
+                adapter.submitList(null)
+                adapter.submitList(planItems)
+                itemTouchHelper.attachToRecyclerView(null)
+                itemTouchHelper.attachToRecyclerView(binding.planRecycler)
+                adapter.notifyDataSetChanged()
             })
 
-            planSearchItem.observe(viewLifecycleOwner, Observer { planSearchItems ->
-                adapter.submitList(planSearchItems)
-            })
         }
 
 
@@ -130,6 +135,11 @@ class PlanFragment : Fragment() {
                 binding.planDate.text = dateText
             }
         })
+    }
+
+    private fun deletePlanItem(item: TestModel) {
+        sharedViewModel.planRemoveItem(item)
+
     }
 
 }

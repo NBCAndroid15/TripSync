@@ -85,16 +85,8 @@ class PlanBoomarkListFragment : DialogFragment() {
     }
 
     private fun sendItem(item: Travel) {
-        sharedViewModel.udatePlanBookItem(item)
+        sharedViewModel.updatePlanBookItem(item)
 
-        Log.d("bookmap", "SharedViewModel: $item")
-        sharedViewModel.updateSelectedLocation(
-            TestModel(
-                mapX = item.mapX,
-                mapY = item.mapY
-            )
-        )
-        Log.d("bookmap", "SharedViewModel: ${item.mapX}, ${item.mapY}")
     }
 
 

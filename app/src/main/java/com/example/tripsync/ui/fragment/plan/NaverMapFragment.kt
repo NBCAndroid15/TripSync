@@ -32,13 +32,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     private val binding: FragmentNaverMapBinding
         get() = _binding!!
 
-    private val testModel = PlanViewModel()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -56,12 +49,12 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
         this.naverMap = p0
-        sharedViewModel.selectedLocation.observe(viewLifecycleOwner, Observer { locations ->
+        sharedViewModel.planItems.observe(viewLifecycleOwner, Observer { locations ->
             Log.d("map", "Selected locations: $locations")
 
             // 지도 초기화
-//            markers.forEach { it.map = null }
-//            markers.clear()
+            markers.forEach { it.map = null }
+            markers.clear()
 
             locations.forEachIndexed { index, location ->
                 if (location.mapY != null && location.mapX != null) {
@@ -69,7 +62,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                     marker.position = LatLng(location.mapY, location.mapX)
                     marker.map = naverMap
                     marker.icon = OverlayImage.fromResource(R.drawable.ic_plan_item_number)
-                    marker.captionText = (index + 1).toString()
                     naverMap.minZoom = 5.0
                     markers.add(marker)
                     Log.d("map", "Selected locations: ${location.mapX}, ${location.mapY}")

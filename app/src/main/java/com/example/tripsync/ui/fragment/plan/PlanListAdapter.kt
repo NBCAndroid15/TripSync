@@ -43,7 +43,7 @@ class PlanListAdapter(private val onItemRemove: (TestModel) -> Unit): ListAdapte
 
             planItemTitle.text = item.title
             planItemWhere.text = item.area
-            planListNumber.text = (absoluteAdapterPosition + 1).toString()
+            planListNumber.text = (currentList.indexOf(item) + 1).toString()
 
 
             tvRemove.setOnClickListener {
@@ -54,5 +54,4 @@ class PlanListAdapter(private val onItemRemove: (TestModel) -> Unit): ListAdapte
 
         }
     }
-
 }
