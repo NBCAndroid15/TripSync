@@ -53,7 +53,7 @@ class PlanSearchListDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val width = WindowManager.LayoutParams.MATCH_PARENT
-        val height = WindowManager.LayoutParams.MATCH_PARENT
+        val height = 1500
 
         dialog?.window?.setLayout(width, height)
 
@@ -118,8 +118,6 @@ class PlanSearchListDialog : DialogFragment() {
 
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
-
-
 
     }
 

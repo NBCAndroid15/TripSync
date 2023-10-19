@@ -1,6 +1,7 @@
 package com.example.tripsync.ui.fragment.plan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
-import com.example.tripsync.ui.fragment.plan.planuseradd.PlanUserAddDialog
+import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 
@@ -27,6 +28,7 @@ class PlanFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var adapter : PlanListAdapter
+    private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
 
@@ -61,6 +63,7 @@ class PlanFragment : Fragment() {
 
         initView()
         initViewModel()
+        initUserName()
 
 
         binding.planEditBtn.setOnClickListener {
@@ -68,7 +71,6 @@ class PlanFragment : Fragment() {
         }
 
         getTitleOrDate()
-        showUserDialog()
 
     }
 
@@ -85,8 +87,16 @@ class PlanFragment : Fragment() {
             })
 
         }
+    }
 
+    private fun initUserName()=with(binding) {
+        userAdapter = PlanUserNameAdapter()
+        planUsernameRecycler.adapter = userAdapter
+        planUsernameRecycler.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        sharedViewModel.userNickName.observe(viewLifecycleOwner, Observer { name ->
+            userAdapter.submitList(name)
+        })
     }
 
     override fun onDestroyView() {
@@ -120,15 +130,6 @@ class PlanFragment : Fragment() {
             planEditBtn.visibility = View.GONE
         }
         dialogFragment.show()
-
-    }
-
-    private fun showUserDialog() = with(binding) {
-        planUserPlusBtn.setOnClickListener {
-            val dialogFragmet = PlanUserAddDialog()
-
-            dialogFragmet.show(parentFragmentManager, "planUserAddDialog")
-        }
 
     }
 

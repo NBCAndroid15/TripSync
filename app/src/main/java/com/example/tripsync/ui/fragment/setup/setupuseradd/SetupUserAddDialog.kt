@@ -1,7 +1,7 @@
-package com.example.tripsync.ui.fragment.plan.planuseradd
+package com.example.tripsync.ui.fragment.setup.setupuseradd
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,21 +9,27 @@ import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tripsync.R
-import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.databinding.FragmentPlanUserAddDialogBinding
 import com.example.tripsync.model.User
+import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModelFactory
 
-class PlanUserAddDialog : DialogFragment() {
+class SetupUserAddDialog : DialogFragment() {
 
     private var _binding: FragmentPlanUserAddDialogBinding? = null
     private val binding: FragmentPlanUserAddDialogBinding
         get() = _binding!!
 
-    private lateinit var adapter : PlanUserAddDialogAdapter
     private val viewModel: FriendManageViewModel by activityViewModels { FriendManageViewModelFactory() }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
+    private val adapter by lazy {
+        SetupUserAddDialogAdapter {item ->
+            sendUserNickname(item)
+        }
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,8 +52,13 @@ class PlanUserAddDialog : DialogFragment() {
         val height = 1200
 
         dialog?.window?.setLayout(width, height)
+        viewModel.init()
 
-        adapter = PlanUserAddDialogAdapter()
+        viewModel.curUser.observe(viewLifecycleOwner) {user ->
+            if (user != null) {
+                adapter.submitList(user.friends ?: listOf())
+            }
+        }
         initView()
     }
 
@@ -55,14 +66,15 @@ class PlanUserAddDialog : DialogFragment() {
         planUserRecycler.adapter = adapter
         planUserRecycler.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        viewModel.curUser.observe(viewLifecycleOwner) {user ->
-            if (user != null) {
-                adapter.submitList(user.friends ?: listOf())
-            }
-        }
 
         planBackBtn.setOnClickListener {
             dismiss()
         }
+
+    }
+
+    private fun sendUserNickname(name: User) {
+        Log.d("SetupUserAddDialog", "선택된 아이템: ${name.nickname}")
+        sharedViewModel.getUserNickName(name)
     }
 }
