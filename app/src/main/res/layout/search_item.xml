@@ -6,12 +6,13 @@
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_Item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="40dp"
         android:background="#FFFFFF"
+        android:elevation="40dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,11 +24,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:stateListAnimator="@null"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:stateListAnimator="@null">
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/search_item_thumbnail"
