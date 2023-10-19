@@ -121,14 +121,6 @@ class PlanSearchListFragment : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
 
-        Log.d("map", "SharedViewModel: $item")
-        sharedViewModel.updateSelectedLocation(
-            TestModel(
-                mapX = item.mapX,
-                mapY = item.mapY
-            )
-        )
-        Log.d("map", "SharedViewModel: ${item.mapX}, ${item.mapY}")
 
 
     }

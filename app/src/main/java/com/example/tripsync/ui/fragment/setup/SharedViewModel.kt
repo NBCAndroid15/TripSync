@@ -18,48 +18,55 @@ class SharedViewModel : ViewModel() {
     private val _sharedDate = MutableLiveData<Set<CalendarDay>>()
     val sharedDate: LiveData<Set<CalendarDay>> get() = _sharedDate
 
-    private val _planBookItem: MutableLiveData<List<TestModel>> = MutableLiveData(listOf())
-    val planBookItem: LiveData<List<TestModel>> get() = _planBookItem
+    private val _planItems = MutableLiveData<List<TestModel>>()
+    val planItems: LiveData<List<TestModel>> get() = _planItems
 
-    private val _planSearchItem: MutableLiveData<List<TestModel>> = MutableLiveData()
-    val planSearchItem: LiveData<List<TestModel>> get() = _planSearchItem
+    fun updatePlanBookItem(item: Travel) {
+        val currentItem = _planItems.value.orEmpty()
 
-    private val _selectedLocation = MutableLiveData<List<TestModel>>()
-    val selectedLocation: LiveData<List<TestModel>> get() = _selectedLocation
-
-    fun udatePlanBookItem(item: Travel) {
-        _planBookItem.value = (_planBookItem.value ?: emptyList()) + listOf(
-            TestModel(
-                imageUrl = item.imageUrl,
-                title = item.title,
-                addr = item.addr,
-                area = item.area,
-                mapX = item.mapX,
-                mapY = item.mapY,
-                category = item.category,
-                tel = item.tel
+        if (currentItem.none { it.imageUrl == item.imageUrl}) {
+            _planItems.value = currentItem + listOf(
+                TestModel(
+                    imageUrl = item.imageUrl,
+                    title = item.title,
+                    addr = item.addr,
+                    area = item.area,
+                    mapX = item.mapX,
+                    mapY = item.mapY,
+                    category = item.category,
+                    tel = item.tel
                 )
-        )
+            )
+        }
     }
 
     fun updatePlanSearchItem(item: Travel) {
-        _planSearchItem.value = (_planSearchItem.value ?: emptyList()) + listOf(
-            TestModel(
-                imageUrl = item.imageUrl,
-                title = item.title,
-                addr = item.addr,
-                area = item.area,
-                mapX = item.mapX,
-                mapY = item.mapY,
-                category = item.category,
-                tel = item.tel,
+        val currentItem = _planItems.value.orEmpty()
+
+        if (currentItem.none { it.imageUrl == item.imageUrl}) {
+            _planItems.value = currentItem + listOf(
+                TestModel(
+                    imageUrl = item.imageUrl,
+                    title = item.title,
+                    addr = item.addr,
+                    area = item.area,
+                    mapX = item.mapX,
+                    mapY = item.mapY,
+                    category = item.category,
+                    tel = item.tel
+                )
             )
-        )
+        }
+
     }
 
-    fun updateSelectedLocation(latLng: TestModel) {
-        _selectedLocation.value = listOf(latLng)
+    // planfragment에서 아이템을 삭제하기 위한 메서드
+    fun planRemoveItem(item: TestModel) {
+        val currentItem = _planItems.value.orEmpty().toMutableList()
+        currentItem.remove(item)
+        _planItems.value = currentItem
     }
+
 
     fun updateSharedTitle(title: String) {
         _sharedTitle.value = title
