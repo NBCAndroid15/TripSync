@@ -16,7 +16,7 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
 
     fun updateSearchItem (keyword: String) {
         viewModelScope.launch {
-            Log.d("Plan", "keyword: $keyword") // 검색어 로그
+            Log.d("Plan", "keyword: $keyword")
             _getSearchItem.value = travelRepositoryImpl.getTravelInfo(1, keyword )
         }
     }

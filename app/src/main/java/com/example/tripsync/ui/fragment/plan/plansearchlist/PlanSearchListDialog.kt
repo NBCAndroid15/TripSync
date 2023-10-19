@@ -1,11 +1,8 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
 import android.app.Activity
-import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -18,17 +15,11 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tripsync.R
-import com.example.tripsync.databinding.FragmentPlanBoomarkListBinding
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
-import com.example.tripsync.ui.fragment.plan.PlanFragment
-import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
-class PlanSearchListFragment : DialogFragment() {
+class PlanSearchListDialog : DialogFragment() {
 
     private var _binding: FragmentPlanSearchListBinding? = null
     private val binding: FragmentPlanSearchListBinding
@@ -44,11 +35,6 @@ class PlanSearchListFragment : DialogFragment() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-
-
-    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,7 +53,7 @@ class PlanSearchListFragment : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val width = WindowManager.LayoutParams.MATCH_PARENT
-        val height = WindowManager.LayoutParams.MATCH_PARENT
+        val height = 1500
 
         dialog?.window?.setLayout(width, height)
 
@@ -102,10 +88,6 @@ class PlanSearchListFragment : DialogFragment() {
             }
         })
 
-        viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-        })
-
         planSearchClose.setOnClickListener {
             dismiss()
         }
@@ -129,13 +111,14 @@ class PlanSearchListFragment : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): PlanSearchListFragment {
-            return PlanSearchListFragment()
+        fun newInstance(): PlanSearchListDialog {
+            return PlanSearchListDialog()
         }
     }
 
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
+
     }
 
 

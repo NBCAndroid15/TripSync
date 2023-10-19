@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.tripsync.databinding.FragmentPlanMemoBinding
 
-class PlanMemoFragment(private val context: Context) : Dialog(context) {
+class PlanMemoDialog(private val context: Context) : Dialog(context) {
 
     private lateinit var binding: FragmentPlanMemoBinding
     private lateinit var onSaveListener: (String) -> Unit

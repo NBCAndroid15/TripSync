@@ -1,22 +1,22 @@
 package com.example.tripsync.ui.fragment.plan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
-import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
-import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
-import com.example.tripsync.ui.fragment.setup.PlanMemoFragment
+import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
+import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
+import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
+import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModel
-import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
 
 class PlanFragment : Fragment() {
 
@@ -26,8 +26,12 @@ class PlanFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PlanListAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var adapter : PlanListAdapter
+    private lateinit var userAdapter : PlanUserNameAdapter
+
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
 
 
 
@@ -39,10 +43,17 @@ class PlanFragment : Fragment() {
         recyclerView = binding.planRecycler
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = PlanListAdapter { position, travel ->
+        adapter = PlanListAdapter {
+            deletePlanItem(it)
         }
+
         recyclerView.adapter = adapter
 
+        val swipeToDeleteCallback = SwipeToDeleteCallback(adapter).apply {
+            setClamp(resources.displayMetrics.widthPixels.toFloat() / 4 )
+        }
+        itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
+        itemTouchHelper.attachToRecyclerView(binding.planRecycler)
 
         return binding.root
     }
@@ -52,6 +63,8 @@ class PlanFragment : Fragment() {
 
         initView()
         initViewModel()
+        initUserName()
+
 
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
@@ -62,18 +75,28 @@ class PlanFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        with(sharedViewModel){
-            planBookItem.observe(viewLifecycleOwner, Observer {
 
-                if(it != null) {
-                    adapter.submitList(it)
-                }
+        with(sharedViewModel) {
+            planItems.observe(viewLifecycleOwner, Observer { planItems ->
+                val oldItemSize = adapter.currentList.size
+                adapter.submitList(null)
+                adapter.submitList(planItems)
+                itemTouchHelper.attachToRecyclerView(null)
+                itemTouchHelper.attachToRecyclerView(binding.planRecycler)
+                adapter.notifyDataSetChanged()
             })
 
-            planSearchItem.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
-            })
         }
+    }
+
+    private fun initUserName()=with(binding) {
+        userAdapter = PlanUserNameAdapter()
+        planUsernameRecycler.adapter = userAdapter
+        planUsernameRecycler.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+
+        sharedViewModel.userNickName.observe(viewLifecycleOwner, Observer { name ->
+            userAdapter.submitList(name)
+        })
     }
 
     override fun onDestroyView() {
@@ -90,18 +113,18 @@ class PlanFragment : Fragment() {
     private fun initView() = with(binding) {
 
         binding.planCallBtn.setOnClickListener {
-            val fragment = PlanBoomarkListFragment()
+            val fragment = PlanBoomarkListDialog()
             fragment.show(parentFragmentManager, "bookmarkListDialog")
         }
 
         binding.planSearchBtn.setOnClickListener {
-            val fragment = PlanSearchListFragment()
+            val fragment = PlanSearchListDialog()
             fragment.show(parentFragmentManager, "searchListDialog")
         }
     }
 
     private fun showMemoDialog() = with(binding) {
-        val dialogFragment = PlanMemoFragment(requireContext())
+        val dialogFragment = PlanMemoDialog(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
             planTextView.text = memoText
             planEditBtn.visibility = View.GONE
@@ -122,7 +145,10 @@ class PlanFragment : Fragment() {
                 binding.planDate.text = dateText
             }
         })
+    }
 
+    private fun deletePlanItem(item: TestModel) {
+        sharedViewModel.planRemoveItem(item)
 
     }
 
