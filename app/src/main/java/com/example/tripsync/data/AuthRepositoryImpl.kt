@@ -57,6 +57,30 @@ class AuthRepositoryImpl {
         }
     }
 
+    suspend fun updatePassword(password: String) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser != null) {
+                auth.currentUser!!.updatePassword(password)
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun unregister() = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser != null) {
+                auth.currentUser!!.delete()
+            } else {
+                null
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
     suspend fun addFriend(user: User) = withContext(Dispatchers.IO) {
         try {
             if (auth.currentUser == null) {
