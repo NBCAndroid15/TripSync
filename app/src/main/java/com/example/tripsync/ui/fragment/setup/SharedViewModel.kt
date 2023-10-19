@@ -28,8 +28,7 @@ class SharedViewModel : ViewModel() {
     val selectedLocation: LiveData<List<TestModel>> get() = _selectedLocation
 
     fun udatePlanBookItem(item: Travel) {
-        val currentList = planBookItem.value?.toMutableList() ?: mutableListOf()
-        currentList.add(
+        _planBookItem.value = (_planBookItem.value ?: emptyList()) + listOf(
             TestModel(
                 imageUrl = item.imageUrl,
                 title = item.title,
@@ -41,12 +40,10 @@ class SharedViewModel : ViewModel() {
                 tel = item.tel
                 )
         )
-        _planBookItem.value = currentList
     }
 
     fun updatePlanSearchItem(item: Travel) {
-        val currentList = planSearchItem.value?.toMutableList() ?: mutableListOf()
-        currentList.add(
+        _planSearchItem.value = (_planSearchItem.value ?: emptyList()) + listOf(
             TestModel(
                 imageUrl = item.imageUrl,
                 title = item.title,
@@ -55,10 +52,9 @@ class SharedViewModel : ViewModel() {
                 mapX = item.mapX,
                 mapY = item.mapY,
                 category = item.category,
-                tel = item.tel
+                tel = item.tel,
             )
         )
-        _planSearchItem.value = currentList
     }
 
     fun updateSelectedLocation(latLng: TestModel) {
