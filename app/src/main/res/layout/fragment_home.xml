@@ -13,34 +13,35 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white" >
 
-            <View
+            <ImageView
                 android:id="@+id/home_main_view"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="200dp"
                 android:paddingTop="40dp"
                 android:layout_marginBottom="10dp"
+                android:layout_marginEnd="20dp"
                 android:background="@color/white"
+                android:src="@drawable/home_sample"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:drawableEnd="@drawable/home_sample"
-                android:text="호에.. 어디로 떠나볼까나"
-                app:layout_constraintBottom_toBottomOf="@+id/home_main_view"
-                app:layout_constraintEnd_toEndOf="@+id/home_main_view" />
+            <ImageView
+                android:layout_width="180dp"
+                android:layout_height="120dp"
+                android:src="@drawable/home_text"
+                app:layout_constraintBottom_toTopOf="@+id/home_category_rv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_category_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginTop="20dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_main_view"

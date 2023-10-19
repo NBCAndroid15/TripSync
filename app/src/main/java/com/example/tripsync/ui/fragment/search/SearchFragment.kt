@@ -10,17 +10,19 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tripsync.R
 import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.FragmentSearchBinding
+import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.DetailFragment
 import kotlinx.coroutines.launch
 
-class SearchFragment : Fragment() {
+class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
 
-    private lateinit var adapter: SearchAdapter
+    private val adapter = SearchAdapter()
     private var _binding: FragmentSearchBinding? = null
     private val binding: FragmentSearchBinding
         get() = _binding!!
-
 
 
     override fun onCreateView(
@@ -35,17 +37,20 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter = SearchAdapter()
         val recyclerView = binding.recyclerView4
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
+        adapter.setOnItemClickListener (this)
+
+
         binding.searchEtSearchbar.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 insearch(binding.searchEtSearchbar.text.toString())
                 return@setOnKeyListener true
-                val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                val imm =
+                    context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                 imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
 
             }
@@ -65,6 +70,14 @@ class SearchFragment : Fragment() {
             var travelList = travelRepository.getTravelInfo(1, query)
             adapter.setList(travelList)
         }
+    }
+
+    override fun onItemClick(travel: Travel) {
+        val fragment = DetailFragment(travel)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {
