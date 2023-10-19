@@ -5,12 +5,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPageBinding
 import com.example.tripsync.viewmodel.MyPageViewModel
 import com.example.tripsync.viewmodel.MyPageViewModelFactory
+import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 
 class MyPageFragment : Fragment() {
 
@@ -19,7 +23,6 @@ class MyPageFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: MyPageViewModel by viewModels { MyPageViewModelFactory() }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +41,8 @@ class MyPageFragment : Fragment() {
     private fun initView() {
         binding.mypageLogoutBtn.setOnClickListener {
             viewModel.logout()
+
+            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_frame, LoginFragment.newInstance())
@@ -45,6 +50,22 @@ class MyPageFragment : Fragment() {
         }
         viewModel.curUser.observe(viewLifecycleOwner) {
             binding.mypageProfileEmail.text = it?.email ?: "unknown"
+        }
+
+        binding.mypageTravellistBtn.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.main_frame, MyPlanFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        binding.mypageFriendListBtn.setOnClickListener {
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.main_frame, FriendManageFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
         }
     }
 

@@ -36,10 +36,11 @@ class HomeFragment : Fragment() {
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
 
-        val areaList = mutableListOf("전체", "서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종", "경기", "강원", "충북", "충남", "경북", "경남", "전북", "전남", "제주")
-        homeAreaAdapter = HomeAreaAdapter(areaList)
+
 
         // 지역
+        val areaList = mutableListOf("전체", "서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종", "경기", "강원", "충북", "충남", "경북", "경남", "전북", "전남", "제주")
+        homeAreaAdapter = HomeAreaAdapter(areaList)
         binding.homeCategoryRv.adapter = homeAreaAdapter
         binding.homeCategoryRv.layoutManager = LinearLayoutManager(requireContext(),LinearLayoutManager.HORIZONTAL,false)
 

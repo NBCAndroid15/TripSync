@@ -1,7 +1,6 @@
 package com.example.tripsync.ui.fragment.search
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -10,21 +9,22 @@ import com.example.tripsync.model.Travel
 
 class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
-    interface ItemClick {
-        fun onClick(view : View, position : Int)
-    }
-    var itemClick : ItemClick? = null
-
 
     private var searchList = listOf<Travel>()
 
-    class ViewHolder (private val binding : SearchItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+
+    inner class ViewHolder (private val binding : SearchItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(travel: Travel) {
             Glide.with(binding.root.context)
                 .load(travel.imageUrl)
                 .into(binding.searchItemThumbnail)
             binding.searchItemTitle.text = travel.title
             binding.searchItemAddr.text = travel.addr
+
+            binding.searchItem.setOnClickListener{
+                itemClick?.onItemClick(travel)
+            }
 
         }
     }
@@ -35,6 +35,7 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         notifyItemRangeRemoved(0, curSize)
         notifyItemRangeInserted(0, this.searchList.size)
     }
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -48,5 +49,13 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(searchList[position])
+    }
+
+    interface OnItemClick {
+        fun onItemClick (travel: Travel)
+    }
+    private var itemClick : OnItemClick? = null
+    fun setOnItemClickListener(listener: OnItemClick) {
+        itemClick = listener
     }
 }

@@ -19,14 +19,14 @@ class MyPlanViewModel(private val planRepositoryImpl: PlanRepositoryImpl) : View
 
     private fun getPlanList() {
         viewModelScope.launch {
-            _planList.value = planRepositoryImpl.getPlanList()
+            _planList.value = planRepositoryImpl.getPlanList() ?: listOf()
         }
     }
 
     fun deletePlan(plan: Plan) {
         viewModelScope.launch {
             planRepositoryImpl.deletePlan(plan)
-            _planList.value = planRepositoryImpl.getPlanList()
+            _planList.value = planRepositoryImpl.getPlanList() ?: listOf()
         }
     }
 }
