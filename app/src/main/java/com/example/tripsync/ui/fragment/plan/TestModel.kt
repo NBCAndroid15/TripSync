@@ -8,6 +8,7 @@ data class TestModel(
     val mapY: Double? = null,
     val category: String? = null,
     val area: String? = null,
-    val tel: String? = null
+    val tel: String? = null,
+    var number: Int? = null
 ) {
 }
