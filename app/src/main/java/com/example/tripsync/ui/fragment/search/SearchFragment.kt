@@ -75,7 +75,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
     override fun onItemClick(travel: Travel) {
         val fragment = DetailFragment(travel)
         requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame, fragment)
+            .add(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
     }
