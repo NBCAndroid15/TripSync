@@ -16,7 +16,7 @@ class MainFragment : Fragment() {
     private val binding: FragmentMainBinding
         get() = _binding!!
 
-    private val title = arrayOf("홈", "북마크", "검색", "내 정보")
+    private val title = arrayOf("홈", "검색", "플랜", "게임", "내 정보")
 
     private val adapter by lazy {
         ViewPagerFragmentAdapter(requireActivity())
