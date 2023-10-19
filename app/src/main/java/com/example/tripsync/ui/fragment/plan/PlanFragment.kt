@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListFragment
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
@@ -24,9 +26,10 @@ class PlanFragment : Fragment() {
         get() = _binding!!
 
     private lateinit var recyclerView: RecyclerView
-    private lateinit var adapter: PlanListAdapter
     private val sharedViewModel: SharedViewModel by activityViewModels()
-    private lateinit var naverMapFragment: NaverMapFragment
+    private val viewmodel: PlanViewModel by viewModels()
+    private lateinit var adapter : PlanListAdapter
+
 
 
 
@@ -38,9 +41,15 @@ class PlanFragment : Fragment() {
         recyclerView = binding.planRecycler
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = PlanListAdapter { position, travel ->
+        adapter = PlanListAdapter {
         }
+
         recyclerView.adapter = adapter
+
+        val swipeToDeleteCallback = SwipeToDeleteCallback(adapter).apply {
+            setClamp(resources.displayMetrics.widthPixels.toFloat() / 4 )
+        }
+        ItemTouchHelper(swipeToDeleteCallback).attachToRecyclerView(binding.planRecycler)
 
 
         return binding.root
@@ -49,13 +58,9 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        naverMapFragment = NaverMapFragment.newInstance()
-//        childFragmentManager.beginTransaction()
-//            .replace(R.id.mapContainer, naverMapFragment)
-//            .commit()
-
         initView()
         initViewModel()
+
 
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
@@ -66,19 +71,17 @@ class PlanFragment : Fragment() {
     }
 
     private fun initViewModel() {
-        with(sharedViewModel){
-            planBookItem.observe(viewLifecycleOwner, Observer {
-
-                if(it != null) {
-                    adapter.submitList(it)
-                }
+        with(sharedViewModel) {
+            planBookItem.observe(viewLifecycleOwner, Observer { planBookItems ->
+                adapter.submitList(planBookItems)
             })
 
-
-            planSearchItem.observe(viewLifecycleOwner, Observer {
-                adapter.submitList(it)
+            planSearchItem.observe(viewLifecycleOwner, Observer { planSearchItems ->
+                adapter.submitList(planSearchItems)
             })
         }
+
+
     }
 
     override fun onDestroyView() {
@@ -127,8 +130,6 @@ class PlanFragment : Fragment() {
                 binding.planDate.text = dateText
             }
         })
-
-
     }
 
 }
