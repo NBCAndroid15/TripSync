@@ -17,11 +17,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
-import com.example.tripsync.ui.fragment.plan.TestModel
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
-import com.naver.maps.geometry.LatLng
 
-class PlanSearchListFragment : DialogFragment() {
+class PlanSearchListDialog : DialogFragment() {
 
     private var _binding: FragmentPlanSearchListBinding? = null
     private val binding: FragmentPlanSearchListBinding
@@ -113,8 +111,8 @@ class PlanSearchListFragment : DialogFragment() {
     }
 
     companion object {
-        fun newInstance(): PlanSearchListFragment {
-            return PlanSearchListFragment()
+        fun newInstance(): PlanSearchListDialog {
+            return PlanSearchListDialog()
         }
     }
 

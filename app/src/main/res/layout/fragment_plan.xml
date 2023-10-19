@@ -94,7 +94,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/plan_text_where" />
 
             <ImageButton
-                android:id="@+id/user_plus_btn"
+                android:id="@+id/plan_user_plus_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -112,7 +112,7 @@
                 app:cardCornerRadius="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/user_plus_btn">
+                app:layout_constraintTop_toBottomOf="@+id/plan_user_plus_btn">
 
                 <TextView
                     android:id="@+id/plan_text_view"
