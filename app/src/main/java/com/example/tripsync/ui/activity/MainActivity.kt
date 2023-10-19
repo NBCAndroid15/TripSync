@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
             travelList2.forEach {
                 bookmarkRepositoryImpl.addBookmark(it)
             }
-
+detail_btn_back
         }
         */
 
