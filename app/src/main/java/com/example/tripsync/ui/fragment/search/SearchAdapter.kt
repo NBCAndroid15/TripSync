@@ -14,7 +14,7 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
 
 
-    inner class ViewHolder (private val binding : SearchItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ViewHolder(private val binding: SearchItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(travel: Travel) {
             Glide.with(binding.root.context)
                 .load(travel.imageUrl)
@@ -22,12 +22,12 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
             binding.searchItemTitle.text = travel.title
             binding.searchItemAddr.text = travel.addr
 
-            binding.searchItem.setOnClickListener{
+            binding.searchItem.setOnClickListener {
                 itemClick?.onItemClick(travel)
             }
-
         }
     }
+
 
     fun setList(searchList : List<Travel>) {
         var curSize = this.searchList.size
