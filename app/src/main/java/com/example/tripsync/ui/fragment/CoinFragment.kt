@@ -58,7 +58,7 @@ class CoinFragment : Fragment() {
             Handler(Looper.getMainLooper()).postDelayed({
                 binding.coinCharacter.setImageResource(R.drawable.coin_img01)
                 binding.coinText.text = "할까 말까 ?!"
-            }, 4000)
+            }, 3500)
         }
 
         return binding.root
