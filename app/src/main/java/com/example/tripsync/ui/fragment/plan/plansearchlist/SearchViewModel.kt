@@ -8,6 +8,11 @@ import androidx.lifecycle.viewModelScope
 import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.model.Travel
 import kotlinx.coroutines.launch
+/*
+*
+* planfragment에서 검색을 하기 위한 search viewmodel
+*
+* */
 
 class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): ViewModel() {
 

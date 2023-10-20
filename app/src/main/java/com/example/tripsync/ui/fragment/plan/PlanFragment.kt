@@ -6,17 +6,22 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
+import com.example.tripsync.model.PlanDetail
+import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import org.json.JSONArray
+import org.json.JSONObject
 
 class PlanFragment : Fragment() {
 
@@ -31,9 +36,6 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -121,13 +123,22 @@ class PlanFragment : Fragment() {
             val fragment = PlanSearchListDialog()
             fragment.show(parentFragmentManager, "searchListDialog")
         }
+
+        planAddBtn.setOnClickListener {
+            val updateDate = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)
+            updateDate?.content = binding.planTextView.text.toString()
+            updateDate?.let { sharedViewModel.addPlanDetail(it)}
+            Toast.makeText(context, "저장이 되었습니다.", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun showMemoDialog() = with(binding) {
         val dialogFragment = PlanMemoDialog(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
-            planTextView.text = memoText
-            planEditBtn.visibility = View.GONE
+           memoText?.let {
+               planTextView.text = memoText
+               sharedViewModel.updateMemo(memoText)
+           }
         }
         dialogFragment.show()
 
@@ -135,21 +146,15 @@ class PlanFragment : Fragment() {
 
     private fun getTitleOrDate () = with(binding) {
 
-        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
-            planTextTitle.text = it
-        })
+        planTextTitle.text = sharedViewModel._plan?.title
 
-        sharedViewModel.sharedDate.observe(viewLifecycleOwner, Observer { date ->
-            if(date.isNotEmpty()) {
-                val dateText = date.joinToString { "${it.year}년 ${it.month}월 ${it.day}일"}
-                binding.planDate.text = dateText
-            }
-        })
+        binding.planDate.text = sharedViewModel._plan?.planDetailList?.get(sharedViewModel.currentPosition)?.date
+
     }
 
-    private fun deletePlanItem(item: TestModel) {
+    private fun deletePlanItem(item: Travel) {
         sharedViewModel.planRemoveItem(item)
-
     }
+
 
 }
