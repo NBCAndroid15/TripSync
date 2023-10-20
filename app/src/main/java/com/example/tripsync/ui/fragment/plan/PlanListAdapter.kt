@@ -11,13 +11,13 @@ import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Travel
 import java.util.Collections
 
-class PlanListAdapter(private val onItemRemove: (TestModel) -> Unit): ListAdapter<TestModel, PlanListAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<TestModel>() {
-        override fun areItemsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
+class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<Travel>() {
+        override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
         }
 
-        override fun areContentsTheSame(oldItem: TestModel, newItem: TestModel): Boolean {
+        override fun areContentsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem == newItem
         }
     }
@@ -36,7 +36,7 @@ class PlanListAdapter(private val onItemRemove: (TestModel) -> Unit): ListAdapte
 
     inner class ViewHolder(private val binding: PlanRecyclerItemBinding) : RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(item: TestModel) = with(binding) {
+        fun bind(item: Travel) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
                 .into(planItemImage)

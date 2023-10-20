@@ -62,18 +62,15 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun initView() = with(binding) {
+        setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
-                sharedViewModel.updateSharedTitle(setupTitleBtn.text as String)
+                sharedViewModel._plan.title = setupTitleBtn.text.toString()
 
             }
             setupTitleDialog.show()
         }
-
-        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
-            setupTitleBtn.text = it as String
-        })
 
         setupDateBtn.setOnClickListener {
             val setupCalendarView = SetupCalendarView(selectedDates) { dates ->
@@ -86,12 +83,14 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
+        val dateList = selectedDates.toList().map { it.toString() }.sorted()
+        sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
         adapter.submitList(selectedDates.toList())
     }
 
-    override fun onItemClick(date: CalendarDay) {
+    override fun onItemClick(position: Int) {
 
-        sharedViewModel.updateSharedDate(setOf(date))
+        sharedViewModel.initPosition(position)
 
         val planFragment = PlanFragment()
 
@@ -110,10 +109,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     }
 
-    private fun getUserName(nickName: User) {
-        sharedViewModel.getUserNickName(nickName)
-
-    }
 
 }
 
