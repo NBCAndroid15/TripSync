@@ -32,6 +32,7 @@ class SignupFragment : Fragment() {
         val usersRef = db.collection("users")
 
         fun signup(inputId: String, inputPw: String, inputNickname: String) {
+
             auth.createUserWithEmailAndPassword(inputId, inputPw)
                 .addOnCompleteListener { result ->
                     if (result.isSuccessful && auth.currentUser != null) {
