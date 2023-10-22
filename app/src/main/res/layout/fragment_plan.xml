@@ -81,6 +81,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:text="2222년 10월 12일"
+                android:textColor="@color/gray_medium"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />
 
@@ -93,45 +94,60 @@
                 app:layout_constraintTop_toBottomOf="@+id/plan_date"
                 />
 
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/plan_cardview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler">
             <TextView
                 android:id="@+id/plan_text_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="sssssssssssssss"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.503"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler" />
+                android:padding="10dp"
+                android:text="sssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss"
+                android:textColor="@color/gray_medium"
+                 />
+
+            </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_edit_btn"
-                android:layout_width="110dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:padding="10dp"
-                android:text="메모 추가"
-                app:layout_constraintEnd_toStartOf="@+id/plan_search_btn"
-                app:layout_constraintStart_toEndOf="@+id/plan_call_btn"
-                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
+                android:text="메모 하기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_call_btn"
-                android:layout_width="110dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_call_bookmark"
+                android:layout_marginTop="5dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_search_btn"
-                android:layout_width="110dp"
+                android:layout_width="180dp"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_search_destination"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
@@ -140,9 +156,10 @@
                 android:id="@+id/naver_map"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_text_view">
+                app:layout_constraintTop_toBottomOf="@+id/plan_edit_btn">
 
                 <fragment
                     android:id="@+id/naver_map_fragment"
@@ -156,11 +173,11 @@
                 android:id="@+id/plan_recycler"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_edit_btn" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_call_btn"
+                app:layout_constraintBottom_toTopOf="@+id/plan_add_btn"/>
 
             <!--            <androidx.recyclerview.widget.RecyclerView-->
 <!--                android:id="@+id/plan_memo_recycler"-->
@@ -173,6 +190,21 @@
 <!--                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />-->
 
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/plan_add_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/plan_btn_background"
+                android:text="확인"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -180,17 +212,5 @@
     </ScrollView>
 <!--</FrameLayout>-->
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/plan_add_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/plan_btn_background"
-        android:text="확인"
-        android:textColor="@color/white"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
