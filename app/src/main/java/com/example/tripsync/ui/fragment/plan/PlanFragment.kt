@@ -6,17 +6,23 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
+import com.example.tripsync.model.Plan
+import com.example.tripsync.model.PlanDetail
+import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import org.json.JSONArray
+import org.json.JSONObject
 
 class PlanFragment : Fragment() {
 
@@ -31,8 +37,8 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
-
-
+    private val memoList = mutableListOf<String>()
+    private lateinit var memoAdapter : PlanMemoListAdapter
 
 
     override fun onCreateView(
@@ -65,10 +71,14 @@ class PlanFragment : Fragment() {
         initViewModel()
         initUserName()
 
-
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
         }
+
+        binding.planAddBtn.setOnClickListener {
+            // 전 페이지로 이동
+        }
+
 
         getTitleOrDate()
 
@@ -78,7 +88,6 @@ class PlanFragment : Fragment() {
 
         with(sharedViewModel) {
             planItems.observe(viewLifecycleOwner, Observer { planItems ->
-                val oldItemSize = adapter.currentList.size
                 adapter.submitList(null)
                 adapter.submitList(planItems)
                 itemTouchHelper.attachToRecyclerView(null)
@@ -112,44 +121,54 @@ class PlanFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
-        binding.planCallBtn.setOnClickListener {
+        planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListDialog()
             fragment.show(parentFragmentManager, "bookmarkListDialog")
         }
 
-        binding.planSearchBtn.setOnClickListener {
+        planSearchBtn.setOnClickListener {
             val fragment = PlanSearchListDialog()
             fragment.show(parentFragmentManager, "searchListDialog")
         }
+
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
+
     }
 
     private fun showMemoDialog() = with(binding) {
+
         val dialogFragment = PlanMemoDialog(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
-            planTextView.text = memoText
-            planEditBtn.visibility = View.GONE
+           memoText?.let {
+               if(memoText.isNotBlank()) {
+                   sharedViewModel.addMemo(memoText)
+                   planTextView.text = memoText
+
+               }
+           }
         }
         dialogFragment.show()
 
     }
 
     private fun getTitleOrDate () = with(binding) {
+        val plan = sharedViewModel._plan
 
-        sharedViewModel.sharedTitle.observe(viewLifecycleOwner, Observer {
-            planTextTitle.text = it
-        })
+        // null 체크
+        if (plan != null && sharedViewModel.currentPosition >= 0) {
+            planTextTitle.text = plan.title
+            if (plan.planDetailList != null && sharedViewModel.currentPosition < plan.planDetailList!!.size) {
+                planDate.text = plan.planDetailList!![sharedViewModel.currentPosition]?.date
 
-        sharedViewModel.sharedDate.observe(viewLifecycleOwner, Observer { date ->
-            if(date.isNotEmpty()) {
-                val dateText = date.joinToString { "${it.year}년 ${it.month}월 ${it.day}일"}
-                binding.planDate.text = dateText
             }
-        })
+
+        }
+
     }
 
-    private fun deletePlanItem(item: TestModel) {
+    private fun deletePlanItem(item: Travel) {
         sharedViewModel.planRemoveItem(item)
-
     }
+
 
 }

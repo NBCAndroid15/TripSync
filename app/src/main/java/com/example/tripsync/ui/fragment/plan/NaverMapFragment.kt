@@ -56,7 +56,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
             markers.forEach { it.map = null }
             markers.clear()
 
-            locations.forEachIndexed { index, location ->
+            locations?.forEachIndexed { index, location ->
                 if (location.mapY != null && location.mapX != null) {
                     val marker = Marker()
                     marker.position = LatLng(location.mapY, location.mapX)

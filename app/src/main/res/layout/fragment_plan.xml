@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<FrameLayout xmlns:tools="http://schemas.android.com/tools"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:tools="http://schemas.android.com/tools"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -93,78 +93,62 @@
                 app:layout_constraintTop_toBottomOf="@+id/plan_date"
                 />
 
-            <androidx.cardview.widget.CardView
-                android:id="@+id/plan_cardview"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="10dp"
-                app:cardCornerRadius="10dp"
+            <TextView
+                android:id="@+id/plan_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="sssssssssssssss"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.503"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler">
+                app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler" />
 
-                <TextView
-                    android:id="@+id/plan_text_view"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"/>
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/plan_edit_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="메모 추가"
-                    android:background="@drawable/setup_btn_round"
-                    android:drawableTop="@drawable/ic_plan_editbtn"
-                    android:layout_gravity="center"
-                    android:padding="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"/>
-
-            </androidx.cardview.widget.CardView>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/plan_edit_btn"
+                android:layout_width="110dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="@drawable/setup_btn_round"
+                android:padding="10dp"
+                android:text="메모 추가"
+                app:layout_constraintEnd_toStartOf="@+id/plan_search_btn"
+                app:layout_constraintStart_toEndOf="@+id/plan_call_btn"
+                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_call_btn"
-                android:layout_width="165dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_call_bookmark"
-                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_search_btn"
-                android:layout_width="165dp"
+                android:layout_width="110dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_search_destination"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
 
             <FrameLayout
                 android:id="@+id/naver_map"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_search_btn" >
+                app:layout_constraintTop_toBottomOf="@+id/plan_text_view">
 
                 <fragment
                     android:id="@+id/naver_map_fragment"
                     android:name="com.example.tripsync.ui.fragment.plan.NaverMapFragment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"/>
+                    android:layout_height="match_parent" />
 
             </FrameLayout>
 
@@ -172,30 +156,41 @@
                 android:id="@+id/plan_recycler"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/plan_to_listbtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/plan_btn_background"
-                android:text="@string/plan_to_list"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_edit_btn" />
+
+            <!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/plan_memo_recycler"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />-->
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </ScrollView>
 <!--</FrameLayout>-->
-</FrameLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/plan_add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/plan_btn_background"
+        android:text="확인"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

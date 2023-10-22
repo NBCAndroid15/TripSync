@@ -12,7 +12,7 @@
         android:layout_marginTop="10dp"
         android:textColor="@color/gray_medium"
         android:text="현준"
-        android:drawableLeft="@drawable/ic_user_person"
+        android:drawableTop="@drawable/ic_user_person"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
