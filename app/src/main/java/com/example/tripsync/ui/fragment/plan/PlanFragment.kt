@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBinding
+import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
@@ -36,6 +37,9 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
+    private val memoList = mutableListOf<String>()
+    private lateinit var memoAdapter : PlanMemoListAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -67,10 +71,14 @@ class PlanFragment : Fragment() {
         initViewModel()
         initUserName()
 
-
         binding.planEditBtn.setOnClickListener {
             showMemoDialog()
         }
+
+        binding.planAddBtn.setOnClickListener {
+            // 전 페이지로 이동
+        }
+
 
         getTitleOrDate()
 
@@ -80,7 +88,6 @@ class PlanFragment : Fragment() {
 
         with(sharedViewModel) {
             planItems.observe(viewLifecycleOwner, Observer { planItems ->
-                val oldItemSize = adapter.currentList.size
                 adapter.submitList(null)
                 adapter.submitList(planItems)
                 itemTouchHelper.attachToRecyclerView(null)
@@ -114,30 +121,30 @@ class PlanFragment : Fragment() {
 
     private fun initView() = with(binding) {
 
-        binding.planCallBtn.setOnClickListener {
+        planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListDialog()
             fragment.show(parentFragmentManager, "bookmarkListDialog")
         }
 
-        binding.planSearchBtn.setOnClickListener {
+        planSearchBtn.setOnClickListener {
             val fragment = PlanSearchListDialog()
             fragment.show(parentFragmentManager, "searchListDialog")
         }
 
-        planAddBtn.setOnClickListener {
-            val updateDate = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)
-            updateDate?.content = binding.planTextView.text.toString()
-            updateDate?.let { sharedViewModel.addPlanDetail(it)}
-            Toast.makeText(context, "저장이 되었습니다.", Toast.LENGTH_SHORT).show()
-        }
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
+
     }
 
     private fun showMemoDialog() = with(binding) {
+
         val dialogFragment = PlanMemoDialog(requireContext())
         dialogFragment.setOnSaveListener { memoText ->
            memoText?.let {
-               planTextView.text = memoText
-               sharedViewModel.updateMemo(memoText)
+               if(memoText.isNotBlank()) {
+                   sharedViewModel.addMemo(memoText)
+                   planTextView.text = memoText
+
+               }
            }
         }
         dialogFragment.show()
@@ -145,10 +152,17 @@ class PlanFragment : Fragment() {
     }
 
     private fun getTitleOrDate () = with(binding) {
+        val plan = sharedViewModel._plan
 
-        planTextTitle.text = sharedViewModel._plan?.title
+        // null 체크
+        if (plan != null && sharedViewModel.currentPosition >= 0) {
+            planTextTitle.text = plan.title
+            if (plan.planDetailList != null && sharedViewModel.currentPosition < plan.planDetailList!!.size) {
+                planDate.text = plan.planDetailList!![sharedViewModel.currentPosition]?.date
 
-        binding.planDate.text = sharedViewModel._plan?.planDetailList?.get(sharedViewModel.currentPosition)?.date
+            }
+
+        }
 
     }
 
