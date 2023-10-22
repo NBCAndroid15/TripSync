@@ -5,19 +5,27 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.replace
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
+import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.databinding.FragmentSetupBinding
+import com.example.tripsync.model.Plan
+import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.MainFragment
+import com.example.tripsync.ui.fragment.MyPageFragment
+import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import kotlinx.coroutines.launch
 
 class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
@@ -45,6 +53,17 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         initView()
         showUserDialog()
+
+        binding.setupBackBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, MyPageFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        binding.setupPlanAddBtn.setOnClickListener {
+            createPlan()
+        }
 
 
         return view
@@ -106,9 +125,27 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             val fragment = SetupUserAddDialog()
             fragment.show(parentFragmentManager, "setupUserAddDialog")
         }
-
     }
 
+    private fun createPlan() {
+        val title = binding.setupTitleBtn.text.toString()
+        if(title.isEmpty() ) {
+            Toast.makeText(requireContext(), "여행 이름을 정해주세요.", Toast.LENGTH_SHORT)
+                .show()
+            return
+        }
+
+        lifecycleScope.launch {
+            addPlanToFirebase(sharedViewModel._plan)
+        }
+    }
+
+    private suspend fun addPlanToFirebase(plan: Plan) {
+        val planRepository = PlanRepositoryImpl()
+        planRepository.addPlan(plan)
+        Toast.makeText(requireContext(), "계획이 추가되었습니다", Toast.LENGTH_SHORT).show()
+
+    }
 
 }
 

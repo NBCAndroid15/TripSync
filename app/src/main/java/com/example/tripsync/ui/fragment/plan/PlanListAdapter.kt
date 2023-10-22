@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Travel
-import java.util.Collections
 
 class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
