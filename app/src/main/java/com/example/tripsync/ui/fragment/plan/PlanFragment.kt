@@ -75,8 +75,9 @@ class PlanFragment : Fragment() {
             showMemoDialog()
         }
 
-        binding.planAddBtn.setOnClickListener {
+        binding.planCheckBtn.setOnClickListener {
             // 전 페이지로 이동
+            requireActivity().onBackPressed()
         }
 
 

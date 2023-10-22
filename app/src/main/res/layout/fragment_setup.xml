@@ -105,6 +105,8 @@
         android:background="@drawable/plan_btn_background"
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
         android:text="완료"
         app:layout_constraintBottom_toBottomOf="@+id/setup_recycler"
         app:layout_constraintEnd_toEndOf="parent"
