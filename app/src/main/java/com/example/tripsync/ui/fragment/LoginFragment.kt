@@ -117,7 +117,7 @@ class LoginFragment : Fragment() {
             val usersRef = db.collection("users")
 
             // 사용자 정보를 Firebase Firestore에 저장
-            val user = User(email = email, nickname = displayName)
+            val user = User(email = email, nickname = displayName, uid = auth.currentUser!!.uid)
             usersRef.document(auth.currentUser!!.uid).set(user)
                 .addOnSuccessListener {
                     Toast.makeText(context, "Google 로그인을 통해 가입되었습니다.", Toast.LENGTH_SHORT).show()
