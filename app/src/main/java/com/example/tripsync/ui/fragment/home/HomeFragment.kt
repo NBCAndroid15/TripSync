@@ -10,8 +10,10 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
+import com.example.tripsync.model.Plan
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.setup.SetupFragment
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FestivalViewModel
 import com.example.tripsync.viewmodel.FestivalViewModelFactory
 import com.example.tripsync.viewmodel.TravelViewModel
@@ -24,6 +26,7 @@ class HomeFragment : Fragment() {
     private var homeFestivalAdapter = HomeFestivalAdapter(listOf())
     private val travelViewModel: TravelViewModel by viewModels { TravelViewModelFactory() }
     private val festivalViewModel: FestivalViewModel by viewModels { FestivalViewModelFactory() }
+    private val sharedViewModel: SharedViewModel by viewModels()
 
 
     private var _binding: FragmentHomeBinding? = null

@@ -4,11 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.Travel
 import com.example.tripsync.model.User
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
 
@@ -45,6 +48,14 @@ class SharedViewModel : ViewModel() {
 
     fun initPlan(plan: Plan) {
         _plan = plan
+    }
+
+    fun updatePlan() {
+        viewModelScope.launch {
+            PlanRepositoryImpl().run {
+                updatePlan(_plan)
+            }
+        }
     }
 
     fun initPosition( position: Int) {

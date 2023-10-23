@@ -77,6 +77,7 @@ class PlanFragment : Fragment() {
 
         binding.planCheckBtn.setOnClickListener {
             // 전 페이지로 이동
+            sharedViewModel.updatePlan()
             requireActivity().onBackPressed()
         }
 
