@@ -2,11 +2,13 @@ package com.example.tripsync.ui.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.FragmentManager
+import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.tripsync.ui.fragment.BookmarkManageFragment
 import com.example.tripsync.ui.fragment.FriendManageFragment
 
-class MyPageViewPagerAdapter (fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
+class MyPageViewPagerAdapter (fragmentManager: FragmentManager, lifecycle: Lifecycle) : FragmentStateAdapter(fragmentManager, lifecycle) {
 
     private val fragmentList = mutableListOf<Fragment>()
 

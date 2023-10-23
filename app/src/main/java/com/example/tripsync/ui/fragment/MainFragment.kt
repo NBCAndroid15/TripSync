@@ -18,33 +18,27 @@ class MainFragment : Fragment() {
 
     private val title = arrayOf("홈", "검색", "플랜", "게임", "내 정보")
 
-    private val adapter by lazy {
-        ViewPagerFragmentAdapter(requireActivity())
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentMainBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         // 첫 번째 페이지만 비활성화
         binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 binding.mainViewPager.isUserInputEnabled = position != 0
             }
         })
-
-        return binding.root
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
         initView()
     }
 
     private fun initView() {
-        binding.mainViewPager.adapter = adapter
+        binding.mainViewPager.adapter = ViewPagerFragmentAdapter(requireActivity())
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->
             tab.text = title[position]
         }.attach()
