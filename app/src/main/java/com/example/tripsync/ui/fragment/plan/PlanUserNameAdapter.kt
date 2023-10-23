@@ -6,15 +6,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.PlanUsernameItemBinding
-import com.example.tripsync.model.User
 
-class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<User>() {
-        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem.email == newItem.email
+
+class PlanUserNameAdapter : ListAdapter<String, PlanUserNameAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<String>() {
+        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+            return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
+        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
             return oldItem == newItem
         }
 
@@ -22,8 +22,8 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
 ) {
 
     class ViewHolder(private val binding: PlanUsernameItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: User) = with(binding) {
-            planUserNickname.text = item.nickname
+        fun bind(item: String) = with(binding) {
+            planUserNickname.text = item
         }
     }
 

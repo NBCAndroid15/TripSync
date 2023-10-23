@@ -36,7 +36,7 @@ class SignupFragment : Fragment() {
             auth.createUserWithEmailAndPassword(inputId, inputPw)
                 .addOnCompleteListener { result ->
                     if (result.isSuccessful && auth.currentUser != null) {
-                        val user = User(email = inputId, nickname = inputNickname)
+                        val user = User(email = inputId, nickname = inputNickname, uid = auth.currentUser!!.uid)
                         usersRef.document(auth.currentUser!!.uid).set(user)
                             .addOnSuccessListener {
                                 requireActivity().supportFragmentManager.beginTransaction()
