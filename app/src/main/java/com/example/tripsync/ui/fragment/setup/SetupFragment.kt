@@ -56,7 +56,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         binding.setupBackBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MyPageFragment())
+                .replace(R.id.main_frame, MainFragment())
                 .addToBackStack(null)
                 .commit()
         }
