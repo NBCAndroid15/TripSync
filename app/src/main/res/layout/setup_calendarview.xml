@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="400dp"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <DatePicker
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/setup_calendar"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
+        app:mcv_selectionMode="range"
+        app:mcv_selectionColor="#d2d2d2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
         app:mcv_firstDayOfWeek="sunday"
-        android:datePickerMode="calendar"
-        app:mcv_showOtherDates="all"
-        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
+        app:mcv_showOtherDates="all"/>
 
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/okay_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/setup_btn_round"
+        android:text="확인"
+        app:layout_constraintTop_toBottomOf="@+id/setup_calendar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
