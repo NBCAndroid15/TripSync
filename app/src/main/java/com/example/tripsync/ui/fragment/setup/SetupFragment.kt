@@ -92,7 +92,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         }
 
         setupDateBtn.setOnClickListener {
-            val setupCalendarView = SetupCalendarView(selectedDates) { dates ->
+            val setupCalendarView = SetupCalendarView() { dates ->
                 onDateSelected(dates)
             }
             setupCalendarView.show(childFragmentManager, "SetupCalendarView")
