@@ -1,111 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_margin="10dp">
+    android:layout_height="match_parent" >
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mypage_profile_bg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/button_sub_solid"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:id="@+id/mypage_profile_nickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_profile_bg"
+        app:layout_constraintStart_toStartOf="@+id/mypage_profile_bg"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile_bg" />
 
-        <ImageView
-            android:id="@+id/mypage_app_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_launcher_foreground" />
+    <TextView
+        android:id="@+id/mypage_config_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필 관리"
+        android:layout_marginTop="5dp"
+        app:layout_constraintEnd_toEndOf="@+id/mypage_profile_nickname"
+        app:layout_constraintStart_toStartOf="@+id/mypage_profile_nickname"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_profile_nickname" />
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/mypage_profile_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:src="@drawable/ic_launcher_foreground" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/mypage_tab_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorColor="@color/main_defalt"
+        app:tabIndicator="@drawable/tab_button_line"
+        app:tabSelectedTextColor="@color/main_defalt"
+        app:tabRippleColor="@android:color/transparent"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_config_btn" />
 
-        <TextView
-            android:id="@+id/mypage_profile_nickname"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:text="닉네임" />
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/mypage_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/mypage_tab_layout" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/mypage_config_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#F2F2F2"
-            android:background="@drawable/button_main_stroke"
-            android:text="계정 관리" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/mypage_email_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="Email"
-            android:textStyle="bold" />
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/mypage_profile_email"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="userEmail" />
-
-        <TextView
-            android:id="@+id/mypage_travel_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="내 여행 돌아보기"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/mypage_travellist_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="여행지리스트"
-            android:textColor="#336DF3" />
-
-        <TextView
-            android:id="@+id/mypage_friend_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="친구목록"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/mypage_friend_list_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="목록"
-            android:textColor="#336DF3"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"/>
-
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/mypage_logout_btn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#F2F2F2"
-            android:background="@drawable/button_main_stroke"
-            android:text="로그아웃" />
-
-
-    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
