@@ -20,7 +20,7 @@ class AuthRepositoryImpl {
             try {
                 val result = auth.createUserWithEmailAndPassword(email, password).await()
                 val uid = result.user?.uid!!
-                val user = User(email, "test", listOf())
+                val user = User(email, "test", listOf(), uid)
                 usersRef.document(uid).set(user).await()
                 result
             } catch (e: Exception) {
@@ -51,6 +51,21 @@ class AuthRepositoryImpl {
             } else {
                 val docs = usersRef.whereEqualTo("email", auth.currentUser!!.email).get().await()
                 if (docs.documents.size == 0) null else docs.documents[0].toObject(User::class.java)
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun getNameListByUidList(uidList: List<String>) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                val docs = usersRef.whereIn("uid", uidList).get().await()
+                docs.documents.map {
+                    it.toObject(User::class.java)?.nickname ?: ""
+                }
             }
         } catch (e: Exception) {
             null

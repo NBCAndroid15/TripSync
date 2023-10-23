@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.Travel
 import com.example.tripsync.model.User
+import com.google.firebase.auth.FirebaseAuth
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
 
@@ -21,8 +23,8 @@ class SharedViewModel : ViewModel() {
     private val _planItems = MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
     val planItems: LiveData<List<Travel>> get() = _planItems
 
-    private val _userNickName = MutableLiveData<List<User>>(_plan.group)
-    val userNickName : LiveData<List<User>> get() = _userNickName
+    private val _userNickName = MutableLiveData<List<String>>(_plan.group)
+    val userNickName : LiveData<List<String>> get() = _userNickName
 
     private val _memoList = MutableLiveData<List<String>>()
     val memoList: LiveData<List<String>> get() = _memoList
@@ -39,15 +41,25 @@ class SharedViewModel : ViewModel() {
 
     // 초기 plan data class을 초기화시켜주는 메서드
     fun initPlan(title: String, size: Int, dateList: List<String>) {
-        _plan = Plan(title= title, planDetailList = mutableListOf<PlanDetail>().also { plan ->
-            repeat(size) { idx ->
-                plan.add(PlanDetail().also { it.date = dateList[idx] })
-            }
-        })
+        viewModelScope.launch {
+            val curUser = AuthRepositoryImpl().getCurrentUserInfo()
+            val owner = listOf(FirebaseAuth.getInstance().currentUser?.uid ?: "")
+
+            _plan = Plan(title = title, planDetailList = mutableListOf<PlanDetail>().also { plan ->
+                repeat(size) { idx ->
+                    plan.add(PlanDetail().also { it.date = dateList[idx] })
+                }
+            }, group = owner)
+
+            _userNickName.value = listOf(curUser?.nickname ?: "")
+        }
     }
 
     fun initPlan(plan: Plan) {
-        _plan = plan
+        viewModelScope.launch {
+            _plan = plan
+            _userNickName.value = AuthRepositoryImpl().getNameListByUidList(plan.group ?: listOf()) ?: listOf()
+        }
     }
 
     fun updatePlan() {
@@ -72,11 +84,11 @@ class SharedViewModel : ViewModel() {
     fun getUserNickName(nickName: User) {
         // 중복체크
         val currentName = _userNickName.value.orEmpty().toMutableList()
-        currentName?.add(nickName)
+        currentName?.add(nickName.nickname ?: "")
         _userNickName.value = currentName ?: listOf()
         Log.d("setup", _userNickName.value!!.size.toString())
-        _plan.group = currentName.toList() ?: listOf()
-        Log.d("user", _plan.group?.size?.toString() ?: "")
+        _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
+        Log.d("user", _plan.group?.toString() ?: "")
     }
 
     fun updatePlanBookItem(item: Travel) {
