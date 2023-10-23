@@ -1,75 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="15dp"
+    android:layout_marginHorizontal="5dp"
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="10dp"
-        app:cardCornerRadius="10dp"
-        android:elevation="40dp"
+        android:layout_height="150dp"
         android:background="#FFFFFF"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:elevation="40dp"
+        app:cardCornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:strokeColor="#F2F2F2"
         app:strokeWidth="1dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/bookmark_item_thumbnail"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:stateListAnimator="@null">
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground" />
 
-            <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/bookmark_item_thumbnail"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground" />
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_margin="20dp"
-                android:layout_weight="0.5"
-                android:orientation="vertical">
+        <TextView
+            android:id="@+id/bookmark_item_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="여행지 제목"
+            android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/bookmark_item_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="여행지 제목"
-                    android:textStyle="bold" />
+        <TextView
+            android:id="@+id/bookmark_item_addr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="170dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginTop="50dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="여행지 주소" />
 
-                <TextView
-                    android:id="@+id/bookmark_item_addr"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="여행지 주소" />
-
-                <ImageView
-                    android:id="@+id/bookmark_item_delete"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_gravity="end"
-                    android:src="@drawable/ic_bookmark_delete" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/bookmark_item_delete"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="right|bottom"
+            android:visibility="gone"
+            android:src="@drawable/ic_bookmark_delete" />
 
     </com.google.android.material.card.MaterialCardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
