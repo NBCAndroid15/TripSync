@@ -7,6 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.example.tripsync.R
@@ -20,17 +22,24 @@ import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.search.SearchAdapter
 import com.example.tripsync.ui.fragment.search.SearchFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
+import com.example.tripsync.viewmodel.MapViewModel
+import com.naver.maps.map.MapFragment
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailFragment(private val travel: Travel) : Fragment() {
+class DetailFragment(val travel: Travel) : Fragment() {
+
+    lateinit var travelXY : Travel
 
     val bookmarkRepository = BookmarkRepositoryImpl()
     val travelRepository = TravelRepositoryImpl()
     private var _binding: FragmentDetailBinding? = null
+    private val viewModel: MapViewModel by viewModels ()
     private val binding: FragmentDetailBinding
         get() = _binding!!
+
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,11 +58,13 @@ class DetailFragment(private val travel: Travel) : Fragment() {
         binding.detailTvAddr.text = travel.addr
         binding.detailTvRegion.text = travel.area
 
-
+        viewModel.mapXY.value = travel.mapX!! to travel.mapY!!
     }
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         super.onViewCreated(view, savedInstanceState)
         bind(travel)
 
@@ -90,6 +101,7 @@ class DetailFragment(private val travel: Travel) : Fragment() {
         binding.detailBtnGoPlan.setOnClickListener {
             val setupFragment = SetupFragment()
             val fragmentManager = requireActivity().supportFragmentManager
+
             fragmentManager.beginTransaction()
                 .replace(R.id.main_frame, MainFragment.newInstance())
                 .addToBackStack(null)
@@ -98,7 +110,10 @@ class DetailFragment(private val travel: Travel) : Fragment() {
                 .add(R.id.main_frame, setupFragment)
                 .addToBackStack(null)
                 .commit()
+
         }
+
+
 
         binding.detailBtnBookmark.setOnClickListener() {
             val travelToBookmark = (travel)
