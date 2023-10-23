@@ -51,6 +51,8 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
         this.naverMap = p0
+        val line = PolylineOverlay()
+        line.map = naverMap
         sharedViewModel.planItems.observe(viewLifecycleOwner, Observer { locations ->
             Log.d("map", "Selected locations: $locations")
 
@@ -70,7 +72,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                     val numberImage = when(index) {
                         0 -> R.drawable.map_1
                         1 -> R.drawable.map_2
-                        3 -> R.drawable.map_3
+                        2 -> R.drawable.map_3
                         else -> R.drawable.map_2
                     }
                     marker.icon = OverlayImage.fromResource(numberImage)
@@ -82,19 +84,17 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
                     val cameraPosition = CameraPosition(LatLng(location.mapY, location.mapX), 10.0)
                     naverMap.cameraPosition = cameraPosition
-
-                    if (lineLatLng.size >= 2) {
-                        val line = PolylineOverlay()
-                        line.coords = lineLatLng
-                        line.color = Color.GRAY
-                        line.width = 3
-
-                        line.map = naverMap
-                    }
                 }
             }
+            // 마커 동선
+            if (lineLatLng.size >= 2) {
+                line.coords = lineLatLng
+                line.color = Color.GRAY
+                line.width = 3
 
-
+            } else {
+                line.map = null
+            }
         })
     }
 
