@@ -13,11 +13,8 @@ class MyPlanViewModel(private val planRepositoryImpl: PlanRepositoryImpl) : View
     val planList: LiveData<List<Plan>>
         get() = _planList
 
-    init {
-        getPlanList()
-    }
 
-    private fun getPlanList() {
+    fun getPlanList() {
         viewModelScope.launch {
             _planList.value = planRepositoryImpl.getPlanList() ?: listOf()
         }
