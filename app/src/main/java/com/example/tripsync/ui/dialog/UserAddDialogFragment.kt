@@ -1,5 +1,7 @@
 package com.example.tripsync.ui.dialog
 
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -20,6 +22,7 @@ class UserAddDialogFragment : DialogFragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         _binding = FragmentUserAddDialogBinding.inflate(inflater, container, false)
         return binding.root
     }
