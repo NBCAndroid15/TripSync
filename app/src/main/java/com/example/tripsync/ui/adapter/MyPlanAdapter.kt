@@ -6,13 +6,14 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.MyplanPlanItemBinding
 import com.example.tripsync.model.Plan
+import com.example.tripsync.model.PlanDetail
 
-class MyPlanAdapter : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
+class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
     private var planList = listOf<Plan>()
     
-    class ViewHolder (val binding : MyplanPlanItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (val binding : MyplanPlanItemBinding, private val parentAdapter: MyPlanAdapter, private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(plan: Plan) {
-            val adapter = MyPlanDetailAdapter()
+            val adapter = MyPlanDetailAdapter(parentAdapter, gotoPlan)
             binding.myplanDetailRv.adapter = adapter
             binding.myplanDetailRv.layoutManager = LinearLayoutManager(binding.root.context, LinearLayoutManager.VERTICAL, false)
             adapter.setList(plan.planDetailList ?: listOf())
@@ -27,9 +28,13 @@ class MyPlanAdapter : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
         notifyItemRangeChanged(0, this.planList.size)
     }
 
+    fun getPlanByDetailList(planDetailList: List<PlanDetail>) =
+        planList.firstOrNull {
+            it.planDetailList === planDetailList
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MyplanPlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(MyplanPlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), this, gotoPlan)
     }
 
 

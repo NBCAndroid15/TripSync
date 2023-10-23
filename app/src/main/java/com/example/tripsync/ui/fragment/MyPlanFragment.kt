@@ -5,10 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPlanBinding
 import com.example.tripsync.ui.adapter.MyPlanAdapter
+import com.example.tripsync.ui.fragment.plan.PlanFragment
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.MyPlanViewModel
 import com.example.tripsync.viewmodel.MyPlanViewModelFactory
 
@@ -22,8 +26,19 @@ class MyPlanFragment : Fragment() {
         MyPlanViewModelFactory()
     }
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
+
     private val adapter by lazy {
-        MyPlanAdapter()
+        MyPlanAdapter { plan, position ->
+            sharedViewModel.initPlan(plan)
+            sharedViewModel.initPosition(position)
+
+            parentFragmentManager
+                .beginTransaction()
+                .add(R.id.main_frame, PlanFragment.newInstance())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     override fun onCreateView(
@@ -41,7 +56,8 @@ class MyPlanFragment : Fragment() {
 
     private fun initView() {
         binding.myplanRv.adapter = adapter
-        binding.myplanRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.myplanRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.myplanRv.itemAnimator = null
 
         viewModel.planList.observe(viewLifecycleOwner) {
