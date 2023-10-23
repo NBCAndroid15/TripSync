@@ -31,28 +31,25 @@ class SetupCalendarView(private val selectedDates: Set<CalendarDay>,
     }
 
     private fun initView() = with(binding) {
-        setupCalendar.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getTextArray(R.array.custom_weekdays)))
-        setupCalendar.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
 
-        setupCalendar.setOnRangeSelectedListener { widget, dates ->
-            val selectedDates = widget.selectedDates
-            (parentFragment as? SetupFragment)?.onDateSelected(selectedDates.toSet())
-            val distinctSelectedDates = if (selectedDates.isNotEmpty()) {
-                val startDate = selectedDates[0]
-                val endDate = selectedDates[selectedDates.size - 1]
-                if (startDate == endDate) {
-                    setOf(startDate)
-                } else {
-                    selectedDates.toSet()
-                }
-            } else {
-                emptySet()
-            }
+        val datePicker = binding.setupCalendar
 
-            doSomethingWithDistinctDates(distinctSelectedDates)
+
+        datePicker.init(
+            Calendar.getInstance().get(Calendar.YEAR),
+            Calendar.getInstance().get(Calendar.MONTH),
+            Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        ) { view, year, month, dayOfMonth ->
+            val selectedDate = CalendarDay.from(year, month + 1, dayOfMonth) // month parameter is 0-based
+
+            datePicker.minDate = System.currentTimeMillis() - 1000
+            // Process selected date
+            onDateSelected(setOf(selectedDate))
+            doSomethingWithDistinctDates(selectedDates)
             dismiss()
         }
-    }
+
+        }
 
     private fun doSomethingWithDistinctDates(distinctSelectedDates: Set<CalendarDay>) {
         for (date in distinctSelectedDates) {
