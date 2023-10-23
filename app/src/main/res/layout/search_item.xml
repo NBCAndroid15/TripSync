@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="150dp"
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
@@ -35,13 +35,13 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
-                android:layout_weight="0.5"
+                android:layout_weight="0.4"
                 android:scaleType="centerCrop"
                 android:src="@drawable/ic_launcher_foreground" />
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="88dp"
                 android:layout_margin="20dp"
                 android:layout_weight="0.5"
                 android:orientation="vertical">
@@ -50,6 +50,8 @@
                     android:id="@+id/search_item_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
                     android:text="여행지 제목"
                     android:textStyle="bold" />
 
@@ -57,6 +59,8 @@
                     android:id="@+id/search_item_addr"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
+                    android:maxLines="2"
+                    android:ellipsize="end"
                     android:layout_weight="1"
                     android:text="여행지 주소" />
 

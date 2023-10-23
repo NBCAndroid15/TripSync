@@ -47,6 +47,10 @@ class HomeFestivalAdapter(private var items: List<Travel>): RecyclerView.Adapter
             city.text = item.area
             title.text = item.title
             Log.d("지역코드", "${item.area}")
+
+            binding.festivalItemView.setOnClickListener {
+                itemClick?.onFestivalClick(item)
+            }
         }
     }
     fun formatEventDate(eventDate: String): String {
@@ -57,5 +61,13 @@ class HomeFestivalAdapter(private var items: List<Travel>): RecyclerView.Adapter
             return "$year-$month-$day"
         }
         return eventDate // 이상한 형식의 날짜인 경우 그대로 반환
+    }
+
+    interface onFestivalClick {
+        fun onFestivalClick (travel: Travel)
+    }
+    private var itemClick : onFestivalClick? = null
+    fun setOnFestivalClickListener(listener: HomeFragment) {
+        itemClick = listener
     }
 }
