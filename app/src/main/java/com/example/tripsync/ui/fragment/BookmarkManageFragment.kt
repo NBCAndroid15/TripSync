@@ -27,14 +27,6 @@ class BookmarkManageFragment : Fragment() {
 
     private val viewModel: BookmarkManageViewModel by viewModels { BookmarkManageViewModelFactory() }
 
-    private val adapter by lazy {
-        BookmarkManageAdapter {
-            ConfirmDialog.newInstance(it).let { dialog ->
-                dialog.isCancelable = false
-                dialog.show(parentFragmentManager, "ConfirmDialog")
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,7 +42,12 @@ class BookmarkManageFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.bookmarkManageBookmarkRv.adapter = adapter
+        binding.bookmarkManageBookmarkRv.adapter = BookmarkManageAdapter {
+            ConfirmDialog.newInstance(it).let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "ConfirmDialog")
+            }
+        }
         binding.bookmarkManageBookmarkRv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.bookmarkManageBookmarkRv.itemAnimator = null
 
@@ -68,7 +65,7 @@ class BookmarkManageFragment : Fragment() {
         }
 
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
-            adapter.setList(it)
+            (binding.bookmarkManageBookmarkRv.adapter as BookmarkManageAdapter).setList(it)
         }
 
         setFragmentResultListener("deleteConfirm") { _, bundle ->
