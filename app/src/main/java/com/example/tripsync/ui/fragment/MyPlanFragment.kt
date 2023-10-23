@@ -60,6 +60,7 @@ class MyPlanFragment : Fragment() {
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.myplanRv.itemAnimator = null
 
+        viewModel.getPlanList()
         viewModel.planList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }

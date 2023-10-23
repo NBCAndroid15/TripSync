@@ -31,9 +31,7 @@ class MyPageFragment : Fragment() {
 
     private val title = arrayOf("북마크 리스트", "친구 목록")
 
-    private val adapter by lazy {
-        MyPageViewPagerAdapter(requireActivity())
-    }
+
 
     private val viewModel: MyPageViewModel by viewModels { MyPageViewModelFactory() }
 
@@ -52,7 +50,7 @@ class MyPageFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.mypageViewPager.adapter = adapter
+        binding.mypageViewPager.adapter = MyPageViewPagerAdapter(childFragmentManager, lifecycle)
         TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
             tab.text = title[position]
         }.attach()
