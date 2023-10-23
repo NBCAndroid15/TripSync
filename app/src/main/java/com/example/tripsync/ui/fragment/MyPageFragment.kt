@@ -8,20 +8,32 @@ import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPageBinding
+import com.example.tripsync.ui.adapter.BookmarkAreaAdapter
+import com.example.tripsync.ui.adapter.MyPageViewPagerAdapter
+import com.example.tripsync.ui.adapter.ViewPagerFragmentAdapter
 import com.example.tripsync.ui.dialog.UserManageDialog
+import com.example.tripsync.ui.fragment.home.HomeAreaAdapter
 import com.example.tripsync.viewmodel.MyPageViewModel
 import com.example.tripsync.viewmodel.MyPageViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
+import com.google.android.material.tabs.TabLayoutMediator
 
 class MyPageFragment : Fragment() {
 
     private var _binding: FragmentMyPageBinding? = null
     private val binding: FragmentMyPageBinding
         get() = _binding!!
+
+    private val title = arrayOf("북마크 리스트", "친구 목록")
+
+    private val adapter by lazy {
+        MyPageViewPagerAdapter(requireActivity())
+    }
 
     private val viewModel: MyPageViewModel by viewModels { MyPageViewModelFactory() }
 
@@ -40,41 +52,45 @@ class MyPageFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.mypageLogoutBtn.setOnClickListener {
-            viewModel.logout()
-
-            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-            parentFragmentManager
-                .beginTransaction()
-                .replace(R.id.main_frame, LoginFragment.newInstance())
-                .commit()
-        }
-        viewModel.curUser.observe(viewLifecycleOwner) {
-            binding.mypageProfileEmail.text = it?.email ?: "unknown"
-        }
-
-        binding.mypageTravellistBtn.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_frame, MyPlanFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        binding.mypageFriendListBtn.setOnClickListener {
-            parentFragmentManager
-                .beginTransaction()
-                .add(R.id.main_frame, FriendManageFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        binding.mypageConfigBtn.setOnClickListener {
-            UserManageDialog.newInstance().let { dialog ->
-                dialog.isCancelable = false
-                dialog.show(parentFragmentManager, "UserManageDialog")
-            }
-        }
+        binding.mypageViewPager.adapter = adapter
+        TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
+            tab.text = title[position]
+        }.attach()
+//        binding.mypageLogoutBtn.setOnClickListener {
+//            viewModel.logout()
+//
+//            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+//            parentFragmentManager
+//                .beginTransaction()
+//                .replace(R.id.main_frame, LoginFragment.newInstance())
+//                .commit()
+//        }
+//        viewModel.curUser.observe(viewLifecycleOwner) {
+//            binding.mypageProfileEmail.text = it?.email ?: "unknown"
+//        }
+//
+//        binding.mypageTravellistBtn.setOnClickListener {
+//            parentFragmentManager
+//                .beginTransaction()
+//                .add(R.id.main_frame, MyPlanFragment.newInstance())
+//                .addToBackStack(null)
+//                .commit()
+//        }
+//
+//        binding.mypageFriendListBtn.setOnClickListener {
+//            parentFragmentManager
+//                .beginTransaction()
+//                .add(R.id.main_frame, FriendManageFragment.newInstance())
+//                .addToBackStack(null)
+//                .commit()
+//        }
+//
+//        binding.mypageConfigBtn.setOnClickListener {
+//            UserManageDialog.newInstance().let { dialog ->
+//                dialog.isCancelable = false
+//                dialog.show(parentFragmentManager, "UserManageDialog")
+//            }
+//        }
     }
 
     override fun onDestroyView() {
