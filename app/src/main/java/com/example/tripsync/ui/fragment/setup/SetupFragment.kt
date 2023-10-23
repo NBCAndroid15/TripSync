@@ -81,7 +81,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun initView() = with(binding) {
-        setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
+        //setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title

@@ -27,6 +27,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var mapView: MapView
     private lateinit var naverMap: NaverMap
     private val markers = mutableListOf<Marker>()
+    private val line = PolylineOverlay()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
@@ -51,11 +52,9 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
         this.naverMap = p0
-        val line = PolylineOverlay()
-        line.map = naverMap
+
         sharedViewModel.planItems.observe(viewLifecycleOwner, Observer { locations ->
             Log.d("map", "Selected locations: $locations")
-
             // 지도 초기화
             markers.forEach { it.map = null }
             markers.clear()
@@ -91,7 +90,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                 line.coords = lineLatLng
                 line.color = Color.GRAY
                 line.width = 3
-
+                line.map = naverMap
             } else {
                 line.map = null
             }
