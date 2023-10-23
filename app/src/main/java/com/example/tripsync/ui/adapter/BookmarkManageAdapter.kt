@@ -27,7 +27,7 @@ class BookmarkManageAdapter(private val deleteBookmark: (Travel) -> Unit) : Recy
 
     fun setList(bookmarkList : List<Travel>) {
         this.bookmarkList = bookmarkList
-        notifyItemRangeChanged(0, this.bookmarkList.size)
+        notifyDataSetChanged()
     }
 
 

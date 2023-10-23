@@ -10,6 +10,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPageBinding
+import com.example.tripsync.ui.dialog.UserManageDialog
 import com.example.tripsync.viewmodel.MyPageViewModel
 import com.example.tripsync.viewmodel.MyPageViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
@@ -66,6 +67,13 @@ class MyPageFragment : Fragment() {
                 .add(R.id.main_frame, FriendManageFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
+        }
+
+        binding.mypageConfigBtn.setOnClickListener {
+            UserManageDialog.newInstance().let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "UserManageDialog")
+            }
         }
     }
 
