@@ -8,6 +8,7 @@ import com.example.tripsync.R
 import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.ui.fragment.LoginFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
+import com.example.tripsync.ui.fragment.setup.SetupFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -20,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, LoginFragment.newInstance())
+            .add(R.id.main_frame, SetupFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {
