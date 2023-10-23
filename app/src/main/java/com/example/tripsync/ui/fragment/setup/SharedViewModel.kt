@@ -43,6 +43,10 @@ class SharedViewModel : ViewModel() {
         })
     }
 
+    fun initPlan(plan: Plan) {
+        _plan = plan
+    }
+
     fun initPosition( position: Int) {
         val planDetailList = _plan.planDetailList
         if (planDetailList != null && position >= 0 && position < planDetailList.size) {

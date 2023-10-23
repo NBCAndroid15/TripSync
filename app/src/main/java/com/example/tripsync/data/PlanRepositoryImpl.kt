@@ -70,6 +70,38 @@ class PlanRepositoryImpl {
         }
     }
 
+    suspend fun updatePlan(plan: Plan) = withContext(Dispatchers.IO) {
+        try {
+            val curUser = FirebaseAuth.getInstance().currentUser ?: return@withContext null
+            val result = plansRef.whereEqualTo("uid", curUser.uid).get().await()
+
+            if (isExistPlan(plan)) return@withContext null
+
+            if (result.documents.size == 0) {
+                val userPlan = UserPlan(curUser.uid, listOf(plan))
+                plansRef.document().set(userPlan).await()
+            } else {
+                val userPlan = result.documents[0].toObject(UserPlan::class.java)
+                val planList = userPlan?.planList?.toMutableList() ?: mutableListOf()
+
+                val idx = planList.indexOfFirst {
+                    it.title == plan.title
+                }
+                if (idx > -1) {
+                    planList[idx] = plan
+                    val newPlan = userPlan?.copy(planList = planList) ?: UserPlan()
+                    plansRef.document(result.documents[0].id).set(newPlan).await()
+                } else {
+                    null
+                }
+            }
+
+        } catch (e: Exception) {
+            Log.d("fbadd", e.message ?: "unknown error")
+            null
+        }
+    }
+
     suspend fun deletePlan(plan: Plan) = withContext(Dispatchers.IO) {
         try {
             val curUser = FirebaseAuth.getInstance().currentUser ?: return@withContext null

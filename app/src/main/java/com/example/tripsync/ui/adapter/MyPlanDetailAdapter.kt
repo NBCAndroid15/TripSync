@@ -4,14 +4,18 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.MyplanDetailItemBinding
+import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 
-class MyPlanDetailAdapter : RecyclerView.Adapter<MyPlanDetailAdapter.ViewHolder>(){
-    private var planDetailList = listOf<PlanDetail>()
+class MyPlanDetailAdapter(private val parentAdapter: MyPlanAdapter, private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.Adapter<MyPlanDetailAdapter.ViewHolder>(){
+    var planDetailList = listOf<PlanDetail>()
 
-    class ViewHolder (private val binding : MyplanDetailItemBinding) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (private val binding : MyplanDetailItemBinding, private val adapter: MyPlanDetailAdapter, private val parentAdapter: MyPlanAdapter, private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(planDetail: PlanDetail) {
             binding.myplanDetailDate.text = planDetail.date
+            binding.myplanDetailLayout.setOnClickListener {
+                gotoPlan(parentAdapter.getPlanByDetailList(adapter.planDetailList) ?: Plan(), absoluteAdapterPosition)
+            }
         }
     }
 
@@ -22,7 +26,7 @@ class MyPlanDetailAdapter : RecyclerView.Adapter<MyPlanDetailAdapter.ViewHolder>
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MyplanDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
+        return ViewHolder(MyplanDetailItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), this, parentAdapter, gotoPlan)
     }
 
 
