@@ -2,7 +2,6 @@ package com.example.tripsync.ui.fragment.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.tripsync.R
@@ -39,6 +38,18 @@ class HomeTravelAdapter(private var items: List<Travel>): RecyclerView.Adapter<H
                 .error(R.drawable.item_error)
                 .into(image)
             title.text = item.title
+
+            binding.travelItemView.setOnClickListener {
+                itemClick?.onTravelClick(item)
+            }
         }
+    }
+
+    interface onTravelClick {
+        fun onTravelClick (travel: Travel)
+    }
+    private var itemClick : onTravelClick? = null
+    fun setOntravelClickListener(listener: HomeFragment) {
+        itemClick = listener
     }
 }

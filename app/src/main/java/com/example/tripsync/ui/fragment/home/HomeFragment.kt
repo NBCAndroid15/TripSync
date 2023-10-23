@@ -10,23 +10,22 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
-import com.example.tripsync.model.Plan
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.DetailFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
-import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FestivalViewModel
 import com.example.tripsync.viewmodel.FestivalViewModelFactory
 import com.example.tripsync.viewmodel.TravelViewModel
 import com.example.tripsync.viewmodel.TravelViewModelFactory
 
-class HomeFragment : Fragment() {
+class HomeFragment : Fragment(),
+    HomeFestivalAdapter.onFestivalClick, HomeTravelAdapter.onTravelClick {
 
     private lateinit var homeAreaAdapter: HomeAreaAdapter
     private var homeTravelAdapter = HomeTravelAdapter(listOf())
     private var homeFestivalAdapter = HomeFestivalAdapter(listOf())
     private val travelViewModel: TravelViewModel by viewModels { TravelViewModelFactory() }
     private val festivalViewModel: FestivalViewModel by viewModels { FestivalViewModelFactory() }
-    private val sharedViewModel: SharedViewModel by viewModels()
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -74,27 +73,42 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        homeTravelAdapter.setOntravelClickListener (this)
+        homeFestivalAdapter.setOnFestivalClickListener(this)
+
         // 여행 아이템 목록 업데이트
         travelViewModel.getTravelList()
         travelViewModel.travelData.observe(viewLifecycleOwner) { travelList ->
-            val items = travelList.map {
-                Travel(imageUrl = it.imageUrl, title = it.title)
-            }
+
             requireActivity().runOnUiThread {
-                homeTravelAdapter.updateItems(items)
+                homeTravelAdapter.updateItems(travelList)
             }
         }
 
         // 축제 아이템 목록 업데이트
         festivalViewModel.getFestivalList()
         festivalViewModel.festivalData.observe(viewLifecycleOwner) { travelList ->
-            val items = travelList.map {
-                Travel(imageUrl = it.imageUrl, startDate = it.startDate, endDate = it.endDate, area = it.area, title = it.title)
-            }
+
             requireActivity().runOnUiThread {
-                homeFestivalAdapter.updateItems(items)
+                homeFestivalAdapter.updateItems(travelList)
             }
         }
+    }
+
+    override fun onTravelClick(travel: Travel) {
+        val fragment = DetailFragment(travel)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    override fun onFestivalClick(travel: Travel) {
+        val fragment = DetailFragment(travel)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onDestroyView() {
@@ -107,4 +121,5 @@ class HomeFragment : Fragment() {
             return HomeFragment()
         }
     }
+
 }

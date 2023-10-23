@@ -12,20 +12,20 @@
         android:id="@+id/detail_frame_scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginVertical="10dp"
         app:layout_constraintTop_toBottomOf="@+id/view"
         tools:layout_editor_absoluteX="1dp">
 
+
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/detail_main_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dp">
+            android:layout_height="match_parent">
+
 
             <ImageView
                 android:id="@+id/detail_iv_image"
-                android:layout_width="match_parent"
-                android:layout_height="280dp"
-                android:layout_marginTop="56dp"
+                android:layout_width="414dp"
+                android:layout_height="274dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
@@ -69,8 +69,8 @@
                 android:id="@+id/detail_btn_bookmark"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="24dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
                 android:background="@drawable/ic_plus"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/detail_iv_image" />
@@ -93,6 +93,7 @@
                 android:layout_width="match_parent"
 
                 android:layout_height="1dp"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 android:background="#f2f2f2"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -104,6 +105,7 @@
 
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
+                android:layout_margin="10dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -130,7 +132,8 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp">
 
                     <TextView
                         android:id="@+id/detail_tv_content"
@@ -150,6 +153,7 @@
                 android:id="@+id/detail_btn_wish_list"
                 android:layout_width="150dp"
                 android:layout_height="48dp"
+                android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_main_stroke"
@@ -164,6 +168,7 @@
                 android:layout_width="150dp"
                 android:layout_height="48dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_main_solid"
                 android:text="계획 짜볼까?"
@@ -171,7 +176,8 @@
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/scrollView2" />
+                app:layout_constraintTop_toBottomOf="@+id/scrollView2"
+                app:layout_constraintVertical_bias="0.0" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
