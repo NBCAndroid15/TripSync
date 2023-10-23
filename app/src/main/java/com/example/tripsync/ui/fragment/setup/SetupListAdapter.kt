@@ -36,15 +36,13 @@ class SetupListAdapter : ListAdapter<CalendarDay, SetupListAdapter.ViewHolder>(
             setupMakingBtn.text = "${date.year}년 ${date.month}월 ${date.day}일"
 
             setupMakingBtn.setOnClickListener {
-                itemClickListener?.onItemClick(date)
-
-
+                itemClickListener?.onItemClick(absoluteAdapterPosition)
             }
         }
     }
 
     interface OnItemClickListener {
-        fun onItemClick(date: CalendarDay)
+        fun onItemClick(position: Int)
     }
     private var itemClickListener: OnItemClickListener? = null
 

@@ -8,6 +8,16 @@
     android:background="@color/main_light"
     tools:context=".ui.fragment.CoinFragment">
 
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        style="?android:attr/progressBarStyleLarge"
+        android:indeterminateTint="@color/main_defalt"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/coin_text"
         android:layout_width="match_parent"

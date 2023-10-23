@@ -7,6 +7,14 @@
     android:layout_height="match_parent"
     tools:context=".ui.fragment.setup.SetupFragment">
 
+    <ImageView
+        android:id="@+id/setup_back_btn"
+        android:layout_width="40dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_planbooklist_close"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
@@ -19,12 +27,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/setup_title_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
         android:layout_marginStart="10dp"
+        android:layout_marginTop="24dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/plan_btn_background"
         android:text="@string/setup_travel_name"
@@ -39,26 +48,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/plan_btn_background"
-        android:textColor="@color/white"
         android:text="@string/setup_select_date"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/setup_title_btn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/setup_user_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:text="함께 여행 갈 사람"
+        android:textColor="@color/white"
+        android:background="@drawable/plan_btn_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn">
+
+
+
+    </androidx.appcompat.widget.AppCompatButton
+     >
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:text="@string/setup_making_plan"
         android:textSize="25dp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/setup_user_add" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/setup_recycler"
@@ -69,6 +97,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/setup_plan_add_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/plan_btn_background"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        android:text="완료"
+        app:layout_constraintBottom_toBottomOf="@+id/setup_recycler"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

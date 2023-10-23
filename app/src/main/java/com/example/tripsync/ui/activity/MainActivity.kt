@@ -1,22 +1,13 @@
 package com.example.tripsync.ui.activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
-import com.example.tripsync.data.AuthRepositoryImpl
-import com.example.tripsync.data.TravelRepositoryImpl
 import com.example.tripsync.databinding.ActivityMainBinding
-import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.LoginFragment
-import com.example.tripsync.ui.fragment.BookmarkManageFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
-import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListFragment
-import com.example.tripsync.ui.fragment.search.SearchFragment
-import com.example.tripsync.ui.fragment.setup.SetupFragment
-import kotlinx.coroutines.launch
 
 
 class MainActivity : AppCompatActivity() {
@@ -31,8 +22,6 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .add(R.id.main_frame, LoginFragment.newInstance())
             .commit()
-
-
         /*
         lifecycleScope.launch {
             val travelRepositoryImpl = TravelRepositoryImpl()
