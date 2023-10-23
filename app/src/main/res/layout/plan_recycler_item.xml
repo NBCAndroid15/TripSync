@@ -46,7 +46,7 @@
         android:layout_width="38dp"
         android:layout_height="41dp"
         android:background="@drawable/ic_plan_item_number"
-        android:backgroundTint="@color/plan_number_color"
+        android:backgroundTint="#B200FF"
         android:text="1"
         android:textColor="@color/white"
         android:textSize="20dp"

@@ -1,21 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="400dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+    <DatePicker
         android:id="@+id/setup_calendar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginHorizontal="24dp"
-        android:layout_marginTop="24dp"
-        android:theme="@style/CalenderViewCustom"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:mcv_dateTextAppearance="@style/CalenderViewDateCustomText"
-        app:mcv_showOtherDates="all"
-        app:mcv_selectionMode="range"
         app:mcv_firstDayOfWeek="sunday"
-        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText"/>
+        android:datePickerMode="calendar"
+        app:mcv_showOtherDates="all"
+        app:mcv_weekDayTextAppearance="@style/CalenderViewWeekCustomText" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
