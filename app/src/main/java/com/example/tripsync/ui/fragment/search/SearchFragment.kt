@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
@@ -47,18 +48,36 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
 
         binding.searchEtSearchbar.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                insearch(binding.searchEtSearchbar.text.toString())
-                return@setOnKeyListener true
-                val imm =
-                    context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
+                val searchText = binding.searchEtSearchbar.text.toString()
 
+                if (searchText.isNotEmpty()) {
+                    // 검색어가 비어있지 않은 경우 검색 수행
+                    insearch(searchText)
+
+                    // 키보드 숨김
+                    val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                    imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
+                    Toast.makeText(requireContext(), "검색했어요!", Toast.LENGTH_SHORT).show()
+                } else {
+                    // 검색어가 비어있을 때 토스트 메시지 표시
+                    Toast.makeText(requireContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show()
+                }
+                return@setOnKeyListener true
             }
             return@setOnKeyListener false
         }
 
         binding.searchBtn.setOnClickListener {
+            val searchText = binding.searchEtSearchbar.text.toString()
+            if (searchText.isNotEmpty()) {
             insearch(binding.searchEtSearchbar.text.toString())
+
+                val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
+                Toast.makeText(requireContext(), "검색했어요!", Toast.LENGTH_SHORT).show()
+            }  else {
+                Toast.makeText(requireContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
