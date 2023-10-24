@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.setup.setupuseradd
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.databinding.FragmentPlanUserAddDialogBinding
 import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
+import com.example.tripsync.ui.fragment.setup.SetupFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModelFactory
@@ -30,6 +32,8 @@ class SetupUserAddDialog : DialogFragment() {
             sendUserNickname(item)
         }
     }
+
+    private var onDissListener : (() -> Unit)? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -60,6 +64,17 @@ class SetupUserAddDialog : DialogFragment() {
             }
         }
         initView()
+    }
+
+    override fun onDismiss(dialog: DialogInterface) {
+        super.onDismiss(dialog)
+
+        onDissListener?.invoke()
+
+    }
+
+    fun setOnDismiss (listener: () -> Unit) {
+        onDissListener = listener
     }
 
     private fun initView()= with(binding) {

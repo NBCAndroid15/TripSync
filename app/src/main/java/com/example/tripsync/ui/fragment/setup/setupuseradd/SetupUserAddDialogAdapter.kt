@@ -29,6 +29,7 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
 
             planUserAddBtn.setOnClickListener {
                 itemClickCallBack(user)
+
                 Toast.makeText(binding.root.context, "추가", Toast.LENGTH_SHORT).show()
             }
         }

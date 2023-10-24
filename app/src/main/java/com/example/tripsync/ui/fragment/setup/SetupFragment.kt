@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.setup
 
+import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -21,6 +22,7 @@ import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.MainFragment
 import com.example.tripsync.ui.fragment.MyPageFragment
+import com.example.tripsync.ui.fragment.MyPlanFragment
 import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
@@ -63,6 +65,11 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         binding.setupPlanAddBtn.setOnClickListener {
             createPlan()
+
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, MyPlanFragment())
+                .addToBackStack(null)
+                .commit()
         }
 
 
@@ -81,11 +88,13 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun initView() = with(binding) {
-        //setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
                 sharedViewModel._plan.title = setupTitleBtn.text.toString()
+
+                setupUserAdd.visibility = View.VISIBLE
+                setupTitleCheck.visibility = View.VISIBLE
 
             }
             setupTitleDialog.show()
@@ -100,11 +109,17 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     }
 
-    fun onDateSelected(selectedDates: Set<CalendarDay>) {
+    private fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
         val dateList = selectedDates.toList().map { it.toString() }.sorted()
         sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
         adapter.submitList(selectedDates.toList())
+
+        if (selectedDates.isNotEmpty()) {
+            binding.setupTitleBtn.visibility = View.VISIBLE
+            binding.setupDateCheck.visibility = View.VISIBLE
+        }
+
     }
 
     override fun onItemClick(position: Int) {
@@ -123,7 +138,12 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     private fun showUserDialog() = with(binding) {
         setupUserAdd.setOnClickListener {
             val fragment = SetupUserAddDialog()
+
+            fragment.setOnDismiss {
+                binding.setupUserCheck.visibility = View.VISIBLE
+            }
             fragment.show(parentFragmentManager, "setupUserAddDialog")
+
         }
     }
 
