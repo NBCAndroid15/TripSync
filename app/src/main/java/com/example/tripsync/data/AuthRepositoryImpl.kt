@@ -3,6 +3,7 @@ package com.example.tripsync.data
 import com.example.tripsync.model.User
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.tasks.await
@@ -81,6 +82,15 @@ class AuthRepositoryImpl {
             }
         } catch (e: Exception) {
             null
+        }
+    }
+
+    suspend fun checkNickname(nickname: String): Boolean = withContext(Dispatchers.IO) {
+        try {
+            val nicknameDocuments = usersRef.whereEqualTo("nickname", nickname).get().await()
+            nicknameDocuments.isEmpty
+        } catch (e: Exception) {
+            false
         }
     }
 

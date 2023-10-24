@@ -1,6 +1,7 @@
 package com.example.tripsync.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPageBinding
+import com.example.tripsync.databinding.FragmentUserManageDialogBinding
 import com.example.tripsync.ui.adapter.BookmarkAreaAdapter
 import com.example.tripsync.ui.adapter.MyPageViewPagerAdapter
 import com.example.tripsync.ui.adapter.ViewPagerFragmentAdapter
@@ -18,13 +20,17 @@ import com.example.tripsync.ui.dialog.UserManageDialog
 import com.example.tripsync.ui.fragment.home.HomeAreaAdapter
 import com.example.tripsync.viewmodel.MyPageViewModel
 import com.example.tripsync.viewmodel.MyPageViewModelFactory
+import com.google.android.gms.auth.api.Auth
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.material.tabs.TabLayoutMediator
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MyPageFragment : Fragment() {
 
+    private lateinit var auth: FirebaseAuth
     private var _binding: FragmentMyPageBinding? = null
     private val binding: FragmentMyPageBinding
         get() = _binding!!
@@ -54,15 +60,35 @@ class MyPageFragment : Fragment() {
         TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
             tab.text = title[position]
         }.attach()
-//        binding.mypageLogoutBtn.setOnClickListener {
-//            viewModel.logout()
-//
-//            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-//            parentFragmentManager
-//                .beginTransaction()
-//                .replace(R.id.main_frame, LoginFragment.newInstance())
-//                .commit()
-//        }
+
+        auth = FirebaseAuth.getInstance()
+        val db = FirebaseFirestore.getInstance()
+        val usersRef = db.collection("users")
+        val currentUserUid = auth.currentUser?.uid
+
+        // 현재 유저 닉네임 불러오기
+        if (currentUserUid != null) {
+            usersRef.document(currentUserUid)
+                .get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        val nickname = documentSnapshot.getString("nickname")
+                        binding.mypageProfileNickname.text = nickname
+                    }
+                }
+        }
+
+
+
+        binding.mypageLogoutBtn.setOnClickListener {
+            viewModel.logout()
+
+            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_frame, LoginFragment.newInstance())
+                .commit()
+        }
 //        viewModel.curUser.observe(viewLifecycleOwner) {
 //            binding.mypageProfileEmail.text = it?.email ?: "unknown"
 //        }
@@ -83,12 +109,12 @@ class MyPageFragment : Fragment() {
 //                .commit()
 //        }
 //
-//        binding.mypageConfigBtn.setOnClickListener {
-//            UserManageDialog.newInstance().let { dialog ->
-//                dialog.isCancelable = false
-//                dialog.show(parentFragmentManager, "UserManageDialog")
-//            }
-//        }
+        binding.mypageConfigBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, UserManageDialog())
+                .addToBackStack(null)
+                .commit()
+            }
     }
 
     override fun onDestroyView() {
