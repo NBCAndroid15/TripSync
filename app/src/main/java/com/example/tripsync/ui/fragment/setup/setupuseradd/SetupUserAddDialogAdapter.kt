@@ -28,8 +28,14 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
             planUserEmail.text = user.email
 
             planUserAddBtn.setOnClickListener {
-                itemClickCallBack(user)
-                Toast.makeText(binding.root.context, "추가", Toast.LENGTH_SHORT).show()
+                if (isUserCheck(user)) {
+                    Toast.makeText(binding.root.context, "이미 추가된 일행입니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    itemClickCallBack(user)
+                    addedUsers.add(user.nickname ?: user.uid ?: "")
+
+                    Toast.makeText(binding.root.context, "추가", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
@@ -46,5 +52,11 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
         holder.bind(getItem(position))
     }
 
+    private val addedUsers = mutableSetOf<String>()
+
+    private fun isUserCheck(user: User): Boolean {
+        val key = user.nickname ?: user.uid ?: ""
+        return addedUsers.contains(key)
+    }
 
 }

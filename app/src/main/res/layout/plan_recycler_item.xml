@@ -5,120 +5,101 @@
     android:layout_width="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:orientation="horizontal"
+        android:layout_width="350dp"
+        android:layout_height="138dp"
         android:layout_marginTop="10dp"
+        android:orientation="horizontal"
         android:weightSum="4">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#eeeeee"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:background="#eeeeee" />
 
         <TextView
             android:id="@+id/tvRemove"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_weight="3"
             android:background="@color/red"
-            android:text="삭제"
-            android:textColor="@color/white"
             android:gravity="center"
-            android:layout_weight="3"/>
+            android:text="삭제"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipe_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="10dp"
-    android:background="@color/plan_item_color"
-    android:clickable="true"
-    android:focusable="true">
-
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/plan_list_number"
-        android:layout_width="38dp"
-        android:layout_height="41dp"
-        android:background="@drawable/ic_plan_item_number"
-        android:backgroundTint="#B200FF"
-        android:text="1"
-        android:textColor="@color/white"
-        android:textSize="20dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/plan_item_cardView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/plan_item_cardView"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="10dp"
-        app:cardCornerRadius="10dp"
-        app:cardElevation="2dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_marginHorizontal="5dp"
+        android:clipToPadding="false">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/swipe_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="150dp"
+            android:background="#FFFFFF"
+            android:elevation="40dp"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:strokeColor="#F2F2F2"
+            app:strokeWidth="1dp">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/plan_list_number"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:background="@drawable/plan_item_number"
+                android:text="1"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                />
 
             <ImageView
                 android:id="@+id/plan_item_image"
                 android:layout_width="150dp"
-                android:layout_height="100dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:src="@drawable/plan_map_test"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.113"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_launcher_foreground" />
+
 
             <TextView
                 android:id="@+id/plan_item_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="170dp"
                 android:layout_marginTop="20dp"
-                android:maxLines="2"
-                android:text="여행지"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/plan_item_image"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_marginEnd="20dp"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:text="여행지 제목"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/plan_item_where"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="5dp"
-                android:text="장소"
-                android:textColor="#838080"
-                app:layout_constraintStart_toEndOf="@+id/plan_item_image"
-                app:layout_constraintTop_toBottomOf="@+id/plan_item_title" />
+                android:layout_marginStart="170dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="50dp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:text="여행지 주소" />
 
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.cardview.widget.CardView>
+        </com.google.android.material.card.MaterialCardView>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </FrameLayout>

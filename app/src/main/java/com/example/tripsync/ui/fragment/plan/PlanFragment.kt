@@ -16,6 +16,7 @@ import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
@@ -37,8 +38,9 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
-    private val memoList = mutableListOf<String>()
-    private lateinit var memoAdapter : PlanMemoListAdapter
+    private lateinit var bookmarkAdapter : PlanBookmarkListAdapter
+
+
 
 
     override fun onCreateView(
@@ -52,6 +54,7 @@ class PlanFragment : Fragment() {
         adapter = PlanListAdapter {
             deletePlanItem(it)
         }
+
 
         recyclerView.adapter = adapter
 
@@ -95,6 +98,7 @@ class PlanFragment : Fragment() {
                 itemTouchHelper.attachToRecyclerView(null)
                 itemTouchHelper.attachToRecyclerView(binding.planRecycler)
                 adapter.notifyDataSetChanged()
+
             })
 
         }
