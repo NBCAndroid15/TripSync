@@ -58,12 +58,13 @@ class FriendManageFragment : Fragment() {
         viewModel.curUser.observe(viewLifecycleOwner) {
             adapter.setList(it?.friends ?: listOf())
         }
-//        binding.friendManageAddBtn.setOnClickListener {
-//            FriendAddDialogFragment.newInstance().let {dialog ->
-//                dialog.isCancelable = false
-//                dialog.show(parentFragmentManager, "FriendAddDialog")
-//            }
-//        }
+
+        binding.friendManageAddBtn.setOnClickListener {
+            FriendAddDialogFragment.newInstance().let {dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "FriendAddDialog")
+            }
+        }
     }
 
 
