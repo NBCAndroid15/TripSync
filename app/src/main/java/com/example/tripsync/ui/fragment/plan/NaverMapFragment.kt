@@ -72,6 +72,14 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                         0 -> R.drawable.map_1
                         1 -> R.drawable.map_2
                         2 -> R.drawable.map_3
+                        3 -> R.drawable.map_4
+                        4 -> R.drawable.map_5
+                        5 -> R.drawable.map_6
+                        6 -> R.drawable.map_7
+                        7 -> R.drawable.map_8
+                        8 -> R.drawable.map_69
+                        9 -> R.drawable.map_10
+
                         else -> R.drawable.map_2
                     }
                     marker.icon = OverlayImage.fromResource(numberImage)
