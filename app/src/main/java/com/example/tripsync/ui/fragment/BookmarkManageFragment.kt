@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
@@ -25,7 +26,7 @@ class BookmarkManageFragment : Fragment() {
     private val binding: FragmentBookmarkManageBinding
         get() = _binding!!
 
-    private val viewModel: BookmarkManageViewModel by viewModels { BookmarkManageViewModelFactory() }
+    private val viewModel: BookmarkManageViewModel by activityViewModels { BookmarkManageViewModelFactory() }
 
 
     override fun onCreateView(
@@ -39,6 +40,11 @@ class BookmarkManageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getBookmarkList()
     }
 
     private fun initView() {
@@ -60,7 +66,7 @@ class BookmarkManageFragment : Fragment() {
 
         bookmarkAreaAdapter.itemClick = object : BookmarkAreaAdapter.ItemClick {
             override fun onClick(keyword: String) {
-                //travelViewModel.updateKeyword(keyword)
+                viewModel.getBookmarkListWithFilter(keyword)
             }
         }
 
