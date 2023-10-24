@@ -1,13 +1,16 @@
 package com.example.tripsync.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPlanBinding
 import com.example.tripsync.ui.adapter.MyPlanAdapter
@@ -22,7 +25,7 @@ class MyPlanFragment : Fragment() {
     private val binding: FragmentMyPlanBinding
         get() = _binding!!
 
-    private val viewModel: MyPlanViewModel by viewModels {
+    private val viewModel: MyPlanViewModel by activityViewModels {
         MyPlanViewModelFactory()
     }
 
@@ -49,6 +52,11 @@ class MyPlanFragment : Fragment() {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewModel.getPlanList()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
@@ -58,8 +66,10 @@ class MyPlanFragment : Fragment() {
         binding.myplanRv.adapter = adapter
         binding.myplanRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.myplanRv.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
         binding.myplanRv.itemAnimator = null
 
+        Log.d("myplanInit", "myplanInit")
         viewModel.getPlanList()
         viewModel.planList.observe(viewLifecycleOwner) {
             adapter.setList(it)
