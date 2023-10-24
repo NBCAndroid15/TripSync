@@ -53,7 +53,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         adapter.setOnItemClickListener(this)
 
-        initView()
         showUserDialog()
 
         binding.setupBackBtn.setOnClickListener {
@@ -72,6 +71,10 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .commit()
         }
 
+        test()
+        initView()
+
+
 
         return view
     }
@@ -88,23 +91,32 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun initView() = with(binding) {
+        setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
                 sharedViewModel._plan.title = setupTitleBtn.text.toString()
+                Log.d("title", setupTitleBtn.text.toString())
 
-                setupUserAdd.visibility = View.VISIBLE
-                setupTitleCheck.visibility = View.VISIBLE
+                sharedViewModel.setUserVisible(true)
 
             }
             setupTitleDialog.show()
         }
 
         setupDateBtn.setOnClickListener {
-            val setupCalendarView = SetupCalendarView() { dates ->
-                onDateSelected(dates)
+            if (sharedViewModel._isDateSelected.value == true) {
+                sharedViewModel.setTitleVisible(false)
+                sharedViewModel.setUserVisible(false)
+                sharedViewModel.setUserCheck(false)
+                sharedViewModel._isDateSelected.value = false
+                adapter.submitList(emptyList())
+            } else {
+                val setupCalendarView = SetupCalendarView() { dates ->
+                    onDateSelected(dates)
+                }
+                setupCalendarView.show(childFragmentManager, "SetupCalendarView")
             }
-            setupCalendarView.show(childFragmentManager, "SetupCalendarView")
         }
 
     }
@@ -112,12 +124,17 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     private fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
         val dateList = selectedDates.toList().map { it.toString() }.sorted()
+        binding.setupTitleBtn.text = "여행 이름을 정해주세요!"
         sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
         adapter.submitList(selectedDates.toList())
 
         if (selectedDates.isNotEmpty()) {
-            binding.setupTitleBtn.visibility = View.VISIBLE
-            binding.setupDateCheck.visibility = View.VISIBLE
+            sharedViewModel.setTitleVisible(true)
+            sharedViewModel.setUserVisible(false)
+            sharedViewModel.setUserCheck(false)
+
+        } else {
+            sharedViewModel.setUserVisible(false)
         }
 
     }
@@ -140,7 +157,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             val fragment = SetupUserAddDialog()
 
             fragment.setOnDismiss {
-                binding.setupUserCheck.visibility = View.VISIBLE
+                sharedViewModel.setUserCheck(true)
             }
             fragment.show(parentFragmentManager, "setupUserAddDialog")
 
@@ -165,6 +182,22 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         planRepository.addPlan(plan)
         Toast.makeText(requireContext(), "계획이 추가되었습니다", Toast.LENGTH_SHORT).show()
 
+    }
+
+    private fun test()=with(binding){
+        sharedViewModel.isTitleVisible.observe(viewLifecycleOwner) { isVisible ->
+            setupTitleBtn.visibility = if (isVisible) View.VISIBLE else View.GONE
+            setupDateCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
+
+        sharedViewModel.isUserVisible.observe(viewLifecycleOwner) { isVisible ->
+            setupUserAdd.visibility = if (isVisible) View.VISIBLE else View.GONE
+            setupTitleCheck.visibility = if(isVisible) View.VISIBLE else View.GONE
+        }
+
+        sharedViewModel.isUserCheck.observe(viewLifecycleOwner) { isVisible ->
+            setupUserCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
     }
 
 }

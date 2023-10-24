@@ -32,12 +32,38 @@ class SharedViewModel : ViewModel() {
 
     private val _memoList = MutableLiveData<List<String>>()
 
-    private val _titleVisible = MutableLiveData(false)
-    val titleVisible: LiveData<Boolean> get() = _titleVisible
+/*
+*
+* SetupFragment의 Titlebtn, Userbtn, check
+* 아이템들의 visible 관리
+*
+* */
 
-    fun updateTitleVisible(visible: Boolean) {
-        _titleVisible.value = visible
+    private val _isTitleVisible = MutableLiveData(false)
+    val isTitleVisible: LiveData<Boolean> get() = _isTitleVisible
+
+    private val _isUserVisible = MutableLiveData(false)
+    val isUserVisible: LiveData<Boolean> get() = _isUserVisible
+
+    private val _isUserCheck = MutableLiveData(false)
+    val isUserCheck : LiveData<Boolean> = _isUserCheck
+
+     val _isDateSelected = MutableLiveData(false)
+    val isDateSelected: LiveData<Boolean> get() = _isDateSelected
+
+
+    fun setTitleVisible(visible: Boolean) {
+        _isTitleVisible.value = visible
     }
+
+    fun setUserVisible(visible: Boolean) {
+        _isUserVisible.value = visible
+    }
+
+    fun setUserCheck(visible: Boolean) {
+        _isUserCheck.value = visible
+    }
+
 
 
 
