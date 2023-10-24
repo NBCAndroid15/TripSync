@@ -41,7 +41,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
                 .into(planItemImage)
 
             planItemTitle.text = item.title
-            planItemWhere.text = item.area
+            planItemWhere.text = item.addr
             planListNumber.text = (currentList.indexOf(item) + 1).toString()
 
 
