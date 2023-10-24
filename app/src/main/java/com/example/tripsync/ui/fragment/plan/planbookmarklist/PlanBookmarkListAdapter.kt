@@ -2,6 +2,7 @@ package com.example.tripsync.ui.fragment.plan.planbookmarklist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -38,6 +39,7 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Unit ): 
 
             binding.planBooklistBtn.setOnClickListener {
                 itemClickCallBack(item)
+
             }
 
             planbookListItemTitle.text = item.title
