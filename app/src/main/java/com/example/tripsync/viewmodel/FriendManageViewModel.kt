@@ -38,7 +38,7 @@ class FriendManageViewModel(private val authRepositoryImpl: AuthRepositoryImpl) 
         }
     }
 
-    private fun getCurrentUserInfo() {
+    fun getCurrentUserInfo() {
         viewModelScope.launch {
             _curUser.value = authRepositoryImpl.getCurrentUserInfo()
         }
