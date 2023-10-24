@@ -102,7 +102,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
-        val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }.sorted()
+        val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }
         sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
         adapter.submitList(dateList)
     }
