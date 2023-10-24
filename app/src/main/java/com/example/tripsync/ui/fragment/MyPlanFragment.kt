@@ -8,7 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPlanBinding
 import com.example.tripsync.ui.adapter.MyPlanAdapter
@@ -64,6 +66,7 @@ class MyPlanFragment : Fragment() {
         binding.myplanRv.adapter = adapter
         binding.myplanRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.myplanRv.addItemDecoration(DividerItemDecoration(requireContext(), VERTICAL))
         binding.myplanRv.itemAnimator = null
 
         Log.d("myplanInit", "myplanInit")
