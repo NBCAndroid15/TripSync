@@ -8,40 +8,15 @@
     android:background="#FFFFFF">
 
     <TextView
-        android:id="@+id/friend_manage_edit_btn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_sub_solid"
-        android:gravity="center|center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="편집"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/friend_manage_add_btn"
         android:layout_width="80dp"
         android:layout_height="40dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
         android:background="@drawable/button_sub_solid"
         android:gravity="center|center_horizontal"
-        android:visibility="gone"
         android:text="추가"
-        app:layout_constraintEnd_toStartOf="@+id/friend_manage_edit_btn"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/friend_manage_save_btn"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_sub_solid"
-        android:gravity="center|center_horizontal"
-        android:layout_marginTop="20dp"
-        android:text="편집"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/friend_manage_friend_rv"
@@ -49,7 +24,7 @@
         android:layout_height="0dp"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1"
-        app:layout_constraintTop_toBottomOf="@+id/friend_manage_edit_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/friend_manage_add_btn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

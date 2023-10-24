@@ -1,85 +1,82 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/view_round_white_6"
-    android:minWidth="400dp"
-    android:orientation="vertical"
-    android:padding="20dp">
+    android:paddingHorizontal="20dp"
+    android:paddingVertical="30dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="친구 추가"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <TextView
+            android:id="@+id/friend_add_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="친구 추가"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:foregroundGravity="center"
-        android:layout_margin="10dp"
-        android:backgroundTint="#F2F2F2"
-        app:cardCornerRadius="15dp">
-
-        <LinearLayout
+        <EditText
+            android:id="@+id/friend_add_dialog_search_text"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_gray_light"
+            android:hint="닉네임을 입력해주세요"
+            android:maxLines="1"
+            android:paddingStart="25dp"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friend_add_title" />
 
-            <EditText
-                android:id="@+id/friend_add_dialog_search_text"
-                android:layout_width="0dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:autofillHints="닉네임을 입력해주세요"
-                android:background="@android:color/transparent"
-                android:maxLines="1"
-                android:gravity="center_vertical|start"
-                android:hint="닉네임을 입력해주세요"
-                android:imeOptions="actionDone"
-                android:inputType="text"
-                android:padding="15dp"/>
+        <ImageView
+            android:id="@+id/friend_add_dialog_search_btn"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="20dp"
+            android:src="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/friend_add_dialog_search_text"
+            app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_search_text"
+            app:layout_constraintTop_toTopOf="@+id/friend_add_dialog_search_text" />
 
-            <ImageView
-                android:id="@+id/friend_add_dialog_search_btn"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.1"
-                android:src="@drawable/ic_search" />
-        </LinearLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/friend_add_dialog_friend_rv"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_search_text" />
 
-    </com.google.android.material.card.MaterialCardView>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/friend_add_dialog_friend_rv"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:paddingHorizontal="10dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal"
-        android:padding="5dp">
-
-        <androidx.appcompat.widget.AppCompatButton
+        <TextView
             android:id="@+id/friend_add_no_btn"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:background="@drawable/button_main_stroke"
+            android:layout_width="165dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/button_sub_solid"
+            android:gravity="center|center_horizontal"
             android:text="뒤로가기"
-            android:textSize="14sp" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_friend_rv"
+            app:layout_constraintStart_toStartOf="@+id/friend_add_dialog_friend_rv"
+            app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_friend_rv" />
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </LinearLayout>
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
