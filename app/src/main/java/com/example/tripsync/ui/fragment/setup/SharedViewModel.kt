@@ -27,8 +27,13 @@ class SharedViewModel : ViewModel() {
     val userNickName : LiveData<List<String>> get() = _userNickName
 
     private val _memoList = MutableLiveData<List<String>>()
-    val memoList: LiveData<List<String>> get() = _memoList
 
+    private val _titleVisible = MutableLiveData(false)
+    val titleVisible: LiveData<Boolean> get() = _titleVisible
+
+    fun updateTitleVisible(visible: Boolean) {
+        _titleVisible.value = visible
+    }
 
 
 
@@ -77,8 +82,6 @@ class SharedViewModel : ViewModel() {
             _planItems.value = _plan.planDetailList?.get(currentPosition)?.travelList?.toMutableList()
             Log.d("position", currentPosition.toString())
         }
-//        Log.d("initDate", _plan.planDetailList?.get(position)?.date ?: "null")
-//        currentPosition = position
     }
 
     fun getUserNickName(nickName: User) {
