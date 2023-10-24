@@ -27,6 +27,14 @@
         <item name="android:textColor">@drawable/calendar_selector_textcolor</item>
     </style>
 
+    <style name="Circle" parent="">
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Round" parent="">
+        <item name="cornerSize">20%</item>
+    </style>
+
 
 
 

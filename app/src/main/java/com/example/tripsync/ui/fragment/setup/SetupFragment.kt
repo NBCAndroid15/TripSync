@@ -53,6 +53,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         adapter.setOnItemClickListener(this)
 
+        initView()
         showUserDialog()
 
         binding.setupBackBtn.setOnClickListener {
@@ -123,10 +124,10 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     private fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
-        val dateList = selectedDates.toList().map { it.toString() }.sorted()
+        val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }
         binding.setupTitleBtn.text = "여행 이름을 정해주세요!"
         sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
-        adapter.submitList(selectedDates.toList())
+        adapter.submitList(dateList)
 
         if (selectedDates.isNotEmpty()) {
             sharedViewModel.setTitleVisible(true)
