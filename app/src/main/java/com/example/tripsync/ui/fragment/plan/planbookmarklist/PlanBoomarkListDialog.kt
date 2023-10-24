@@ -52,7 +52,7 @@ class PlanBoomarkListDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val width = WindowManager.LayoutParams.MATCH_PARENT
-        val height = 1500
+        val height = WindowManager.LayoutParams.MATCH_PARENT
 
         dialog?.window?.setLayout(width, height)
 

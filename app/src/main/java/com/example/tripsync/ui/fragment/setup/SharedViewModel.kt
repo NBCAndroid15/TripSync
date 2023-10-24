@@ -108,39 +108,46 @@ class SharedViewModel : ViewModel() {
         val currentItem = _planItems.value.orEmpty()
 
         if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            _planItems.value = currentItem + listOf(
-                Travel(
-                    imageUrl = item.imageUrl,
-                    title = item.title,
-                    addr = item.addr,
-                    area = item.area,
-                    mapX = item.mapX,
-                    mapY = item.mapY,
-                    category = item.category,
-                    tel = item.tel
+            if(currentItem.size < 10) {
+                _planItems.value = currentItem + listOf(
+                    Travel(
+                        imageUrl = item.imageUrl,
+                        title = item.title,
+                        addr = item.addr,
+                        area = item.area,
+                        mapX = item.mapX,
+                        mapY = item.mapY,
+                        category = item.category,
+                        tel = item.tel
+                    )
                 )
-            )
+                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+            } else {
+            }
         }
-        _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+
     }
     fun updatePlanSearchItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
         if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            _planItems.value = currentItem + listOf(
-                Travel(
-                    imageUrl = item.imageUrl,
-                    title = item.title,
-                    addr = item.addr,
-                    area = item.area,
-                    mapX = item.mapX,
-                    mapY = item.mapY,
-                    category = item.category,
-                    tel = item.tel
+            if(currentItem.size < 10 ) {
+                _planItems.value = currentItem + listOf(
+                    Travel(
+                        imageUrl = item.imageUrl,
+                        title = item.title,
+                        addr = item.addr,
+                        area = item.area,
+                        mapX = item.mapX,
+                        mapY = item.mapY,
+                        category = item.category,
+                        tel = item.tel
+                    )
                 )
-            )
+                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+            }
         }
-        _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+
     }
 
     // planfragment에서 아이템을 삭제하기 위한 메서드
