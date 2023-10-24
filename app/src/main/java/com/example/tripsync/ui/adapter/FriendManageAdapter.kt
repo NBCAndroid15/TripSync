@@ -15,7 +15,7 @@ class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerVi
         fun bind(user: User) {
             binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
-            binding.friendManageDeleteFriendBtn.setOnClickListener {
+            binding.friendManageDeleteBtn.setOnClickListener {
                 deleteFriend(user)
             }
         }
