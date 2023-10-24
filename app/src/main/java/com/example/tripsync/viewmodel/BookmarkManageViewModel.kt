@@ -13,6 +13,8 @@ class BookmarkManageViewModel(private val bookmarkRepositoryImpl: BookmarkReposi
     val bookmarkList: LiveData<List<Travel>>
         get() = _bookmarkList
 
+    private val orgList = mutableListOf<Travel>()
+
     init {
         getBookmarkList()
     }
@@ -20,7 +22,20 @@ class BookmarkManageViewModel(private val bookmarkRepositoryImpl: BookmarkReposi
     fun getBookmarkList() {
         viewModelScope.launch {
             _bookmarkList.value = bookmarkRepositoryImpl.getBookmarkList() ?: listOf()
+            orgList.clear()
+            orgList.addAll(_bookmarkList.value!!)
         }
+    }
+
+    fun getBookmarkListWithFilter(filter: String) {
+        if (filter == "전체") {
+            _bookmarkList.value = orgList
+        } else {
+            _bookmarkList.value = orgList.filter {
+                it.area?.contains(filter) ?: false
+            }
+        }
+
     }
 
     fun deleteBookmarkList(travel: Travel) {
