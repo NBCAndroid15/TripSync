@@ -26,17 +26,19 @@ class PlanBoomarkListDialog : DialogFragment() {
 
     private val adapter by lazy {
         PlanBookmarkListAdapter {item ->
-            sendItem(item)
+            if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
+                sendItem(item)
+                return@PlanBookmarkListAdapter true
+            } else {
+                return@PlanBookmarkListAdapter false
+            }
         }
     }
 
     private val viewModel: BookmarkManageViewModel by viewModels { BookmarkManageViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -52,7 +54,7 @@ class PlanBoomarkListDialog : DialogFragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val width = WindowManager.LayoutParams.MATCH_PARENT
-        val height = 1500
+        val height = WindowManager.LayoutParams.MATCH_PARENT
 
         dialog?.window?.setLayout(width, height)
 

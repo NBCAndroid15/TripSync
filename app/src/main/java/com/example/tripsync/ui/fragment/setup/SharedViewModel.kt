@@ -1,6 +1,10 @@
 package com.example.tripsync.ui.fragment.setup
 
+import android.content.ContentProvider
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -27,7 +31,38 @@ class SharedViewModel : ViewModel() {
     val userNickName : LiveData<List<String>> get() = _userNickName
 
     private val _memoList = MutableLiveData<List<String>>()
-    val memoList: LiveData<List<String>> get() = _memoList
+
+/*
+*
+* SetupFragment의 Titlebtn, Userbtn, check
+* 아이템들의 visible 관리
+*
+* */
+
+    private val _isTitleVisible = MutableLiveData(false)
+    val isTitleVisible: LiveData<Boolean> get() = _isTitleVisible
+
+    private val _isUserVisible = MutableLiveData(false)
+    val isUserVisible: LiveData<Boolean> get() = _isUserVisible
+
+    private val _isUserCheck = MutableLiveData(false)
+    val isUserCheck : LiveData<Boolean> = _isUserCheck
+
+     val _isDateSelected = MutableLiveData(false)
+    val isDateSelected: LiveData<Boolean> get() = _isDateSelected
+
+
+    fun setTitleVisible(visible: Boolean) {
+        _isTitleVisible.value = visible
+    }
+
+    fun setUserVisible(visible: Boolean) {
+        _isUserVisible.value = visible
+    }
+
+    fun setUserCheck(visible: Boolean) {
+        _isUserCheck.value = visible
+    }
 
 
 
@@ -77,57 +112,68 @@ class SharedViewModel : ViewModel() {
             _planItems.value = _plan.planDetailList?.get(currentPosition)?.travelList?.toMutableList()
             Log.d("position", currentPosition.toString())
         }
-//        Log.d("initDate", _plan.planDetailList?.get(position)?.date ?: "null")
-//        currentPosition = position
     }
 
     fun getUserNickName(nickName: User) {
-        // 중복체크
         val currentName = _userNickName.value.orEmpty().toMutableList()
-        currentName?.add(nickName.nickname ?: "")
-        _userNickName.value = currentName ?: listOf()
-        Log.d("setup", _userNickName.value!!.size.toString())
-        _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
-        Log.d("user", _plan.group?.toString() ?: "")
+        if (!currentName.contains(nickName.nickname)) {
+            currentName.add(nickName.nickname ?: "")
+            _userNickName.value = currentName.toList()
+        }
+
+        val groupList = _plan.group.orEmpty().toMutableList()
+        if (!groupList.contains(nickName.uid)) {
+            groupList.add(nickName.uid ?: "")
+            _plan.group = groupList.toList()
+        }
+//            _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
+
     }
 
     fun updatePlanBookItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
         if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            _planItems.value = currentItem + listOf(
-                Travel(
-                    imageUrl = item.imageUrl,
-                    title = item.title,
-                    addr = item.addr,
-                    area = item.area,
-                    mapX = item.mapX,
-                    mapY = item.mapY,
-                    category = item.category,
-                    tel = item.tel
+            if(currentItem.size < 10) {
+                _planItems.value = currentItem + listOf(
+                    Travel(
+                        imageUrl = item.imageUrl,
+                        title = item.title,
+                        addr = item.addr,
+                        area = item.area,
+                        mapX = item.mapX,
+                        mapY = item.mapY,
+                        category = item.category,
+                        tel = item.tel
+                    )
                 )
-            )
+                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+            } else {
+            }
         }
-        _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+
     }
     fun updatePlanSearchItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
         if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            _planItems.value = currentItem + listOf(
-                Travel(
-                    imageUrl = item.imageUrl,
-                    title = item.title,
-                    addr = item.addr,
-                    area = item.area,
-                    mapX = item.mapX,
-                    mapY = item.mapY,
-                    category = item.category,
-                    tel = item.tel
+            if(currentItem.size < 10 ) {
+                _planItems.value = currentItem + listOf(
+                    Travel(
+                        imageUrl = item.imageUrl,
+                        title = item.title,
+                        addr = item.addr,
+                        area = item.area,
+                        mapX = item.mapX,
+                        mapY = item.mapY,
+                        category = item.category,
+                        tel = item.tel
+                    )
                 )
-            )
+                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+            }
         }
-        _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+
     }
 
     // planfragment에서 아이템을 삭제하기 위한 메서드

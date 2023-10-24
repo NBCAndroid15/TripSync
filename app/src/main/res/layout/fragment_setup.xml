@@ -29,31 +29,56 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/setup_title_btn"
+        android:id="@+id/setup_date_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/setup_btn_round"
-        android:text="@string/setup_travel_name"
+        android:text="@string/setup_select_date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
 
+    <ImageView
+        android:id="@+id/setup_date_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        android:src="@drawable/ic_setup_check"
+        app:layout_constraintEnd_toEndOf="@+id/setup_date_btn"
+        app:layout_constraintTop_toTopOf="@+id/setup_date_btn" />
+
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/setup_date_btn"
+        android:id="@+id/setup_title_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
+        android:visibility="gone"
         android:background="@drawable/setup_btn_round"
-        android:text="@string/setup_select_date"
+        android:text="@string/setup_travel_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_title_btn" />
+        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn" />
+
+    <ImageView
+        android:id="@+id/setup_title_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_setup_check"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/setup_title_btn"
+        app:layout_constraintTop_toTopOf="@+id/setup_title_btn" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/setup_user_add"
@@ -63,22 +88,31 @@
         android:layout_marginTop="5dp"
         android:layout_marginEnd="10dp"
         android:text="함께 여행 갈 사람"
+        android:visibility="gone"
         android:background="@drawable/setup_btn_round"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/setup_date_btn">
+        app:layout_constraintTop_toBottomOf="@+id/setup_title_btn"/>
 
+    <ImageView
+        android:id="@+id/setup_user_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_setup_check"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="20dp"
+        android:elevation="10dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/setup_user_add"
+        app:layout_constraintTop_toTopOf="@+id/setup_user_add" />
 
-
-    </androidx.appcompat.widget.AppCompatButton
-     >
 
     <TextView
         android:id="@+id/textView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="24dp"
         android:text="@string/setup_making_plan"
         android:textSize="25dp"
         android:textStyle="bold"
