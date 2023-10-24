@@ -59,7 +59,6 @@
             android:layout_marginEnd="15dp"
             android:layout_marginBottom="15dp"
             android:layout_gravity="right|bottom"
-            android:visibility="gone"
             android:src="@drawable/ic_bookmark_delete" />
 
     </com.google.android.material.card.MaterialCardView>
