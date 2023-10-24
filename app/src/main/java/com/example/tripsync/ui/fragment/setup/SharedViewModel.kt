@@ -1,6 +1,10 @@
 package com.example.tripsync.ui.fragment.setup
 
+import android.content.ContentProvider
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -85,13 +89,19 @@ class SharedViewModel : ViewModel() {
     }
 
     fun getUserNickName(nickName: User) {
-        // 중복체크
         val currentName = _userNickName.value.orEmpty().toMutableList()
-        currentName?.add(nickName.nickname ?: "")
-        _userNickName.value = currentName ?: listOf()
-        Log.d("setup", _userNickName.value!!.size.toString())
-        _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
-        Log.d("user", _plan.group?.toString() ?: "")
+        if (!currentName.contains(nickName.nickname)) {
+            currentName.add(nickName.nickname ?: "")
+            _userNickName.value = currentName.toList()
+        }
+
+        val groupList = _plan.group.orEmpty().toMutableList()
+        if (!groupList.contains(nickName.uid)) {
+            groupList.add(nickName.uid ?: "")
+            _plan.group = groupList.toList()
+        }
+//            _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
+
     }
 
     fun updatePlanBookItem(item: Travel) {
