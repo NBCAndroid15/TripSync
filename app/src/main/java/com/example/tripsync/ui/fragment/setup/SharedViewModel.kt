@@ -64,9 +64,6 @@ class SharedViewModel : ViewModel() {
         _isUserCheck.value = visible
     }
 
-
-
-
     fun addMemo(memo: String) {
         val curremtMemo = _memoList.value.orEmpty().toMutableList()
         curremtMemo.add(memo)

@@ -2,6 +2,7 @@ package com.example.tripsync.ui.fragment.plan.plansearchlist
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +10,7 @@ import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanSearchListItemBinding
 import com.example.tripsync.model.Travel
 
-class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Unit ) : ListAdapter<Travel, PlanSearchListAdapter.ViewHolder> (
+class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) : ListAdapter<Travel, PlanSearchListAdapter.ViewHolder> (
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -40,7 +41,9 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Unit ) : L
                 .into(planSearchThumbnail)
 
             planSearchCheck.setOnClickListener {
-                itemClickCallBack(item)
+                if(!itemClickCallBack(item)) {
+                    Toast.makeText(binding.root.context, "여행지는 최대 10개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                }
             }
 
             planSearchTitle.text = item.title
