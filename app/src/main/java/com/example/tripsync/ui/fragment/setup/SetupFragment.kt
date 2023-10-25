@@ -147,6 +147,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         val planFragment = PlanFragment()
 
         requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
             .replace(R.id.main_frame, planFragment)
             .addToBackStack(null)
             .commit()

@@ -13,8 +13,8 @@
         android:layout_margin="10dp"
         android:backgroundTint="#FFFFFF"
         app:cardCornerRadius="15dp"
-        app:strokeColor="#F2F2F2"
-        app:strokeWidth="2dp">
+        app:strokeColor="#DDDDDD"
+        app:strokeWidth="1dp">
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:app="http://schemas.android.com/apk/res-auto"

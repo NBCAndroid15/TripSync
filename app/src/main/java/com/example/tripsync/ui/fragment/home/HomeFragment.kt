@@ -62,6 +62,7 @@ class HomeFragment : Fragment(),
 
         binding.homeStartplanBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .replace(R.id.main_frame, SetupFragment())
                 .addToBackStack(null)
                 .commit()
@@ -98,6 +99,7 @@ class HomeFragment : Fragment(),
     override fun onTravelClick(travel: Travel) {
         val fragment = DetailFragment(travel)
         requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
             .add(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
@@ -106,6 +108,7 @@ class HomeFragment : Fragment(),
     override fun onFestivalClick(travel: Travel) {
         val fragment = DetailFragment(travel)
         requireActivity().supportFragmentManager.beginTransaction()
+            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
             .add(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
