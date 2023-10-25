@@ -53,6 +53,7 @@ class DetailFragment(val travel: Travel) : Fragment() {
     private fun bind(travel: Travel) {
         Glide.with(binding.root.context)
             .load(travel.imageUrl)
+            .error(R.drawable.item_error)
             .into(binding.detailIvImage)
         binding.detailTvName.text = travel.title
         binding.detailTvAddr.text = travel.addr
