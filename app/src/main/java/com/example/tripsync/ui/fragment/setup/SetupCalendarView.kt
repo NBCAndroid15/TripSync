@@ -7,7 +7,7 @@ import com.example.tripsync.R
 import com.example.tripsync.databinding.SetupCalendarviewBinding
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
-import java.util.Calendar
+
 
 
 class SetupCalendarView(

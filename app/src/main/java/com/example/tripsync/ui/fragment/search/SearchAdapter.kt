@@ -36,12 +36,9 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         notifyItemRangeInserted(0, this.searchList.size)
     }
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(SearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-
 
     override fun getItemCount(): Int {
         return searchList.size

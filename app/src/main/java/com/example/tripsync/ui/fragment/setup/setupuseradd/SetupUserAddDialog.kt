@@ -7,13 +7,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.databinding.FragmentPlanUserAddDialogBinding
 import com.example.tripsync.model.User
-import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBookmarkListAdapter
-import com.example.tripsync.ui.fragment.setup.SetupFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModelFactory
@@ -29,7 +28,12 @@ class SetupUserAddDialog : DialogFragment() {
 
     private val adapter by lazy {
         SetupUserAddDialogAdapter {item ->
-            sendUserNickname(item)
+            if (isUserCheck(item)) {
+                Toast.makeText(requireContext(), "이미 추가된 일행입니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                sendUserNickname(item)
+                Toast.makeText(requireContext(), "추가", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
@@ -86,5 +90,10 @@ class SetupUserAddDialog : DialogFragment() {
     private fun sendUserNickname(name: User) {
         Log.d("SetupUserAddDialog", "선택된 아이템: ${name.nickname}")
         sharedViewModel.getUserNickName(name)
+    }
+
+    private fun isUserCheck (user: User) : Boolean {
+        val addUser = sharedViewModel.userNickName.value.orEmpty()
+        return user.nickname in addUser
     }
 }
