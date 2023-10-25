@@ -24,21 +24,20 @@ class SharedViewModel : ViewModel() {
     var _plan = Plan()
     var currentPosition = 0
 
-    private val _planItems =
-        MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
+    private val _planItems = MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
     val planItems: LiveData<List<Travel>> get() = _planItems
 
     private val _userNickName = MutableLiveData<List<String>>(_plan.group)
-    val userNickName: LiveData<List<String>> get() = _userNickName
+    val userNickName : LiveData<List<String>> get() = _userNickName
 
     private val _memoList = MutableLiveData<List<String>>()
 
-    /*
-    *
-    * SetupFragment의 Titlebtn, Userbtn, check
-    * 아이템들의 visible 관리
-    *
-    * */
+/*
+*
+* SetupFragment의 Titlebtn, Userbtn, check
+* 아이템들의 visible 관리
+*
+* */
 
     private val _isTitleVisible = MutableLiveData(false)
     val isTitleVisible: LiveData<Boolean> get() = _isTitleVisible
@@ -193,6 +192,10 @@ class SharedViewModel : ViewModel() {
         _planItems.value = currentItem
         _plan.planDetailList?.get(currentPosition)?.travelList = currentItem
     }
+
+
+
+
 
 
 }

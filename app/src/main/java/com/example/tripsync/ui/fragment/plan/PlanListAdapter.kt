@@ -44,7 +44,6 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
             planItemWhere.text = item.addr
             planListNumber.text = (currentList.indexOf(item) + 1).toString()
 
-
             tvRemove.setOnClickListener {
                 val itemPositionToDelete = absoluteAdapterPosition
                 Log.d("PlanListAdapter", "클릭: $itemPositionToDelete")

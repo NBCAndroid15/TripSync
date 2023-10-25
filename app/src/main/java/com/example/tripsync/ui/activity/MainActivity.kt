@@ -23,7 +23,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, MyPlanFragment.newInstance())
+            .add(R.id.main_frame, SetupFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {

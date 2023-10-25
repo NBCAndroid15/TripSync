@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
@@ -38,7 +40,7 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
-    private lateinit var bookmarkAdapter : PlanBookmarkListAdapter
+    private lateinit var naverMapFragment: NaverMapFragment
 
 
 
@@ -89,11 +91,29 @@ class PlanFragment : Fragment() {
         }
 
         binding.planCheckBtn.setOnClickListener {
+            // 전 페이지로 이동
             sharedViewModel.updatePlan()
             requireActivity().onBackPressed()
         }
 
+        naverMapFragment = childFragmentManager.findFragmentById(R.id.naver_map_fragment) as NaverMapFragment
+
+        naverMapFragment
+            .mapView.setOnTouchListener { v, event ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.scrollview.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    binding.scrollview.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+                false
+        }
+
+
         getTitleOrDate()
+
     }
 
     private fun initViewModel() {
@@ -168,6 +188,7 @@ class PlanFragment : Fragment() {
             }
         }
         dialogFragment.show()
+
     }
 
     private fun getTitleOrDate () = with(binding) {
@@ -194,5 +215,7 @@ class PlanFragment : Fragment() {
             binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
     }
+
+
 
 }

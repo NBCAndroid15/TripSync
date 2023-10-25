@@ -19,10 +19,19 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
     private val _getSearchItem = MutableLiveData<List<Travel>>()
     val getSearchItem: LiveData<List<Travel>> get() = _getSearchItem
 
+    private var page = 1
     fun updateSearchItem (keyword: String) {
         viewModelScope.launch {
             Log.d("Plan", "keyword: $keyword")
-            _getSearchItem.value = travelRepositoryImpl.getTravelInfo(1, keyword )
+//            _getSearchItem.value = travelRepositoryImpl.getTravelInfo(page, keyword )
+            val searchItem = travelRepositoryImpl.getTravelInfo(page, keyword )
+            val resultItem = _getSearchItem.value.orEmpty().toMutableList()
+            resultItem.addAll(searchItem)
+            _getSearchItem.value = resultItem
+            page++
+
         }
     }
+
+
 }

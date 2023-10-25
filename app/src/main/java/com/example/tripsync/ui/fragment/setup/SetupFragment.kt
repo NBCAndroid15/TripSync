@@ -1,6 +1,5 @@
 package com.example.tripsync.ui.fragment.setup
 
-import android.content.DialogInterface
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,21 +8,14 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.replace
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.data.PlanRepositoryImpl
 import com.example.tripsync.databinding.FragmentSetupBinding
 import com.example.tripsync.model.Plan
-import com.example.tripsync.model.PlanDetail
-import com.example.tripsync.model.User
 import com.example.tripsync.ui.fragment.MainFragment
-import com.example.tripsync.ui.fragment.MyPageFragment
 import com.example.tripsync.ui.fragment.MyPlanFragment
-import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -61,6 +53,11 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .replace(R.id.main_frame, MainFragment())
                 .addToBackStack(null)
                 .commit()
+
+            // 뒤로 가기 누를 시 버튼들의 가시성 초기화
+            sharedViewModel.setTitleVisible(false)
+            sharedViewModel.setUserVisible(false)
+            sharedViewModel.setUserCheck(false)
         }
 
         binding.setupPlanAddBtn.setOnClickListener {
@@ -72,10 +69,8 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .commit()
         }
 
-        test()
+        initVisible()
         initView()
-
-
 
         return view
     }
@@ -185,7 +180,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     }
 
-    private fun test()=with(binding){
+    private fun initVisible()=with(binding){
         sharedViewModel.isTitleVisible.observe(viewLifecycleOwner) { isVisible ->
             setupTitleBtn.visibility = if (isVisible) View.VISIBLE else View.GONE
             setupDateCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
