@@ -56,26 +56,7 @@ class SetupCalendarView(
 
     }
 
-    private fun findDatesInRange(startDate: CalendarDay, endDate: CalendarDay): List<CalendarDay> {
-        val datesInRange = mutableListOf<CalendarDay>()
-        var currentDay = startDate
-
-        while (!currentDay.isAfter(endDate)) {
-            datesInRange.add(currentDay)
-            currentDay = currentDay.plusDays(1)
-        }
-        return datesInRange
-    }
 
 }
 
-private fun CalendarDay.plusDays(days: Int): CalendarDay {
-    val calendar = Calendar.getInstance()
-    calendar.set(year, month - 1, day)
-    calendar.add(Calendar.DAY_OF_MONTH, days)
-    val newYear = calendar.get(Calendar.YEAR)
-    val newMonth = calendar.get(Calendar.MONTH) + 1
-    val newDay = calendar.get(Calendar.DAY_OF_MONTH)
 
-    return CalendarDay.from(newYear, newMonth, newDay)
-}

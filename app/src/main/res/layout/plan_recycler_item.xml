@@ -54,14 +54,14 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_list_number"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"
                 android:background="@drawable/plan_item_number"
                 android:text="1"
                 android:textColor="@color/white"
-                android:textSize="20dp"
+                android:textSize="10dp"
                 android:textStyle="bold"
                 />
 
