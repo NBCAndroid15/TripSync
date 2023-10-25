@@ -48,6 +48,7 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         return ViewHolder(SearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
 
+
     override fun getItemCount(): Int {
         return searchList.size
     }

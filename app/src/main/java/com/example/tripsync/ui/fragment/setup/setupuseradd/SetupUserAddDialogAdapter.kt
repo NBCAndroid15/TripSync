@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.PlanUserAddItemBinding
-import com.example.tripsync.model.Travel
 import com.example.tripsync.model.User
 
 class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): ListAdapter<User, SetupUserAddDialogAdapter.ViewHolder>(
@@ -28,14 +27,8 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
             planUserEmail.text = user.email
 
             planUserAddBtn.setOnClickListener {
-                if (isUserCheck(user)) {
-                    Toast.makeText(binding.root.context, "이미 추가된 일행입니다.", Toast.LENGTH_SHORT).show()
-                } else {
                     itemClickCallBack(user)
-                    addedUsers.add(user.nickname ?: user.uid ?: "")
 
-                    Toast.makeText(binding.root.context, "추가", Toast.LENGTH_SHORT).show()
-                }
             }
         }
     }
@@ -52,11 +45,5 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
         holder.bind(getItem(position))
     }
 
-    private val addedUsers = mutableSetOf<String>()
-
-    private fun isUserCheck(user: User): Boolean {
-        val key = user.nickname ?: user.uid ?: ""
-        return addedUsers.contains(key)
-    }
 
 }

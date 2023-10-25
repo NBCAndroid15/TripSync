@@ -8,40 +8,19 @@
     android:background="#FFFFFF"
     tools:context=".ui.fragment.plan.PlanFragment">
 
-    <!--    <data>-->
-    <!--        <variable-->
-    <!--            name="planViewModel"-->
-    <!--            type="com.example.tripsync.ui.fragment.plan.PlanViewModel" />-->
-    <!--        <variable-->
-    <!--            name="plan"-->
-    <!--            type="com.example.tripsync.model.Plan" />-->
-    <!--    </data>-->
 
-    <!--<FrameLayout-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_height="match_parent"-->
-    <!--    -->
-    <!--    tools:context=".ui.fragment.plan.PlanFragment">-->
-
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scrollview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/textView2"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="10dp"-->
-            <!--                android:layout_marginTop="32dp"-->
-            <!--                android:text="@string/plan_write_plan"-->
-            <!--                android:textSize="25dp"-->
-            <!--                android:textStyle="bold"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toTopOf="parent" />-->
 
             <TextView
                 android:id="@+id/plan_text_title"
@@ -55,24 +34,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!--            <TextView-->
-            <!--                android:id="@+id/plan_text_where"-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_marginStart="10dp"-->
-            <!--                android:text="여행장소(ex:부산)"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />-->
-
-            <!--            <View-->
-            <!--                android:id="@+id/plan_view"-->
-            <!--                android:layout_width="1dp"-->
-            <!--                android:layout_height="15dp"-->
-            <!--                android:layout_marginStart="4dp"-->
-            <!--                android:layout_marginTop="4dp"-->
-            <!--                android:background="@color/gray_medium"-->
-            <!--                app:layout_constraintStart_toEndOf="@+id/plan_text_where"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/plan_text_title" />-->
 
             <TextView
                 android:id="@+id/plan_date"
@@ -102,6 +63,8 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler">
 
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
@@ -123,6 +86,7 @@
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
+
 
                     <TextView
                         android:id="@+id/plan_text_view"
@@ -153,7 +117,7 @@
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_call_bookmark"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
+                app:layout_constraintTop_toBottomOf="@+id/naver_map_fragment" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_search_btn"
@@ -164,45 +128,30 @@
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_search_destination"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/naver_map" />
+                app:layout_constraintTop_toBottomOf="@+id/naver_map_fragment" />
 
 
-            <FrameLayout
-                android:id="@+id/naver_map"
+            <fragment
+                android:id="@+id/naver_map_fragment"
+                android:name="com.example.tripsync.ui.fragment.plan.NaverMapFragment"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_cardview">
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview"/>
 
-                <fragment
-                    android:id="@+id/naver_map_fragment"
-                    android:name="com.example.tripsync.ui.fragment.plan.NaverMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
-
-            </FrameLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/plan_recycler"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:overScrollMode="never"
                 app:layout_constraintBottom_toTopOf="@+id/plan_check_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_call_btn" />
-
-            <!--            <androidx.recyclerview.widget.RecyclerView-->
-            <!--                android:id="@+id/plan_memo_recycler"-->
-            <!--                android:layout_width="match_parent"-->
-            <!--                android:layout_height="match_parent"-->
-            <!--                android:layout_marginBottom="16dp"-->
-            <!--                app:layout_constraintBottom_toBottomOf="parent"-->
-            <!--                app:layout_constraintEnd_toEndOf="parent"-->
-            <!--                app:layout_constraintStart_toStartOf="parent"-->
-            <!--                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />-->
 
 
             <androidx.appcompat.widget.AppCompatButton
@@ -224,8 +173,7 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
-    <!--</FrameLayout>-->
+    </androidx.core.widget.NestedScrollView>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
