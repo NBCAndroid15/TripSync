@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.SearchItemBinding
 import com.example.tripsync.model.Travel
 
@@ -18,6 +19,7 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         fun bind(travel: Travel) {
             Glide.with(binding.root.context)
                 .load(travel.imageUrl)
+                .error(R.drawable.item_error)
                 .into(binding.searchItemThumbnail)
             binding.searchItemTitle.text = travel.title
             binding.searchItemAddr.text = travel.addr
@@ -36,12 +38,15 @@ class SearchAdapter () : RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
         notifyItemRangeInserted(0, this.searchList.size)
     }
 
-
+    fun addItems(newItems: List<Travel>) {
+        val curSize = searchList.size
+        searchList = searchList + newItems
+        notifyItemRangeInserted(curSize, newItems.size)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(SearchItemBinding.inflate(LayoutInflater.from(parent.context), parent, false))
     }
-
 
     override fun getItemCount(): Int {
         return searchList.size

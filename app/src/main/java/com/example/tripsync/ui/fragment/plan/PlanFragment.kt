@@ -55,6 +55,7 @@ class PlanFragment : Fragment() {
             deletePlanItem(it)
         }
 
+        initVisible()
 
         recyclerView.adapter = adapter
 
@@ -70,23 +71,29 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         initView()
         initViewModel()
         initUserName()
 
-        binding.planEditBtn.setOnClickListener {
+        val initialText = binding.planTextView.text.toString()
+        if (initialText.isNotEmpty()) {
+            sharedViewModel.setHint(false)
+        } else {
+            sharedViewModel.setHint(true)
+        }
+
+
+        binding.planTextView.setOnClickListener {
             showMemoDialog()
         }
 
         binding.planCheckBtn.setOnClickListener {
-            // 전 페이지로 이동
             sharedViewModel.updatePlan()
             requireActivity().onBackPressed()
         }
 
-
         getTitleOrDate()
-
     }
 
     private fun initViewModel() {
@@ -139,22 +146,28 @@ class PlanFragment : Fragment() {
 
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
 
+        if (binding.planTextView.text.isNotEmpty()){
+            sharedViewModel.setHint(false)
+        }
     }
 
     private fun showMemoDialog() = with(binding) {
-
-        val dialogFragment = PlanMemoDialog(requireContext())
+        val initialText = planTextView.text.toString()
+        val dialogFragment = PlanMemoDialog(requireContext(), initialText)
         dialogFragment.setOnSaveListener { memoText ->
-           memoText?.let {
-               if(memoText.isNotBlank()) {
-                   sharedViewModel.addMemo(memoText)
-                   planTextView.text = memoText
-
-               }
-           }
+            memoText?.let {
+                if (memoText.isNotBlank()) {
+                    sharedViewModel.addMemo(memoText)
+                    planTextView.text = memoText
+                    sharedViewModel.setHint(false)
+                } else {
+                    sharedViewModel.addMemo("")
+                    planTextView.text = ""
+                    sharedViewModel.setHint(true)
+                }
+            }
         }
         dialogFragment.show()
-
     }
 
     private fun getTitleOrDate () = with(binding) {
@@ -176,5 +189,10 @@ class PlanFragment : Fragment() {
         sharedViewModel.planRemoveItem(item)
     }
 
+    private fun initVisible () {
+        sharedViewModel.ishint.observe(viewLifecycleOwner){isVisible ->
+            binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
+    }
 
 }

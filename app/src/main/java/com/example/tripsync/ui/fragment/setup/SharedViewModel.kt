@@ -24,20 +24,21 @@ class SharedViewModel : ViewModel() {
     var _plan = Plan()
     var currentPosition = 0
 
-    private val _planItems = MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
+    private val _planItems =
+        MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
     val planItems: LiveData<List<Travel>> get() = _planItems
 
     private val _userNickName = MutableLiveData<List<String>>(_plan.group)
-    val userNickName : LiveData<List<String>> get() = _userNickName
+    val userNickName: LiveData<List<String>> get() = _userNickName
 
     private val _memoList = MutableLiveData<List<String>>()
 
-/*
-*
-* SetupFragment의 Titlebtn, Userbtn, check
-* 아이템들의 visible 관리
-*
-* */
+    /*
+    *
+    * SetupFragment의 Titlebtn, Userbtn, check
+    * 아이템들의 visible 관리
+    *
+    * */
 
     private val _isTitleVisible = MutableLiveData(false)
     val isTitleVisible: LiveData<Boolean> get() = _isTitleVisible
@@ -46,11 +47,17 @@ class SharedViewModel : ViewModel() {
     val isUserVisible: LiveData<Boolean> get() = _isUserVisible
 
     private val _isUserCheck = MutableLiveData(false)
-    val isUserCheck : LiveData<Boolean> = _isUserCheck
+    val isUserCheck: LiveData<Boolean> = _isUserCheck
 
-     val _isDateSelected = MutableLiveData(false)
+    val _isDateSelected = MutableLiveData(false)
     val isDateSelected: LiveData<Boolean> get() = _isDateSelected
 
+    private val _ishint = MutableLiveData(false)
+    val ishint : LiveData<Boolean> = _ishint
+
+    fun setHint(visible: Boolean) {
+        _ishint.value = visible
+    }
 
     fun setTitleVisible(visible: Boolean) {
         _isTitleVisible.value = visible
@@ -63,8 +70,6 @@ class SharedViewModel : ViewModel() {
     fun setUserCheck(visible: Boolean) {
         _isUserCheck.value = visible
     }
-
-
 
 
     fun addMemo(memo: String) {
@@ -93,7 +98,8 @@ class SharedViewModel : ViewModel() {
     fun initPlan(plan: Plan) {
         viewModelScope.launch {
             _plan = plan
-            _userNickName.value = AuthRepositoryImpl().getNameListByUidList(plan.group ?: listOf()) ?: listOf()
+            _userNickName.value =
+                AuthRepositoryImpl().getNameListByUidList(plan.group ?: listOf()) ?: listOf()
         }
     }
 
@@ -105,11 +111,12 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    fun initPosition( position: Int) {
+    fun initPosition(position: Int) {
         val planDetailList = _plan.planDetailList
         if (planDetailList != null && position >= 0 && position < planDetailList.size) {
             currentPosition = position
-            _planItems.value = _plan.planDetailList?.get(currentPosition)?.travelList?.toMutableList()
+            _planItems.value =
+                _plan.planDetailList?.get(currentPosition)?.travelList?.toMutableList()
             Log.d("position", currentPosition.toString())
         }
     }
@@ -133,8 +140,8 @@ class SharedViewModel : ViewModel() {
     fun updatePlanBookItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
-        if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            if(currentItem.size < 10) {
+        if (currentItem.none { it.imageUrl == item.imageUrl }) {
+            if (currentItem.size < 10) {
                 _planItems.value = currentItem + listOf(
                     Travel(
                         imageUrl = item.imageUrl,
@@ -147,17 +154,19 @@ class SharedViewModel : ViewModel() {
                         tel = item.tel
                     )
                 )
-                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+                _plan.planDetailList?.get(currentPosition)?.travelList =
+                    _planItems.value?.toMutableList()
             } else {
             }
         }
 
     }
+
     fun updatePlanSearchItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
-        if (currentItem.none { it.imageUrl == item.imageUrl}) {
-            if(currentItem.size < 10 ) {
+        if (currentItem.none { it.imageUrl == item.imageUrl }) {
+            if (currentItem.size < 10) {
                 _planItems.value = currentItem + listOf(
                     Travel(
                         imageUrl = item.imageUrl,
@@ -170,7 +179,8 @@ class SharedViewModel : ViewModel() {
                         tel = item.tel
                     )
                 )
-                _plan.planDetailList?.get(currentPosition)?.travelList = _planItems.value?.toMutableList()
+                _plan.planDetailList?.get(currentPosition)?.travelList =
+                    _planItems.value?.toMutableList()
             }
         }
 
@@ -183,10 +193,6 @@ class SharedViewModel : ViewModel() {
         _planItems.value = currentItem
         _plan.planDetailList?.get(currentPosition)?.travelList = currentItem
     }
-
-
-
-
 
 
 }
