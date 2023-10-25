@@ -72,10 +72,8 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .commit()
         }
 
-        test()
+        initVisible()
         initView()
-
-
 
         return view
     }
@@ -185,7 +183,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     }
 
-    private fun test()=with(binding){
+    private fun initVisible()=with(binding){
         sharedViewModel.isTitleVisible.observe(viewLifecycleOwner) { isVisible ->
             setupTitleBtn.visibility = if (isVisible) View.VISIBLE else View.GONE
             setupDateCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
