@@ -17,6 +17,7 @@
             android:layout_height="wrap_content">
 
             <View
+                android:id="@+id/view3"
                 android:layout_width="300dp"
                 android:layout_height="500dp"
                 android:background="@color/white"
@@ -36,58 +37,59 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <androidx.core.widget.NestedScrollView
+            <androidx.cardview.widget.CardView
                 android:layout_width="0dp"
                 android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:background="@drawable/setup_dialog"
                 app:layout_constraintBottom_toTopOf="@id/dialog_cancel_btn"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="1.0"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/dialog_logo">
+                app:layout_constraintTop_toBottomOf="@+id/dialog_logo">
 
                 <EditText
                     android:id="@+id/dialog_text"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="10dp"
-                    android:backgroundTint="@color/black"
-                    android:hint="여행 계획을 정해보세요!"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:background="#00FFFFFF"
+                    android:gravity="top"
+                    android:hint="여행 계획을 메모해 보세요!"
                     android:maxLines="100"
                     android:textColor="@color/black"
                     android:textSize="15dp"
-                    android:gravity="center"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/dialog_logo" />
 
-            </androidx.core.widget.NestedScrollView>
+            </androidx.cardview.widget.CardView>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/dialog_cancel_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/setup_cancel_dialog"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/dialog_save_btn"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteX="78dp"
-                tools:layout_editor_absoluteY="136dp" />
+                app:layout_constraintStart_toStartOf="parent" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/dialog_save_btn"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/setup_save_dialog"
                 android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_chainStyle="packed"
-                app:layout_constraintStart_toEndOf="@id/dialog_cancel_btn"
-                tools:layout_editor_absoluteX="298dp"
-                tools:layout_editor_absoluteY="136dp" />
+                app:layout_constraintStart_toEndOf="@id/dialog_cancel_btn" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
