@@ -1,12 +1,16 @@
 package com.example.tripsync.ui.fragment.plan
 
+import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
+import androidx.constraintlayout.widget.ConstraintSet.Motion
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.tripsync.R
@@ -24,7 +28,7 @@ import com.naver.maps.map.overlay.PolylineOverlay
 
 class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var mapView: MapView
+    lateinit var mapView: MapView
     private lateinit var naverMap: NaverMap
     private val markers = mutableListOf<Marker>()
     private val line = PolylineOverlay()
@@ -35,7 +39,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     private val binding: FragmentNaverMapBinding
         get() = _binding!!
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,7 +47,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.mapContainer
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-
 
         return binding.root
     }
@@ -89,7 +91,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                     markers.add(marker)
                     Log.d("map", "Selected locations: ${location.mapX}, ${location.mapY}")
 
-                    val cameraPosition = CameraPosition(LatLng(location.mapY, location.mapX), 10.0)
+                    val cameraPosition = CameraPosition(LatLng(location.mapY, location.mapX), 9.0)
                     naverMap.cameraPosition = cameraPosition
                 }
             }

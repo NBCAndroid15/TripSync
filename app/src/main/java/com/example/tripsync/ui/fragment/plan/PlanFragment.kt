@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,6 +13,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
@@ -38,7 +40,7 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var itemTouchHelper: ItemTouchHelper
-    private lateinit var bookmarkAdapter : PlanBookmarkListAdapter
+    private lateinit var naverMapFragment: NaverMapFragment
 
 
 
@@ -55,6 +57,7 @@ class PlanFragment : Fragment() {
             deletePlanItem(it)
         }
 
+        initVisible()
 
         recyclerView.adapter = adapter
 
@@ -70,11 +73,20 @@ class PlanFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         initView()
         initViewModel()
         initUserName()
 
-        binding.planEditBtn.setOnClickListener {
+        val initialText = binding.planTextView.text.toString()
+        if (initialText.isNotEmpty()) {
+            sharedViewModel.setHint(false)
+        } else {
+            sharedViewModel.setHint(true)
+        }
+
+
+        binding.planTextView.setOnClickListener {
             showMemoDialog()
         }
 
@@ -82,6 +94,21 @@ class PlanFragment : Fragment() {
             // 전 페이지로 이동
             sharedViewModel.updatePlan()
             requireActivity().onBackPressed()
+        }
+
+        naverMapFragment = childFragmentManager.findFragmentById(R.id.naver_map_fragment) as NaverMapFragment
+
+        naverMapFragment
+            .mapView.setOnTouchListener { v, event ->
+            when(event.action) {
+                MotionEvent.ACTION_DOWN -> {
+                    binding.scrollview.requestDisallowInterceptTouchEvent(true)
+                }
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                    binding.scrollview.requestDisallowInterceptTouchEvent(false)
+                }
+            }
+                false
         }
 
 
@@ -139,19 +166,26 @@ class PlanFragment : Fragment() {
 
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
 
+        if (binding.planTextView.text.isNotEmpty()){
+            sharedViewModel.setHint(false)
+        }
     }
 
     private fun showMemoDialog() = with(binding) {
-
-        val dialogFragment = PlanMemoDialog(requireContext())
+        val initialText = planTextView.text.toString()
+        val dialogFragment = PlanMemoDialog(requireContext(), initialText)
         dialogFragment.setOnSaveListener { memoText ->
-           memoText?.let {
-               if(memoText.isNotBlank()) {
-                   sharedViewModel.addMemo(memoText)
-                   planTextView.text = memoText
-
-               }
-           }
+            memoText?.let {
+                if (memoText.isNotBlank()) {
+                    sharedViewModel.addMemo(memoText)
+                    planTextView.text = memoText
+                    sharedViewModel.setHint(false)
+                } else {
+                    sharedViewModel.addMemo("")
+                    planTextView.text = ""
+                    sharedViewModel.setHint(true)
+                }
+            }
         }
         dialogFragment.show()
 
@@ -175,6 +209,13 @@ class PlanFragment : Fragment() {
     private fun deletePlanItem(item: Travel) {
         sharedViewModel.planRemoveItem(item)
     }
+
+    private fun initVisible () {
+        sharedViewModel.ishint.observe(viewLifecycleOwner){isVisible ->
+            binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
+        }
+    }
+
 
 
 }
