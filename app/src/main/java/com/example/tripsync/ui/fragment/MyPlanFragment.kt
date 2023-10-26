@@ -61,6 +61,8 @@ class MyPlanFragment : Fragment() {
         viewModel.getPlanList()
     }
 
+
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initView()
