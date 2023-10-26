@@ -14,6 +14,7 @@ import com.example.tripsync.databinding.FragmentHomeBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.DetailFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FestivalViewModel
 import com.example.tripsync.viewmodel.FestivalViewModelFactory
 import com.example.tripsync.viewmodel.TravelViewModel
@@ -27,6 +28,7 @@ class HomeFragment : Fragment(),
     private var homeFestivalAdapter = HomeFestivalAdapter(listOf())
     private val travelViewModel: TravelViewModel by activityViewModels { TravelViewModelFactory() }
     private val festivalViewModel: FestivalViewModel by activityViewModels { FestivalViewModelFactory() }
+    private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
     private var _binding: FragmentHomeBinding? = null
@@ -66,10 +68,14 @@ class HomeFragment : Fragment(),
 
         binding.homeStartplanBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .replace(R.id.main_frame, SetupFragment())
                 .addToBackStack(null)
                 .commit()
+
+            // 홈에서 setup으로 이동할 때 setup 버튼들의 가시성 초기화
+            sharedViewModel.setTitleVisible(false)
+            sharedViewModel.setUserVisible(false)
+            sharedViewModel.setUserCheck(false)
         }
 
         return binding.root
