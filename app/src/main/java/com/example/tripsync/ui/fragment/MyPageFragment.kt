@@ -55,20 +55,16 @@ class MyPageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
-        userProfileViewModel.loadImageUrlFromDatabase()
-
-        userProfileViewModel.getImageUrl().observe(viewLifecycleOwner, Observer { imageUrl ->
-            Log.d("이미지url", imageUrl)
+        userProfileViewModel.curUser.observe(viewLifecycleOwner, Observer { user ->
             Glide.with(this)
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .load(user.profileImg)
                 .into(binding.mypageProfileBg)
         })
         //doSomething
     }
 
     private fun initView() {
+        userProfileViewModel.getCurrentUserSnapshot()
         binding.mypageViewPager.adapter = MyPageViewPagerAdapter(childFragmentManager, lifecycle)
         TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
             tab.text = title[position]
