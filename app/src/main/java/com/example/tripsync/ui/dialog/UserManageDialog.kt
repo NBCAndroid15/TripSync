@@ -28,6 +28,8 @@ import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class UserManageDialog : Fragment() {
@@ -57,15 +59,12 @@ class UserManageDialog : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initView()
 
-        userProfileViewModel.getImageUrl().observe(viewLifecycleOwner, Observer { imageUrl ->
+        userProfileViewModel.curUser.observe(viewLifecycleOwner, Observer { user ->
             Glide.with(this)
-                .load(imageUrl)
-                .diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true)
+                .load(user.profileImg)
                 .into(binding.userManageProfileBg)
         })
 
-        userProfileViewModel.loadImageUrlFromDatabase()
     }
 
     private fun initView() {
@@ -151,6 +150,7 @@ class UserManageDialog : Fragment() {
 
             parentFragmentManager
                 .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .replace(R.id.main_frame, mainFragment)
                 .commit()
         }
@@ -177,7 +177,6 @@ class UserManageDialog : Fragment() {
             if (selectedImageUri != null) {
                 uploadImage(selectedImageUri) { imageUrl ->
                     saveImageUrlToDatabase(imageUrl) {
-                        userProfileViewModel.setImageUrl(imageUrl)
                         Toast.makeText(requireContext(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
@@ -199,8 +198,6 @@ class UserManageDialog : Fragment() {
             if (selectedImageUri != null) {
                 Glide.with(this)
                     .load(selectedImageUri)
-                    .diskCacheStrategy(DiskCacheStrategy.NONE)
-                    .skipMemoryCache(true)
                     .into(binding.userManageProfileBg)
             }
         }
@@ -219,19 +216,20 @@ class UserManageDialog : Fragment() {
                 }
             }
             .addOnFailureListener { e ->
-                Toast.makeText(requireContext(), "프로필 사진 업로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireActivity(), "프로필 사진 업로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
                 Log.e("ProfileImageSaveError", e.message.toString())
             }
     }
 
     // Firebase Realltime db에 이미지 URL 저장
     private fun saveImageUrlToDatabase(imageUrl: String, function: () -> Unit) {
-        val dbReference = FirebaseDatabase.getInstance().reference
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            val userId = currentUser.uid
-            val userRef = dbReference.child("users").child(userId)
-            userRef.child("profileImageUrl").setValue(imageUrl)
+            Toast.makeText(requireActivity(), "프로필 사진 변경 완료", Toast.LENGTH_SHORT).show()
+
+            requireActivity().lifecycleScope.launch {
+                AuthRepositoryImpl().updateProfileImg(imageUrl)
+            }
         }
     }
 }
