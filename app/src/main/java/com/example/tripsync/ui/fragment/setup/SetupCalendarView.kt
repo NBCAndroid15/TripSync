@@ -2,6 +2,8 @@ package com.example.tripsync.ui.fragment.setup
 
 import android.app.Dialog
 import android.os.Bundle
+import android.view.View
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 import com.example.tripsync.R
 import com.example.tripsync.databinding.SetupCalendarviewBinding
@@ -33,6 +35,15 @@ class SetupCalendarView(
         }
 
         return dialog
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val width = WindowManager.LayoutParams.MATCH_PARENT
+        val height = 300
+
+        dialog?.window?.setLayout(width, height)
     }
 
 

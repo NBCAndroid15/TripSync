@@ -97,7 +97,6 @@ class MyPageFragment : Fragment() {
         binding.mypageLogoutBtn.setOnClickListener {
             viewModel.logout()
 
-            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
             parentFragmentManager
                 .beginTransaction()
                 .replace(R.id.main_frame, LoginFragment.newInstance())

@@ -16,6 +16,7 @@ import com.example.tripsync.databinding.FragmentSetupBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.MainFragment
 import com.example.tripsync.ui.fragment.MyPlanFragment
+import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
@@ -63,10 +64,17 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         binding.setupPlanAddBtn.setOnClickListener {
             createPlan()
 
+            val bundle = Bundle()
+            bundle.putInt("initPosition", 2)
+            val mainFragment = MainFragment()
+            mainFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MyPlanFragment())
-                .addToBackStack(null)
+                .replace(R.id.main_frame, mainFragment)
                 .commit()
+
+            sharedViewModel.setTitleVisible(false)
+            sharedViewModel.setUserVisible(false)
+            sharedViewModel.setUserCheck(false)
         }
 
         initVisible()

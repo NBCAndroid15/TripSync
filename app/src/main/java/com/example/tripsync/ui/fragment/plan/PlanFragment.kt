@@ -39,7 +39,6 @@ class PlanFragment : Fragment() {
     private lateinit var adapter : PlanListAdapter
     private lateinit var userAdapter : PlanUserNameAdapter
 
-    private lateinit var itemTouchHelper: ItemTouchHelper
     private lateinit var naverMapFragment: NaverMapFragment
 
 
@@ -61,11 +60,6 @@ class PlanFragment : Fragment() {
 
         recyclerView.adapter = adapter
 
-        val swipeToDeleteCallback = SwipeToDeleteCallback(adapter).apply {
-            setClamp(resources.displayMetrics.widthPixels.toFloat() / 4 )
-        }
-        itemTouchHelper = ItemTouchHelper(swipeToDeleteCallback)
-        itemTouchHelper.attachToRecyclerView(binding.planRecycler)
 
         return binding.root
     }
@@ -99,7 +93,7 @@ class PlanFragment : Fragment() {
         naverMapFragment = childFragmentManager.findFragmentById(R.id.naver_map_fragment) as NaverMapFragment
 
         naverMapFragment
-            .mapView.setOnTouchListener { v, event ->
+            .mapView.setOnTouchListener { _, event ->
             when(event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     binding.scrollview.requestDisallowInterceptTouchEvent(true)
@@ -122,8 +116,6 @@ class PlanFragment : Fragment() {
             planItems.observe(viewLifecycleOwner, Observer { planItems ->
                 adapter.submitList(null)
                 adapter.submitList(planItems)
-                itemTouchHelper.attachToRecyclerView(null)
-                itemTouchHelper.attachToRecyclerView(binding.planRecycler)
                 adapter.notifyDataSetChanged()
 
             })
