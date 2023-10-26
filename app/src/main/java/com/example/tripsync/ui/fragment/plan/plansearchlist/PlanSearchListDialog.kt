@@ -2,7 +2,6 @@ package com.example.tripsync.ui.fragment.plan.plansearchlist
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,13 +30,13 @@ class PlanSearchListDialog : DialogFragment() {
 
     private val adapter by lazy {
         PlanSearchListAdapter {item ->
-            sendItem(item)
+            if(sharedViewModel.planItems.value?.size ?: 0 < 10) {
+                sendItem(item)
+                return@PlanSearchListAdapter true
+            } else {
+                return@PlanSearchListAdapter false
+            }
         }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
     }
 
     override fun onCreateView(
@@ -91,16 +90,27 @@ class PlanSearchListDialog : DialogFragment() {
         planSearchClose.setOnClickListener {
             dismiss()
         }
+
+        planSearchListRecycler.addOnScrollListener(object : RecyclerView.OnScrollListener(){
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                val lastItemPosition = (recyclerView.layoutManager as LinearLayoutManager?)?.findLastCompletelyVisibleItemPosition()
+                val itemTotalCount = recyclerView.adapter?.itemCount?.minus(1)
+                if (!planSearchListRecycler.canScrollVertically(1) && lastItemPosition == itemTotalCount){
+                    performSearch(planSearchListSearch.query.toString())
+
+                }
+
+            }
+        })
     }
 
     private fun performSearch(keyword: String) {
-        Log.d("PlanSearchListFragment", "Searching for: $keyword") // 검색어 로그
-
         viewModel.updateSearchItem(keyword)
 
         viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
             adapter.submitList(it)
-            Log.d("PlanSearchListFragment", "Search results: $it") // 검색 결과 로그
 
         })
     }
@@ -118,7 +128,6 @@ class PlanSearchListDialog : DialogFragment() {
 
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
-
     }
 
 

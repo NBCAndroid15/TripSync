@@ -32,17 +32,16 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
+                    android:layout_weight="1"
                     android:text="내 여행 리스트"
+                    android:maxLines="1"
                     android:textSize="30sp"
                     android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:layout_margin="10dp"
-                    android:layout_weight="0.5"
                     android:backgroundTint="#F2F2F2"
                     app:cardCornerRadius="100dp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -53,11 +52,10 @@
 
                     <androidx.appcompat.widget.AppCompatSpinner
                         android:id="@+id/mypage_sort_spinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="40sp"
-                        android:layout_marginStart="10dp"
-                        android:autofillHints="최신"
-                        android:tooltipText="최신" />
+                        android:gravity="center_vertical"
+                        android:layout_gravity="center_vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="30sp"/>
 
                 </com.google.android.material.card.MaterialCardView>
 

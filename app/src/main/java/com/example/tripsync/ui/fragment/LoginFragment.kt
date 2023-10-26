@@ -66,6 +66,7 @@ class LoginFragment : Fragment() {
         // 회원가입 버튼 클릭 -> 회원가입 페이지
         binding.signupButton.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .replace(R.id.main_frame, SignupFragment())
                 .addToBackStack(null)
                 .commit()
@@ -134,6 +135,7 @@ class LoginFragment : Fragment() {
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
                 requireActivity().supportFragmentManager.beginTransaction()
+                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                     .replace(R.id.main_frame, MainFragment.newInstance())
                     .commit()
             }
@@ -147,6 +149,7 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener { result ->
                     if (result.isSuccessful) {
                         requireActivity().supportFragmentManager.beginTransaction()
+                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                             .replace(R.id.main_frame, MainFragment.newInstance())
                             .commit()
                     } else {
