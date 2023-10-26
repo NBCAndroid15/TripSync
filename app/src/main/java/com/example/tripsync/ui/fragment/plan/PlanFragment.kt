@@ -99,7 +99,7 @@ class PlanFragment : Fragment() {
         naverMapFragment = childFragmentManager.findFragmentById(R.id.naver_map_fragment) as NaverMapFragment
 
         naverMapFragment
-            .mapView.setOnTouchListener { v, event ->
+            .mapView.setOnTouchListener { _, event ->
             when(event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     binding.scrollview.requestDisallowInterceptTouchEvent(true)
