@@ -9,74 +9,67 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="30dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="300dp"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/friend_add_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="친구 추가"
+        android:textSize="18sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/friend_add_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="친구 추가"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/friend_add_dialog_search_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_gray_light"
+        android:hint="닉네임을 입력해주세요"
+        android:maxLines="1"
+        android:paddingStart="25dp"
+        android:textSize="16sp"
+        android:paddingVertical="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friend_add_title" />
 
-        <EditText
-            android:id="@+id/friend_add_dialog_search_text"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_gray_light"
-            android:hint="닉네임을 입력해주세요"
-            android:maxLines="1"
-            android:paddingStart="25dp"
-            android:textSize="16sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/friend_add_title" />
+    <ImageView
+        android:id="@+id/friend_add_dialog_search_btn"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_search"
+        app:layout_constraintBottom_toBottomOf="@+id/friend_add_dialog_search_text"
+        app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_search_text"
+        app:layout_constraintTop_toTopOf="@+id/friend_add_dialog_search_text" />
 
-        <ImageView
-            android:id="@+id/friend_add_dialog_search_btn"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_gravity="center_vertical"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_search"
-            app:layout_constraintBottom_toBottomOf="@+id/friend_add_dialog_search_text"
-            app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_search_text"
-            app:layout_constraintTop_toTopOf="@+id/friend_add_dialog_search_text" />
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/friend_add_dialog_friend_rv"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_search_text" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/friend_add_dialog_friend_rv"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_marginTop="20dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_search_text" />
+    <TextView
+        android:id="@+id/friend_add_no_btn"
+        android:layout_width="165dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/button_sub_solid"
+        android:gravity="center|center_horizontal"
+        android:text="뒤로가기"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:paddingVertical="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_friend_rv"
+        app:layout_constraintStart_toStartOf="@+id/friend_add_dialog_friend_rv"
+        app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_friend_rv" />
 
-        <TextView
-            android:id="@+id/friend_add_no_btn"
-            android:layout_width="165dp"
-            android:layout_height="55dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/button_sub_solid"
-            android:gravity="center|center_horizontal"
-            android:text="뒤로가기"
-            android:textSize="16sp"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@+id/friend_add_dialog_friend_rv"
-            app:layout_constraintStart_toStartOf="@+id/friend_add_dialog_friend_rv"
-            app:layout_constraintTop_toBottomOf="@+id/friend_add_dialog_friend_rv" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
