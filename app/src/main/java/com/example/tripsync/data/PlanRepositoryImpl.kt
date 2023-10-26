@@ -1,12 +1,20 @@
 package com.example.tripsync.data
 
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.asLiveData
 import com.example.tripsync.model.Plan
 import com.example.tripsync.model.User
 import com.example.tripsync.model.UserPlan
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -34,6 +42,40 @@ class PlanRepositoryImpl {
             null
         }
     }
+
+    fun getPlanListSnapshot(): Flow<List<Plan>> = callbackFlow {
+        var eventsCollection: CollectionReference? = null
+        val curUser = FirebaseAuth.getInstance().currentUser
+        val curUserUid = curUser?.uid
+
+        try {
+            eventsCollection = FirebaseFirestore.getInstance()
+                .collection("plans")
+        } catch (e: Throwable) {
+            close(e)
+        }
+
+        val subscription = eventsCollection?.addSnapshotListener { snapshot, _ ->
+
+            if (snapshot == null) {
+                trySend(listOf<Plan>())
+                return@addSnapshotListener
+            }
+
+            try {
+                trySend(snapshot.documents.map {
+                    it.toObject(UserPlan::class.java)
+                }.flatMap {
+                    it?.planList ?: listOf()
+                }.filter {
+                    it.group?.contains(curUserUid) ?: false
+                })
+            } catch (e: Throwable) {
+                trySend(listOf<Plan>())
+            }
+        }
+        awaitClose { subscription?.remove() }
+    }.buffer(Channel.UNLIMITED)
 
     suspend fun isExistPlan(plan: Plan) =
         withContext(Dispatchers.IO) {
@@ -137,5 +179,6 @@ class PlanRepositoryImpl {
             null
         }
     }
+
 
 }
