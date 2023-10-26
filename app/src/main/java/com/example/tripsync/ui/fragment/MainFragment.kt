@@ -37,17 +37,12 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // 첫 번째 페이지만 비활성화
-        binding.mainViewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                binding.mainViewPager.isUserInputEnabled = position != 0
-            }
-        })
         initView()
     }
 
     private fun initView() {
         binding.mainViewPager.adapter = ViewPagerFragmentAdapter(requireActivity())
+        binding.mainViewPager.isUserInputEnabled = false
         binding.mainViewPager.post{binding.mainViewPager.setCurrentItem(position, false)}
         Log.d("position", position.toString())
         TabLayoutMediator(binding.mainTabLayout, binding.mainViewPager) { tab, position ->

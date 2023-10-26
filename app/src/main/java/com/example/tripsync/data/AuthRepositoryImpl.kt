@@ -1,11 +1,20 @@
 package com.example.tripsync.data
 
+import com.example.tripsync.model.Plan
 import com.example.tripsync.model.User
+import com.example.tripsync.model.UserPlan
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.buffer
+import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
@@ -134,6 +143,49 @@ class AuthRepositoryImpl {
                             null
                         }
                     }
+                }
+            }
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    fun getUserSnapshot(): Flow<User> = callbackFlow {
+        var eventsCollection: DocumentReference? = null
+        val curUserUid = auth.currentUser?.uid ?: ""
+
+        try {
+            eventsCollection = FirebaseFirestore.getInstance()
+                .collection("users").document(curUserUid)
+        } catch (e: Throwable) {
+            close(e)
+        }
+
+        val subscription = eventsCollection?.addSnapshotListener { snapshot, _ ->
+
+            if (snapshot == null) {
+                trySend(User())
+                return@addSnapshotListener
+            }
+
+            try {
+                trySend(snapshot.toObject(User::class.java) ?: User())
+            } catch (e: Throwable) {
+                trySend(User())
+            }
+        }
+        awaitClose { subscription?.remove() }
+    }.buffer(Channel.UNLIMITED)
+
+    suspend fun updateProfileImg(url: String) = withContext(Dispatchers.IO) {
+        try {
+            if (auth.currentUser == null) {
+                null
+            } else {
+                try {
+                    usersRef.document(auth.currentUser!!.uid).update("profileImg", url).await()
+                } catch (e: Exception) {
+                    null
                 }
             }
         } catch (e: Exception) {
