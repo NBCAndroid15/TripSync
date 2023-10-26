@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
@@ -24,8 +25,8 @@ class HomeFragment : Fragment(),
     private lateinit var homeAreaAdapter: HomeAreaAdapter
     private var homeTravelAdapter = HomeTravelAdapter(listOf())
     private var homeFestivalAdapter = HomeFestivalAdapter(listOf())
-    private val travelViewModel: TravelViewModel by viewModels { TravelViewModelFactory() }
-    private val festivalViewModel: FestivalViewModel by viewModels { FestivalViewModelFactory() }
+    private val travelViewModel: TravelViewModel by activityViewModels { TravelViewModelFactory() }
+    private val festivalViewModel: FestivalViewModel by activityViewModels { FestivalViewModelFactory() }
 
 
     private var _binding: FragmentHomeBinding? = null

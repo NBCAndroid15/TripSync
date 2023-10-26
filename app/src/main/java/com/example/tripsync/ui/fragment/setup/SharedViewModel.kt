@@ -122,15 +122,16 @@ class SharedViewModel : ViewModel() {
 
     fun getUserNickName(nickName: User) {
         val currentName = _userNickName.value.orEmpty().toMutableList()
-        if (!currentName.contains(nickName.nickname)) {
+        if (!currentName.any { it == nickName.nickname}) {
             currentName.add(nickName.nickname ?: "")
             _userNickName.value = currentName.toList()
         }
 
         val groupList = _plan.group.orEmpty().toMutableList()
-        if (!groupList.contains(nickName.uid)) {
+        if (!groupList.any { it == nickName.uid }) {
             groupList.add(nickName.uid ?: "")
             _plan.group = groupList.toList()
+            Log.d("getUser", _plan.group?.toString() ?: "empty")
         }
 //            _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
 
