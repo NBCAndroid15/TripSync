@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.InputFilter
 import android.widget.Toast
 import com.example.tripsync.databinding.SetupTitleDialogBinding
 
@@ -24,6 +25,7 @@ class SetupTitleDialog (context: Context,
         setCancelable(false)
 
         window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        dialogText.filters = arrayOf<InputFilter>(InputFilter.LengthFilter(15))
 
         dialogCancelBtn.setOnClickListener {
             dismiss()
