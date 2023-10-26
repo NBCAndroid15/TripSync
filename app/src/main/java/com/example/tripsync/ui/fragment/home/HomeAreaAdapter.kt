@@ -8,7 +8,7 @@ import com.example.tripsync.databinding.AreaItemBinding
 
 class HomeAreaAdapter(private var items: MutableList<String>): RecyclerView.Adapter<HomeAreaAdapter.ViewHolder>() {
 
-    private val itemStates = mutableMapOf<Int, Boolean>()
+    val itemStates = mutableMapOf<Int, Boolean>()
 
     interface ItemClick {
         fun onClick(keyword: String)
@@ -59,9 +59,13 @@ class HomeAreaAdapter(private var items: MutableList<String>): RecyclerView.Adap
         fun bind(text: String) {
             textView.text = text
 
-
-
-
         }
     }
+
+    init {
+        if (items.isNotEmpty()) {
+            itemStates[0] = true
+        }
+    }
+
 }
