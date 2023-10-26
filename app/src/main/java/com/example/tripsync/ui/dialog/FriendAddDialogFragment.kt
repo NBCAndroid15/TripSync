@@ -28,6 +28,13 @@ class FriendAddDialogFragment : DialogFragment() {
         Toast.makeText(requireContext(), "친구 추가를 완료하였습니다", Toast.LENGTH_SHORT).show()
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        val width = (resources.displayMetrics.widthPixels * 0.85).toInt()
+        val height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog?.window?.setLayout(width, height)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
