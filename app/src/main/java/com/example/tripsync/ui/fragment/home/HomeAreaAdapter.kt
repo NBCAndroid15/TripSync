@@ -62,10 +62,6 @@ class HomeAreaAdapter(private var items: MutableList<String>): RecyclerView.Adap
         }
     }
 
-    init {
-        if (items.isNotEmpty()) {
-            itemStates[0] = true
-        }
-    }
+
 
 }
