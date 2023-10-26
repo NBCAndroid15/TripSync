@@ -56,10 +56,6 @@ class MyPlanFragment : Fragment() {
         return binding.root
     }
 
-    override fun onResume() {
-        super.onResume()
-        viewModel.getPlanList()
-    }
 
 
 
@@ -77,7 +73,7 @@ class MyPlanFragment : Fragment() {
         binding.myplanRv.itemAnimator = null
 
         Log.d("myplanInit", "myplanInit")
-        viewModel.getPlanList()
+
         viewModel.planList.observe(viewLifecycleOwner) {
             adapter.setList(it)
         }
