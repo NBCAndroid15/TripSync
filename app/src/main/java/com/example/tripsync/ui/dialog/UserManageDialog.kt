@@ -19,6 +19,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.tripsync.R
 import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.databinding.FragmentUserManageBinding
+import com.example.tripsync.ui.fragment.MainFragment
 import com.example.tripsync.ui.fragment.MyPageFragment
 import com.example.tripsync.ui.fragment.SignOutDialogFragment
 import com.example.tripsync.viewmodel.UserProfileViewModel
@@ -142,10 +143,15 @@ class UserManageDialog : Fragment() {
 
         // 뒤로가기 버튼
         binding.userManageBackBtn.setOnClickListener {
-            parentFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+            val bundle = Bundle()
+            bundle.putInt("initPosition", 4)
+            val mainFragment = MainFragment()
+            mainFragment.arguments = bundle
+
             parentFragmentManager
                 .beginTransaction()
-                .replace(R.id.main_frame, MyPageFragment.newInstance())
+                .replace(R.id.main_frame, mainFragment)
                 .commit()
         }
 
