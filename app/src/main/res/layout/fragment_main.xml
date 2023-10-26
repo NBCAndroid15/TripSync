@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
     <androidx.viewpager2.widget.ViewPager2
@@ -15,6 +16,12 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorColor="@color/main_defalt"
+        app:tabSelectedTextColor="@color/main_defalt"
+        app:tabIndicator="@drawable/tab_button_line"
+        app:tabRippleColor="@android:color/white"/>
 
 </LinearLayout>

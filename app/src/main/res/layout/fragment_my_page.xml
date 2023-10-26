@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
@@ -12,7 +13,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            >
 
             <ImageView
                 android:id="@+id/mypage_profile_bg"
@@ -67,11 +69,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:backgroundTint="@color/white"
                 app:tabIndicatorFullWidth="true"
                 app:tabIndicatorColor="@color/main_defalt"
-                app:tabIndicator="@drawable/tab_button_line"
                 app:tabSelectedTextColor="@color/main_defalt"
-                app:tabRippleColor="@android:color/transparent"
+                app:tabIndicator="@drawable/tab_button_line"
+                app:tabRippleColor="@android:color/white"
                 app:layout_constraintTop_toBottomOf="@+id/mypage_wrap" />
 
             <androidx.viewpager2.widget.ViewPager2
