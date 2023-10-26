@@ -16,35 +16,65 @@
             android:layout_height="wrap_content"
             android:background="@color/white" >
 
-            <ImageView
-                android:id="@+id/home_main_view"
-                android:layout_width="wrap_content"
-                android:layout_height="200dp"
-                android:paddingTop="40dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginEnd="20dp"
-                android:background="@color/white"
-                android:src="@drawable/home_sample"
+            <TextView
+                android:id="@+id/home_start_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="여행 시작하기"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:layout_width="180dp"
-                android:layout_height="120dp"
-                android:src="@drawable/home_text"
-                app:layout_constraintBottom_toTopOf="@+id/home_category_rv"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginHorizontal="5dp"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/corner_home_box"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/home_start_title" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="30dp"
+                android:paddingBottom="10dp"
+                android:paddingHorizontal="40dp"
+                android:text="날짜별 여행 계획표를 만들어 즐겁고 편리한 여행 시작해보세요!"
+                android:textAlignment="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/view2" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/home_startplan_btn"
+                android:layout_width="200dp"
+                android:layout_height="40dp"
+                android:background="@drawable/button_main_solid"
+                android:text="여행 계획 시작하기"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/view2"
+                app:layout_constraintStart_toStartOf="@+id/view2"
+                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+
+
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_category_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_main_view"
+                app:layout_constraintTop_toBottomOf="@+id/home_travel_text"
                 tools:listitem="@layout/area_item" />
 
             <TextView
@@ -56,7 +86,7 @@
                 android:text="추천 여행지"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/home_category_rv"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
                 tools:layout_editor_absoluteX="10dp" />
 
             <TextView
@@ -75,7 +105,7 @@
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_travel_text"
+                app:layout_constraintTop_toBottomOf="@+id/home_category_rv"
                 tools:listitem="@layout/travel_item" />
 
             <TextView
@@ -109,53 +139,9 @@
                 app:layout_constraintTop_toBottomOf="@+id/home_festival_text"
                 tools:listitem="@layout/festival_item" />
 
-            <TextView
-                android:id="@+id/home_start_title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:layout_marginTop="20dp"
-                android:text="여행 시작하기"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/home_festival_rv" />
 
-            <View
-                android:id="@+id/view2"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginHorizontal="5dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="40dp"
-                android:background="@drawable/corner_home_box"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_start_title" />
 
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="30dp"
-                android:paddingBottom="10dp"
-                android:paddingHorizontal="40dp"
-                android:text="날짜별 여행 계획표를 만들어 즐겁고 편리한 여행 시작해보세요!"
-                android:textAlignment="center"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/view2" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/home_startplan_btn"
-                android:layout_width="200dp"
-                android:layout_height="40dp"
-                android:background="@drawable/button_main_solid"
-                android:text="여행 계획 시작하기"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/view2"
-                app:layout_constraintStart_toStartOf="@+id/view2"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
