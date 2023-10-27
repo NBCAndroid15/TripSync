@@ -31,7 +31,7 @@ class CoinFragment : Fragment() {
 
         val coinBtn = binding.coinBtn
         val coinImage = binding.coinImage
-        binding.coinText.text = "할까 말까 ?!"
+        binding.coinText.setImageResource(R.drawable.coin_text_start)
 
         coinBtn.setOnClickListener {
             val anim: Animation = AnimationUtils.loadAnimation(requireContext(), R.anim.coin_effect)
@@ -41,11 +41,11 @@ class CoinFragment : Fragment() {
                 state = (0..1).random()
                 if (state == 0) {
                     coinImage.setImageResource(R.drawable.coin_back)
-                    binding.coinText.text = "말자\uD83D\uDE25"
+                    binding.coinText.setImageResource(R.drawable.coin_text_no)
                     media?.start()
                 } else {
                     coinImage.setImageResource(R.drawable.coin_front)
-                    binding.coinText.text = "하자\uD83D\uDE09"
+                    binding.coinText.setImageResource(R.drawable.coin_text_yes)
                     media?.start()
                 }
             }, 2000)
@@ -57,7 +57,7 @@ class CoinFragment : Fragment() {
             }, 2000)
             Handler(Looper.getMainLooper()).postDelayed({
                 binding.coinCharacter.setImageResource(R.drawable.coin_img01)
-                binding.coinText.text = "할까 말까 ?!"
+                binding.coinText.setImageResource(R.drawable.coin_text_start)
             }, 3500)
         }
 
