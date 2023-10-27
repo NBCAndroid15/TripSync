@@ -58,6 +58,7 @@ class MyPageFragment : Fragment() {
         userProfileViewModel.curUser.observe(viewLifecycleOwner, Observer { user ->
             Glide.with(this)
                 .load(user.profileImg)
+                .error(R.drawable.defalt_profile)
                 .into(binding.mypageProfileBg)
         })
         //doSomething
