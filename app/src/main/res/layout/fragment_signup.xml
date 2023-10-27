@@ -14,15 +14,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="아이디 입력"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_idcheck_button"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="85dp"
+        android:layout_height="36dp"
         android:text="중복체크"
         android:background="@drawable/button_sub_solid"
         android:stateListAnimator="@null"
@@ -36,13 +35,22 @@
         android:layout_height="55dp"
         android:background="@drawable/border_user_edit"
         android:hint="tripsync@abc.com"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:textSize="15sp"
-        android:drawableEnd="@drawable/button_signup_remove"
         android:paddingEnd="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_text" />
+
+    <ImageButton
+        android:id="@+id/signup_id_remove"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@drawable/button_signup_remove"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_id_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_id_edittext" />
 
     <TextView
         android:id="@+id/signup_id_pass"
@@ -74,7 +82,6 @@
         android:layout_height="wrap_content"
         android:text="비밀번호 입력"
         android:layout_marginTop="30dp"
-        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/signup_id_edittext" />
 
     <EditText
@@ -85,10 +92,20 @@
         android:hint="6자리이상 입력해 주세요."
         android:inputType="textPassword"
         android:textSize="15sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_pw_text" />
+
+    <ImageButton
+        android:id="@+id/signup_pw_remove"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_signup_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_pw_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_pw_edittext" />
 
     <TextView
         android:id="@+id/signup_checkpw_text"
@@ -96,7 +113,6 @@
         android:layout_height="wrap_content"
         android:text="비밀번호 확인"
         android:layout_marginTop="30dp"
-        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/signup_pw_edittext" />
 
     <EditText
@@ -107,10 +123,20 @@
         android:hint="다시한번 입력해 주세요."
         android:inputType="textPassword"
         android:textSize="15sp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_checkpw_text" />
+
+    <ImageButton
+        android:id="@+id/signup_checkpw_remove"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_signup_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_checkpw_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_checkpw_edittext" />
 
     <TextView
         android:id="@+id/signup_nickname_text"
@@ -118,13 +144,12 @@
         android:layout_height="wrap_content"
         android:text="닉네임"
         android:layout_marginTop="30dp"
-        android:textSize="20sp"
         app:layout_constraintTop_toBottomOf="@+id/signup_checkpw_edittext" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signup_nncheck_button"
-        android:layout_width="100dp"
-        android:layout_height="40dp"
+        android:layout_width="85dp"
+        android:layout_height="36dp"
         android:text="중복체크"
         android:background="@drawable/button_sub_solid"
         android:stateListAnimator="@null"
@@ -136,14 +161,23 @@
         android:id="@+id/signup_nickname_edittext"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/border_user_edit"
         android:hint="닉네임을 입력해 주세요."
         android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/signup_nickname_text" />
+
+    <ImageButton
+        android:id="@+id/signup_nickname_remove"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/button_signup_remove"
+        app:layout_constraintBottom_toBottomOf="@+id/signup_nickname_edittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/signup_nickname_edittext" />
 
     <TextView
         android:id="@+id/signup_nickname_pass"
@@ -169,14 +203,24 @@
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/signup_nickname_edittext" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <TextView
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:text="회원가입"
-        android:layout_marginTop="100dp"
-        android:textColor="@color/white"
         android:background="@drawable/button_main_solid"
-        app:layout_constraintTop_toBottomOf="@+id/signup_nickname_edittext" />
+        android:gravity="center"
+        android:layout_marginBottom="10dp"
+        android:text="회원가입"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toTopOf="@+id/signup_back_button" />
+
+    <TextView
+        android:id="@+id/signup_back_button"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:background="@drawable/button_gray_light"
+        android:gravity="center"
+        android:text="뒤로가기"
+        app:layout_constraintBottom_toBottomOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
