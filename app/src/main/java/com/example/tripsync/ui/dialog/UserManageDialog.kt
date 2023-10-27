@@ -62,6 +62,7 @@ class UserManageDialog : Fragment() {
         userProfileViewModel.curUser.observe(viewLifecycleOwner, Observer { user ->
             Glide.with(this)
                 .load(user.profileImg)
+                .error(R.drawable.defalt_profile)
                 .into(binding.userManageProfileBg)
         })
 
@@ -177,7 +178,6 @@ class UserManageDialog : Fragment() {
             if (selectedImageUri != null) {
                 uploadImage(selectedImageUri) { imageUrl ->
                     saveImageUrlToDatabase(imageUrl) {
-                        Toast.makeText(requireContext(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
@@ -225,8 +225,7 @@ class UserManageDialog : Fragment() {
     private fun saveImageUrlToDatabase(imageUrl: String, function: () -> Unit) {
         val currentUser = FirebaseAuth.getInstance().currentUser
         if (currentUser != null) {
-            Toast.makeText(requireActivity(), "프로필 사진 변경 완료", Toast.LENGTH_SHORT).show()
-
+            Toast.makeText(requireActivity(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
             requireActivity().lifecycleScope.launch {
                 AuthRepositoryImpl().updateProfileImg(imageUrl)
             }

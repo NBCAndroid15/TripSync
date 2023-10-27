@@ -72,6 +72,16 @@ class LoginFragment : Fragment() {
                 .commit()
         }
 
+        // 아이디 editText 초기화
+        binding.loginIdRemove.setOnClickListener {
+            binding.loginIdEdittext.text.clear()
+        }
+
+        // 비밀번호 editText 초기화
+        binding.loginPwRemove.setOnClickListener {
+            binding.loginPwEdittext.text.clear()
+        }
+
         return binding.root
 
 
