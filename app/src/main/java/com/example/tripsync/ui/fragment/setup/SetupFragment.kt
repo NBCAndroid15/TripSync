@@ -65,7 +65,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             createPlan()
 
             val bundle = Bundle()
-            bundle.putInt("initPosition", 2)
+            bundle.putInt("initPosition", 1)
             val mainFragment = MainFragment()
             mainFragment.arguments = bundle
             requireActivity().supportFragmentManager.beginTransaction()

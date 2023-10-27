@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FriendmanageFriendItemBinding
 import com.example.tripsync.model.User
 
@@ -13,6 +14,10 @@ class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerVi
 
     class ViewHolder (private val binding : FriendmanageFriendItemBinding, private val deleteFriend: (User) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
+            Glide.with(binding.root.context)
+                .load(user.profileImg)
+                .error(R.drawable.defalt_profile)
+                .into(binding.friendManageImage)
             binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
             binding.friendManageDeleteBtn.setOnClickListener {

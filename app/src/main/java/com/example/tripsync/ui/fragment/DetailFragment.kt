@@ -79,20 +79,23 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
 
         binding.detailBtnWishList.setOnClickListener {
-            val bookmarkManageFragment = BookmarkManageFragment()
+            val mainFragment = MainFragment()
             val fragmentManager = requireActivity().supportFragmentManager
-            fragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MainFragment.newInstance())
-                .commit()
-            fragmentManager.beginTransaction()
-                .add(R.id.main_frame, bookmarkManageFragment)
-                .addToBackStack(null)
+            val bundle = Bundle()
+            bundle.putInt("initPosition", 4)
+            mainFragment.arguments = bundle
+
+            fragmentManager
+                .beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                .replace(R.id.main_frame, mainFragment)
                 .commit()
         }
 
         binding.detailBtnBack.setOnClickListener {
             val fragmentManager = requireActivity().supportFragmentManager
             fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .replace(R.id.main_frame, MainFragment.newInstance())
                 .addToBackStack(null)
                 .commit()
@@ -108,6 +111,7 @@ class DetailFragment(val travel: Travel) : Fragment() {
                 .addToBackStack(null)
                 .commit()
             fragmentManager.beginTransaction()
+                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .add(R.id.main_frame, setupFragment)
                 .addToBackStack(null)
                 .commit()
