@@ -106,6 +106,34 @@ class SignupFragment : Fragment() {
             }
         }
 
+        // 뒤로가기 버튼 클릭 -> 로그인 페이지
+        binding.signupBackButton.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, LoginFragment())
+                .addToBackStack(null)
+                .commit()
+        }
+
+        // 아이디 editText 초기화
+        binding.signupIdRemove.setOnClickListener {
+            binding.signupIdEdittext.text.clear()
+        }
+
+        // 비밀번호 editText 초기화
+        binding.signupPwRemove.setOnClickListener {
+            binding.signupPwEdittext.text.clear()
+        }
+
+        // 비밀번호 확인 editText 초기화
+        binding.signupCheckpwRemove.setOnClickListener {
+            binding.signupCheckpwEdittext.text.clear()
+        }
+
+        // 닉네임 editText 초기화
+        binding.signupNicknameRemove.setOnClickListener {
+            binding.signupNicknameEdittext.text.clear()
+        }
+
         // 이메일 형식 체크
         fun isLoginChecked(email: String) : Boolean {
             val regexPattern = "^(?=.*[A-Za-z])(?=.*[@#$%^&+=])(?=\\S+$).{1,}"
