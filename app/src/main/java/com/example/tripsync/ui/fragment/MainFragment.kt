@@ -20,7 +20,7 @@ class MainFragment : Fragment() {
 
     private val title = arrayOf("검색", "플랜", "홈", "게임", "내 정보")
 
-    private var position = 0
+    private var position = 2
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,6 +42,7 @@ class MainFragment : Fragment() {
     }
 
     private fun initView() {
+        binding.mainViewPager.isUserInputEnabled = false
         binding.mainViewPager.adapter = ViewPagerFragmentAdapter(requireActivity())
         binding.mainViewPager.post { binding.mainViewPager.setCurrentItem(position, false) }
         Log.d("position", position.toString())

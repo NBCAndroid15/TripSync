@@ -175,11 +175,8 @@ class UserManageDialog : Fragment() {
             val selectedImageUri = selectedImageUri
 
             if (selectedImageUri != null) {
-                uploadImage(selectedImageUri) { imageUrl ->
-                    saveImageUrlToDatabase(imageUrl) {
-                        Toast.makeText(requireContext(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-                    }
-                }
+                Toast.makeText(requireContext(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                userProfileViewModel.uploadImage(selectedImageUri)
             } else {
                 Toast.makeText(requireContext(), "프로필 사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -203,33 +200,4 @@ class UserManageDialog : Fragment() {
         }
     }
 
-    // Firebase Storage에 이미지 업로드
-    private fun uploadImage(selectedImageUri: Uri, callback: (String) -> Unit) {
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imageRef = storageRef.child("profile_images/${auth.currentUser?.uid}.jpg")
-
-        imageRef.putFile(selectedImageUri)
-            .addOnSuccessListener {
-                imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    val imageUrl = uri.toString()
-                    callback(imageUrl)
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(requireActivity(), "프로필 사진 업로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
-                Log.e("ProfileImageSaveError", e.message.toString())
-            }
-    }
-
-    // Firebase Realltime db에 이미지 URL 저장
-    private fun saveImageUrlToDatabase(imageUrl: String, function: () -> Unit) {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
-            Toast.makeText(requireActivity(), "프로필 사진 변경 완료", Toast.LENGTH_SHORT).show()
-
-            requireActivity().lifecycleScope.launch {
-                AuthRepositoryImpl().updateProfileImg(imageUrl)
-            }
-        }
-    }
 }

@@ -65,6 +65,7 @@ class MyPageFragment : Fragment() {
 
     private fun initView() {
         userProfileViewModel.getCurrentUserSnapshot()
+        binding.mypageViewPager.isUserInputEnabled = false
         binding.mypageViewPager.adapter = MyPageViewPagerAdapter(childFragmentManager, lifecycle)
         TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
             tab.text = title[position]
