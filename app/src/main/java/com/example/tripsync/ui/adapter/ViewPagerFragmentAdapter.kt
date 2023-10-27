@@ -15,9 +15,9 @@ class ViewPagerFragmentAdapter (fragmentActivity: FragmentActivity) : FragmentSt
     private val fragmentList = mutableListOf<Fragment>()
 
     init {
-        fragmentList.add(HomeFragment.newInstance())
         fragmentList.add(SearchFragment.newInstance())
         fragmentList.add(MyPlanFragment.newInstance())
+        fragmentList.add(HomeFragment.newInstance())
         fragmentList.add(CoinFragment.newInstance())
         fragmentList.add(MyPageFragment.newInstance())
     }
