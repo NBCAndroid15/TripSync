@@ -21,9 +21,9 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/main_tab_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:background="@drawable/test"
-        android:elevation="40dp"
+        android:elevation="6dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
