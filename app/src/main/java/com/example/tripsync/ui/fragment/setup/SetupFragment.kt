@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -55,10 +56,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .addToBackStack(null)
                 .commit()
 
-            // 뒤로 가기 누를 시 버튼들의 가시성 초기화
-            sharedViewModel.setTitleVisible(false)
-            sharedViewModel.setUserVisible(false)
-            sharedViewModel.setUserCheck(false)
+            visibleState()
         }
 
         binding.setupPlanAddBtn.setOnClickListener {
@@ -72,9 +70,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
                 .replace(R.id.main_frame, mainFragment)
                 .commit()
 
-            sharedViewModel.setTitleVisible(false)
-            sharedViewModel.setUserVisible(false)
-            sharedViewModel.setUserCheck(false)
+            visibleState()
         }
 
         initVisible()
@@ -82,6 +78,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         return view
     }
+
 
     override fun onDestroyView() {
         super.onDestroyView()
@@ -95,7 +92,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun initView() = with(binding) {
-        setupTitleBtn.text = sharedViewModel._plan.title ?: "여행 이름을 정해주세요!"
+        setupTitleBtn.text = sharedViewModel._plan.title ?: "계획 이름을 입력해주세요!"
         setupTitleBtn.setOnClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
@@ -110,9 +107,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         setupDateBtn.setOnClickListener {
             if (sharedViewModel._isDateSelected.value == true) {
-                sharedViewModel.setTitleVisible(false)
-                sharedViewModel.setUserVisible(false)
-                sharedViewModel.setUserCheck(false)
+                visibleState()
                 sharedViewModel._isDateSelected.value = false
                 adapter.submitList(emptyList())
             } else {
@@ -128,7 +123,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     private fun onDateSelected(selectedDates: Set<CalendarDay>) {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
         val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }
-        binding.setupTitleBtn.text = "여행 이름을 정해주세요!"
+        binding.setupTitleBtn.text = "계획 이름을 입력해주세요!"
         sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
         adapter.submitList(dateList)
 
@@ -203,6 +198,13 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         sharedViewModel.isUserCheck.observe(viewLifecycleOwner) { isVisible ->
             setupUserCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
+    }
+
+    // 버튼들의 가시성 초기화
+    private fun visibleState() {
+        sharedViewModel.setTitleVisible(false)
+        sharedViewModel.setUserVisible(false)
+        sharedViewModel.setUserCheck(false)
     }
 
 }

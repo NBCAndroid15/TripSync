@@ -3,9 +3,12 @@ package com.example.tripsync.ui.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tripsync.R
 import com.example.tripsync.databinding.AreaItemBinding
 
 class BookmarkAreaAdapter(private var items: MutableList<String>): RecyclerView.Adapter<BookmarkAreaAdapter.ViewHolder>() {
+
+    val itemStates = mutableMapOf<Int, Boolean>()
 
     interface ItemClick {
         fun onClick(keyword: String)
@@ -19,9 +22,24 @@ class BookmarkAreaAdapter(private var items: MutableList<String>): RecyclerView.
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(items[position])
+
+
+        val isColor = itemStates[position] == true
+        if (isColor) {
+            holder.itemView.setBackgroundResource(R.drawable.setup_btn_round12)
+        } else {
+            holder.itemView.setBackgroundResource(R.drawable.setup_btn_round)
+        }
+
         holder.itemView.setOnClickListener {
+
+
             val keyword = items[position]
+            itemStates[position] = true
             itemClick?.onClick(keyword)
+
+            clearItem(position)
+            notifyDataSetChanged()
         }
     }
 
@@ -34,5 +52,14 @@ class BookmarkAreaAdapter(private var items: MutableList<String>): RecyclerView.
         fun bind(text: String) {
             textView.text = text
         }
+    }
+
+    private fun clearItem(selectedPosition: Int) {
+        for((position, _) in itemStates) {
+            if (position != selectedPosition) {
+                itemStates[position] = false
+            }
+        }
+
     }
 }

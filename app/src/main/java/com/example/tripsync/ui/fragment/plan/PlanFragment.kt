@@ -128,7 +128,7 @@ class PlanFragment : Fragment() {
         planUsernameRecycler.adapter = userAdapter
         planUsernameRecycler.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
-        sharedViewModel.userNickName.observe(viewLifecycleOwner, Observer { name ->
+        sharedViewModel.userList.observe(viewLifecycleOwner, Observer { name ->
             userAdapter.submitList(name)
         })
     }

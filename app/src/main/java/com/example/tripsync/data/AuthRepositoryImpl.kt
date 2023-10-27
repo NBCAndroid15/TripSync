@@ -67,14 +67,14 @@ class AuthRepositoryImpl {
         }
     }
 
-    suspend fun getNameListByUidList(uidList: List<String>) = withContext(Dispatchers.IO) {
+    suspend fun getUserListByUidList(uidList: List<String>) = withContext(Dispatchers.IO) {
         try {
             if (auth.currentUser == null) {
                 null
             } else {
                 val docs = usersRef.whereIn("uid", uidList).get().await()
                 docs.documents.map {
-                    it.toObject(User::class.java)?.nickname ?: ""
+                    it.toObject(User::class.java) ?: User()
                 }
             }
         } catch (e: Exception) {

@@ -2,14 +2,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="80dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingHorizontal="10dp"
     android:orientation="horizontal">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/plan_user_profile"
-        android:layout_width="80dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_logo"/>
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_logo"
+        app:shapeAppearance="@style/Circle"
+        app:shapeAppearanceOverlay="@style/Circle" />
 
     <LinearLayout
         android:layout_width="0dp"

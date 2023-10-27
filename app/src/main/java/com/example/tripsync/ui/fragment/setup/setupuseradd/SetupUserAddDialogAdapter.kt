@@ -6,6 +6,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanUserAddItemBinding
 import com.example.tripsync.model.User
 
@@ -23,6 +25,12 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
 
     inner class ViewHolder(private val binding: PlanUserAddItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) = with(binding) {
+
+            Glide.with(itemView)
+                .load(user.profileImg)
+                .error(R.drawable.defalt_profile)
+                .into(planUserProfile)
+
             planUserName.text = user.nickname
             planUserEmail.text = user.email
 
