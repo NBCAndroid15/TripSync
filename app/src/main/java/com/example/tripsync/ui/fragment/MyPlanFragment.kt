@@ -66,6 +66,7 @@ class MyPlanFragment : Fragment() {
 
 
     private fun initView() {
+        viewModel.getPlanListSnapshot()
         binding.myplanRv.adapter = adapter
         binding.myplanRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)

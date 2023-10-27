@@ -1,26 +1,18 @@
 package com.example.tripsync.ui.fragment
 
-import android.graphics.drawable.Drawable
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.engine.GlideException
-import com.bumptech.glide.request.RequestListener
-import com.bumptech.glide.request.target.Target
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMyPageBinding
 import com.example.tripsync.ui.adapter.MyPageViewPagerAdapter
-import com.example.tripsync.ui.dialog.UserManageDialog
+import com.example.tripsync.ui.dialog.UserManageFragment
 import com.example.tripsync.viewmodel.MyPageViewModel
 import com.example.tripsync.viewmodel.MyPageViewModelFactory
 import com.example.tripsync.viewmodel.UserProfileViewModel
@@ -66,6 +58,7 @@ class MyPageFragment : Fragment() {
 
     private fun initView() {
         userProfileViewModel.getCurrentUserSnapshot()
+        binding.mypageViewPager.isUserInputEnabled = false
         binding.mypageViewPager.adapter = MyPageViewPagerAdapter(childFragmentManager, lifecycle)
         TabLayoutMediator(binding.mypageTabLayout, binding.mypageViewPager) { tab, position ->
             tab.text = title[position]
@@ -103,7 +96,7 @@ class MyPageFragment : Fragment() {
         // 회원정보 수정
         binding.mypageConfigBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, UserManageDialog())
+                .replace(R.id.main_frame, UserManageFragment())
                 .addToBackStack(null)
                 .commit()
             }

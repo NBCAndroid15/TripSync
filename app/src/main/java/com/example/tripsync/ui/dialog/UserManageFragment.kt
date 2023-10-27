@@ -4,35 +4,27 @@ import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.example.tripsync.R
 import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.databinding.FragmentUserManageBinding
 import com.example.tripsync.ui.fragment.MainFragment
-import com.example.tripsync.ui.fragment.MyPageFragment
 import com.example.tripsync.ui.fragment.SignOutDialogFragment
 import com.example.tripsync.viewmodel.UserProfileViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
-import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.storage.FirebaseStorage
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class UserManageDialog : Fragment() {
+class UserManageFragment : Fragment() {
 
     private val PICK_FROM_ALBUM = 1
 
@@ -62,7 +54,7 @@ class UserManageDialog : Fragment() {
         userProfileViewModel.curUser.observe(viewLifecycleOwner, Observer { user ->
             Glide.with(this)
                 .load(user.profileImg)
-                .error(R.drawable.defalt_profile)
+                .error(R.drawable.defalt_profile_edit)
                 .into(binding.userManageProfileBg)
         })
 
@@ -176,10 +168,8 @@ class UserManageDialog : Fragment() {
             val selectedImageUri = selectedImageUri
 
             if (selectedImageUri != null) {
-                uploadImage(selectedImageUri) { imageUrl ->
-                    saveImageUrlToDatabase(imageUrl) {
-                    }
-                }
+                Toast.makeText(requireContext(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
+                userProfileViewModel.uploadImage(selectedImageUri)
             } else {
                 Toast.makeText(requireContext(), "프로필 사진을 선택해 주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -187,7 +177,7 @@ class UserManageDialog : Fragment() {
     }
 
     companion object {
-        fun newInstance() = UserManageDialog()
+        fun newInstance() = UserManageFragment()
     }
 
     // 갤러리 이미지 선택 후 동작
@@ -203,32 +193,4 @@ class UserManageDialog : Fragment() {
         }
     }
 
-    // Firebase Storage에 이미지 업로드
-    private fun uploadImage(selectedImageUri: Uri, callback: (String) -> Unit) {
-        val storageRef = FirebaseStorage.getInstance().reference
-        val imageRef = storageRef.child("profile_images/${auth.currentUser?.uid}.jpg")
-
-        imageRef.putFile(selectedImageUri)
-            .addOnSuccessListener {
-                imageRef.downloadUrl.addOnSuccessListener { uri ->
-                    val imageUrl = uri.toString()
-                    callback(imageUrl)
-                }
-            }
-            .addOnFailureListener { e ->
-                Toast.makeText(requireActivity(), "프로필 사진 업로드 실패: ${e.message}", Toast.LENGTH_SHORT).show()
-                Log.e("ProfileImageSaveError", e.message.toString())
-            }
-    }
-
-    // Firebase Realltime db에 이미지 URL 저장
-    private fun saveImageUrlToDatabase(imageUrl: String, function: () -> Unit) {
-        val currentUser = FirebaseAuth.getInstance().currentUser
-        if (currentUser != null) {
-            Toast.makeText(requireActivity(), "프로필 사진이 변경되었습니다.", Toast.LENGTH_SHORT).show()
-            requireActivity().lifecycleScope.launch {
-                AuthRepositoryImpl().updateProfileImg(imageUrl)
-            }
-        }
-    }
 }

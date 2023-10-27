@@ -11,9 +11,9 @@ import com.example.tripsync.model.Plan
 import kotlinx.coroutines.launch
 
 class MyPlanViewModel(private val planRepositoryImpl: PlanRepositoryImpl) : ViewModel() {
-    var planList: LiveData<List<Plan>> = MutableLiveData()
+    var planList: LiveData<List<Plan>> = planRepositoryImpl.getPlanListSnapshot().asLiveData()
 
-    init {
+    fun getPlanListSnapshot() {
         planList = planRepositoryImpl.getPlanListSnapshot().asLiveData()
     }
     fun deletePlan(plan: Plan) {
