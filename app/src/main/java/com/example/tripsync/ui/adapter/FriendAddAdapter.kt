@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FriendmanageFriendAddItemBinding
 import com.example.tripsync.model.User
 
@@ -15,6 +16,7 @@ class FriendAddAdapter(private val addFriend: (User) -> Unit) : RecyclerView.Ada
         fun bind(user: User) {
             Glide.with(binding.root.context)
                 .load(user.profileImg)
+                .error(R.drawable.defalt_profile)
                 .into(binding.friendManageProfileImg)
             binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
