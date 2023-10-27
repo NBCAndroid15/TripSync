@@ -58,6 +58,7 @@ class BookmarkRepositoryImpl {
             if (result.documents.size == 0) {
                 val userBookmark = UserBookmark(curUser.uid, listOf(travel))
                 bookmarksRef.document().set(userBookmark).await()
+                listOf(travel)
             } else {
                 val userBookmark = result.documents[0].toObject(UserBookmark::class.java)
                 val bookmarkList = userBookmark?.travelList?.toMutableList() ?: mutableListOf()

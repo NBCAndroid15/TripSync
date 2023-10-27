@@ -7,11 +7,13 @@
     android:layout_height="80dp"
     android:orientation="horizontal">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/friend_manage_profile_img"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:background="@drawable/button_sub_solid"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/Circle"
+        app:shapeAppearance="@style/Circle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

@@ -13,6 +13,9 @@ class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerVi
 
     class ViewHolder (private val binding : FriendmanageFriendItemBinding, private val deleteFriend: (User) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(user: User) {
+            Glide.with(binding.root.context)
+                .load(user.profileImg)
+                .into(binding.friendManageImage)
             binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
             binding.friendManageDeleteBtn.setOnClickListener {
