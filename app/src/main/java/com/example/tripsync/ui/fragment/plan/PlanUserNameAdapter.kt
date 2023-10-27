@@ -5,16 +5,19 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanUsernameItemBinding
+import com.example.tripsync.model.User
 
 
-class PlanUserNameAdapter : ListAdapter<String, PlanUserNameAdapter.ViewHolder>(
-    object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
+    object : DiffUtil.ItemCallback<User>() {
+        override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
         }
 
@@ -22,8 +25,16 @@ class PlanUserNameAdapter : ListAdapter<String, PlanUserNameAdapter.ViewHolder>(
 ) {
 
     class ViewHolder(private val binding: PlanUsernameItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: String) = with(binding) {
-            planUserNickname.text = item
+        fun bind(item: User) = with(binding) {
+            planUserNickname.text = item.nickname
+
+            Glide.with(itemView)
+                .load(item.profileImg)
+                .error(R.drawable.defalt_profile)
+                .into(planUserProfile)
+
+
+
         }
     }
 

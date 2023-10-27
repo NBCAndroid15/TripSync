@@ -93,7 +93,9 @@ class SetupUserAddDialog : DialogFragment() {
     }
 
     private fun isUserCheck (user: User) : Boolean {
-        val addUser = sharedViewModel.userNickName.value.orEmpty()
-        return user.nickname in addUser
+        val addUser = sharedViewModel.userList.value.orEmpty()
+        return addUser.any {
+            it.uid == user.uid
+        }
     }
 }

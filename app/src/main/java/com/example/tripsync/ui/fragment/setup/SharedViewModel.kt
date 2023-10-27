@@ -27,8 +27,8 @@ class SharedViewModel : ViewModel() {
     private val _planItems = MutableLiveData<List<Travel>>(_plan.planDetailList?.get(currentPosition)?.travelList)
     val planItems: LiveData<List<Travel>> get() = _planItems
 
-    private val _userNickName = MutableLiveData<List<String>>(_plan.group)
-    val userNickName : LiveData<List<String>> get() = _userNickName
+    private val _userList = MutableLiveData<List<User>>()
+    val userList : LiveData<List<User>> get() = _userList
 
     private val _memoList = MutableLiveData<List<String>>()
 
@@ -90,15 +90,15 @@ class SharedViewModel : ViewModel() {
                 }
             }, group = owner)
 
-            _userNickName.value = listOf(curUser?.nickname ?: "")
+            _userList.value = listOf(curUser ?: User())
         }
     }
 
     fun initPlan(plan: Plan) {
         viewModelScope.launch {
             _plan = plan
-            _userNickName.value =
-                AuthRepositoryImpl().getNameListByUidList(plan.group ?: listOf()) ?: listOf()
+            _userList.value =
+                AuthRepositoryImpl().getUserListByUidList(plan.group ?: listOf()) ?: listOf()
         }
     }
 
@@ -120,20 +120,18 @@ class SharedViewModel : ViewModel() {
         }
     }
 
-    fun getUserNickName(nickName: User) {
-        val currentName = _userNickName.value.orEmpty().toMutableList()
-        if (!currentName.any { it == nickName.nickname}) {
-            currentName.add(nickName.nickname ?: "")
-            _userNickName.value = currentName.toList()
+    fun getUserNickName(user: User) {
+        val currentName = _userList.value.orEmpty().toMutableList()
+        if (!currentName.any { it.uid == user.uid }) {
+            currentName.add(user)
+            _userList.value = currentName.toList()
         }
 
         val groupList = _plan.group.orEmpty().toMutableList()
-        if (!groupList.any { it == nickName.uid }) {
-            groupList.add(nickName.uid ?: "")
+        if (!groupList.any { it == user.uid }) {
+            groupList.add(user.uid ?: "")
             _plan.group = groupList.toList()
-            Log.d("getUser", _plan.group?.toString() ?: "empty")
         }
-//            _plan.group = _plan.group?.plus(listOf(nickName.uid ?: ""))
 
     }
 

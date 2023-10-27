@@ -7,13 +7,14 @@
     android:layout_marginStart="10dp"
     android:layout_marginTop="5dp">
 
-    <ImageView
-
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/plan_user_profile"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/button_sub_solid"
         android:scaleType="centerCrop"
+        app:shapeAppearance="@style/Circle"
+        app:shapeAppearanceOverlay="@style/Circle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

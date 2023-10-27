@@ -4,9 +4,11 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import androidx.core.util.Pair
 import androidx.fragment.app.DialogFragment
 import com.example.tripsync.R
 import com.example.tripsync.databinding.SetupCalendarviewBinding
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.format.ArrayWeekDayFormatter
 
@@ -27,12 +29,14 @@ class SetupCalendarView(
         val dialog = Dialog(requireContext())
         dialog.setContentView(binding.root)
 
-        initView()
-        binding.okayBtn.setOnClickListener {
+//        initView()
+//        binding.okayBtn.setOnClickListener {
+//
+//            onDateSelected(selectedDates)
+//            dialog.dismiss()
+//        }
 
-            onDateSelected(selectedDates)
-            dialog.dismiss()
-        }
+        initDatePicker()
 
         return dialog
     }
@@ -47,24 +51,38 @@ class SetupCalendarView(
     }
 
 
-    private fun initView() = with(binding) {
+//    private fun initView() = with(binding) {
+//
+//        setupCalendar.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getTextArray(R.array.custom_weekdays)))
+//        setupCalendar.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+//
+//        setupCalendar.setOnDateChangedListener { _, date, selected ->
+//            if (selected) {
+//                selectedDates.add(date)
+//            } else {
+//                selectedDates.remove(date)
+//            }
+//        }
+//
+//        setupCalendar.setOnRangeSelectedListener { widget, dates ->
+//            selectedDates.clear()
+//            selectedDates.addAll(dates)
+//        }
+//
+//    }
 
-        setupCalendar.setWeekDayFormatter(ArrayWeekDayFormatter(resources.getTextArray(R.array.custom_weekdays)))
-        setupCalendar.setHeaderTextAppearance(R.style.CalendarWidgetHeader)
+    private fun initDatePicker()= with(binding) {
+        val dateRangePicker = MaterialDatePicker.Builder.dateRangePicker()
+            .setTitleText("여행")
+            .setSelection(
+                Pair(
+                    MaterialDatePicker.thisMonthInUtcMilliseconds(),
+                    MaterialDatePicker.todayInUtcMilliseconds()
+                )
+            )
+            .build()
 
-        setupCalendar.setOnDateChangedListener { _, date, selected ->
-            if (selected) {
-                selectedDates.add(date)
-            } else {
-                selectedDates.remove(date)
-            }
-        }
-
-        setupCalendar.setOnRangeSelectedListener { widget, dates ->
-            selectedDates.clear()
-            selectedDates.addAll(dates)
-        }
-
+        dateRangePicker.show(parentFragmentManager, "tag")
     }
 
 
