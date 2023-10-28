@@ -74,7 +74,7 @@ class SharedViewModel : ViewModel() {
     fun addMemo(memo: String) {
         val curremtMemo = _memoList.value.orEmpty().toMutableList()
         curremtMemo.add(memo)
-        _plan.planDetailList?.get(currentPosition)?.content = memo
+        _plan.planDetailList?.getOrNull(currentPosition)?.content = memo
         _memoList.value = curremtMemo
     }
 
@@ -115,7 +115,7 @@ class SharedViewModel : ViewModel() {
         if (planDetailList != null && position >= 0 && position < planDetailList.size) {
             currentPosition = position
             _planItems.value =
-                _plan.planDetailList?.get(currentPosition)?.travelList?.toMutableList()
+                _plan.planDetailList?.getOrNull(currentPosition)?.travelList?.toMutableList()
             Log.d("position", currentPosition.toString())
         }
     }
@@ -152,7 +152,7 @@ class SharedViewModel : ViewModel() {
                         tel = item.tel
                     )
                 )
-                _plan.planDetailList?.get(currentPosition)?.travelList =
+                _plan.planDetailList?.getOrNull(currentPosition)?.travelList =
                     _planItems.value?.toMutableList()
             } else {
             }
@@ -189,7 +189,7 @@ class SharedViewModel : ViewModel() {
         val currentItem = _planItems.value.orEmpty().toMutableList()
         currentItem.remove(item)
         _planItems.value = currentItem
-        _plan.planDetailList?.get(currentPosition)?.travelList = currentItem
+        _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
     }
 
 
