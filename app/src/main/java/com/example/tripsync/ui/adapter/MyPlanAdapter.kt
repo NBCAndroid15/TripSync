@@ -26,7 +26,7 @@ class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.A
             binding.myplanPlanMinusbtn.visibility = View.GONE
 
             Glide.with(binding.root)
-                .load(plan.planDetailList?.get(0)?.travelList?.get(0)?.imageUrl ?: "")
+                .load(plan.planDetailList?.getOrNull(0)?.travelList?.getOrNull(0)?.imageUrl ?: "")
                 .error(R.drawable.item_error)
                 .into(binding.myplanPlanThumbnail)
 
