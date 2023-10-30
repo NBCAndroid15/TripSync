@@ -34,6 +34,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <Button
+                android:id="@+id/plan_map"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="지도보기"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
             <TextView
                 android:id="@+id/plan_date"
@@ -133,7 +141,7 @@
 
             <fragment
                 android:id="@+id/naver_map_fragment"
-                android:name="com.example.tripsync.ui.fragment.plan.NaverMapFragment"
+                android:name="com.example.tripsync.ui.fragment.plan.PlanNaverMap"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"
