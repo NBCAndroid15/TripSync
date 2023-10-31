@@ -157,6 +157,7 @@
                 android:layout_marginTop="5dp"
                 android:overScrollMode="never"
                 android:background="@color/white"
+                tools:listitem="@layout/plan_recycler_item"
                 app:layout_constraintBottom_toTopOf="@+id/plan_check_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.plan
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -47,11 +48,12 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
             planListNumber.text = (currentList.indexOf(item) + 1).toString()
 
             tvRemove.setOnClickListener {
-                val itemPositionToDelete = absoluteAdapterPosition
-                Log.d("PlanListAdapter", "클릭: $itemPositionToDelete")
                 onItemRemove(item)
+
             }
 
         }
     }
+
+
 }
