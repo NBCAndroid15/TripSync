@@ -1,16 +1,12 @@
 package com.example.tripsync.ui.fragment.plan
 
-import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
-import androidx.constraintlayout.widget.ConstraintSet.Motion
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.tripsync.R
@@ -26,7 +22,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.overlay.PolylineOverlay
 
 
-class NaverMapFragment : Fragment(), OnMapReadyCallback {
+class PlanNaverMap : Fragment(), OnMapReadyCallback {
 
     lateinit var mapView: MapView
     private lateinit var naverMap: NaverMap
@@ -113,8 +109,8 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         mapView.onDestroy()
     }
     companion object {
-        fun newInstance(): NaverMapFragment {
-            return NaverMapFragment()
+        fun newInstance(): PlanNaverMap {
+            return PlanNaverMap()
         }
     }
 

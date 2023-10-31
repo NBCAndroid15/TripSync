@@ -10,9 +10,11 @@
     <ImageView
         android:id="@+id/setup_back_btn"
         android:layout_width="40dp"
-        android:layout_height="20dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
         android:src="@drawable/ic_planbooklist_close"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -48,11 +50,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
         android:elevation="10dp"
+        android:layout_marginStart="15dp"
         android:visibility="gone"
         android:src="@drawable/ic_setup_check"
-        app:layout_constraintEnd_toEndOf="@+id/setup_date_btn"
+        app:layout_constraintStart_toStartOf="@+id/setup_date_btn"
         app:layout_constraintTop_toTopOf="@+id/setup_date_btn" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -76,10 +78,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_setup_check"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
         android:elevation="10dp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/setup_title_btn"
+        app:layout_constraintStart_toStartOf="@+id/setup_title_btn"
         app:layout_constraintTop_toTopOf="@+id/setup_title_btn" />
 
     <androidx.appcompat.widget.AppCompatButton
@@ -103,10 +105,10 @@
         android:layout_height="wrap_content"
         android:src="@drawable/ic_setup_check"
         android:layout_marginTop="12dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="15dp"
         android:elevation="10dp"
         android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="@+id/setup_user_add"
+        app:layout_constraintStart_toStartOf="@+id/setup_user_add"
         app:layout_constraintTop_toTopOf="@+id/setup_user_add" />
 
 
