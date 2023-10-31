@@ -3,14 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragment.plan.PlanNaverMap">
+    tools:context=".ui.fragment.setup.NaverMapFragment">
 
-    <com.naver.maps.map.MapView
-        android:id="@+id/mapContainer"
+    <fragment
+        android:id="@+id/navermap_location"
+        android:name="com.example.tripsync.ui.fragment.setup.NaverMapFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
-
-
-
 
 </FrameLayout>
