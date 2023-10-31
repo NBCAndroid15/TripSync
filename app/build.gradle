@@ -7,6 +7,8 @@ plugins {
 }
 
 android {
+
+
     namespace 'com.example.tripsync'
     compileSdk 33
 
@@ -94,9 +96,12 @@ dependencies {
 
     //Naver Map API
     implementation 'com.naver.maps:map-sdk:3.17.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
 
     // material calendar
     implementation 'com.github.prolificinteractive:material-calendarview:2.0.1'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.3.0'
+
 
 
 
