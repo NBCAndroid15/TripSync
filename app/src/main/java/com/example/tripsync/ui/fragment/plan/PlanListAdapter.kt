@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.plan
 
+import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Travel
 
@@ -38,6 +40,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
         fun bind(item: Travel) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
+                .error(R.drawable.defalt_profile)
                 .into(planItemImage)
 
             planItemTitle.text = item.title
@@ -45,11 +48,12 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
             planListNumber.text = (currentList.indexOf(item) + 1).toString()
 
             tvRemove.setOnClickListener {
-                val itemPositionToDelete = absoluteAdapterPosition
-                Log.d("PlanListAdapter", "클릭: $itemPositionToDelete")
                 onItemRemove(item)
+
             }
 
         }
     }
+
+
 }
