@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragment.CommunityWriteFragment">
+
+    <View
+        android:id="@+id/community_top_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@color/gray_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/community_back_button"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/ic_back"
+        android:layout_marginTop="13dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/community_post_button"
+        android:layout_width="65dp"
+        android:layout_height="30dp"
+        android:text="작성"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/button_gray_dark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/community_category_life_button"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:backgroundTint="@color/gray_light"
+        android:background="@drawable/setup_btn_round"
+        android:gravity="center"
+        android:text="일상"
+        android:textSize="13sp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_top_bar" />
+
+    <TextView
+        android:id="@+id/community_category_review_button"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/setup_btn_round"
+        android:gravity="center"
+        android:text="후기"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/community_category_life_button"
+        app:layout_constraintTop_toBottomOf="@+id/community_top_bar" />
+
+    <TextView
+        android:id="@+id/community_category_question_button"
+        android:layout_width="60dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:background="@drawable/setup_btn_round"
+        android:gravity="center"
+        android:text="질문"
+        android:textSize="13sp"
+        app:layout_constraintStart_toEndOf="@+id/community_category_review_button"
+        app:layout_constraintTop_toBottomOf="@+id/community_top_bar" />
+
+    <EditText
+        android:id="@+id/community_title_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:background="@null"
+        android:text="제목을 입력해 주세요."
+        android:textColor="@color/gray_dark"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_category_life_button" />
+
+    <View
+        android:id="@+id/community_title_border"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_light"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_title_text" />
+
+    <ImageView
+        android:id="@+id/community_photo_set_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/defalt_profile_edit"
+        android:backgroundTint="@color/gray_light"
+        android:background="@drawable/setup_btn_round"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_title_border" />
+
+    <ImageView
+        android:id="@+id/community_photo_preview_image"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="20dp"
+        android:background="@color/gray_light"
+        android:src="@drawable/home_sample"
+        android:scaleType="centerCrop"
+        app:layout_constraintStart_toEndOf="@+id/community_photo_set_image"
+        app:layout_constraintTop_toBottomOf="@+id/community_title_border" />
+
+    <ImageView
+        android:id="@+id/community_photo_preview_image2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/gray_light"
+        android:scaleType="centerCrop"
+        android:src="@drawable/home_sample"
+        app:layout_constraintStart_toEndOf="@+id/community_photo_preview_image"
+        app:layout_constraintTop_toBottomOf="@+id/community_title_border" />
+
+    <View
+    android:id="@+id/community_photo_border"
+    android:layout_width="match_parent"
+    android:layout_height="1dp"
+    android:background="@color/gray_light"
+    android:layout_marginTop="20dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/community_photo_preview_image" />
+
+    <EditText
+        android:id="@+id/community_content_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"
+        android:text="내용을 입력해 주세요."
+        android:textSize="14sp"
+        android:textColor="@color/gray_dark"
+        android:background="@null"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/community_photo_border"
+        tools:layout_editor_absoluteY="96dp" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
