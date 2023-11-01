@@ -1,9 +1,9 @@
 package com.example.tripsync.model
 
-data class Post (
+data class Post(
     val title: String? = null,
-    val memoNo: String? = null,
-    val imageUrl: String? =null,
+    val content: List<ContentPost>? = null,
     val timeStamp: Long? = null,
-    val user: List<String>? = null
-)
+    val postType: String? = null
+
+    )

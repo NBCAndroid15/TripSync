@@ -18,6 +18,7 @@ import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.NaverMapFragment
 import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.google.android.gms.location.LocationServices
 
 class PlanFragment : Fragment() {
 
@@ -103,7 +104,6 @@ class PlanFragment : Fragment() {
                 .addToBackStack(null)
                 .commit()
         }
-
 
         getTitleOrDate()
 
