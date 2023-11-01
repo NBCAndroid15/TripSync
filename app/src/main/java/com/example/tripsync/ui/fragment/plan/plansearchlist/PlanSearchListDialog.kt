@@ -1,6 +1,8 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
+import android.Manifest
 import android.app.Activity
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +10,8 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -16,7 +20,15 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.setup.NaverMapFragment
+import com.example.tripsync.ui.fragment.setup.NaverMapFragment.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.google.type.LatLng
+import com.naver.maps.map.util.FusedLocationSource
+import kotlin.math.atan2
+import kotlin.math.cos
+import kotlin.math.sin
+import kotlin.math.sqrt
 
 class PlanSearchListDialog : DialogFragment() {
 
@@ -45,6 +57,7 @@ class PlanSearchListDialog : DialogFragment() {
     ): View? {
         _binding = FragmentPlanSearchListBinding.inflate(inflater, container, false)
 
+
         return binding.root
     }
 
@@ -55,6 +68,8 @@ class PlanSearchListDialog : DialogFragment() {
         val height = WindowManager.LayoutParams.MATCH_PARENT
 
         dialog?.window?.setLayout(width, height)
+
+
 
         initView()
     }
@@ -129,6 +144,9 @@ class PlanSearchListDialog : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
     }
+
+
+
 
 
 }

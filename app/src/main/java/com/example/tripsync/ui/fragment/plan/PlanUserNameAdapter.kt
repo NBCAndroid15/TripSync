@@ -26,7 +26,6 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
 
     class ViewHolder(private val binding: PlanUsernameItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: User) = with(binding) {
-            planUserNickname.text = item.nickname
 
             Glide.with(itemView)
                 .load(item.profileImg)
