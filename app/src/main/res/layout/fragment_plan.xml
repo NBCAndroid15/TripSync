@@ -57,9 +57,11 @@
                 android:id="@+id/plan_username_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                tools:listitem="@layout/plan_username_item"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_date" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_date"
+                />
 
 
             <androidx.cardview.widget.CardView

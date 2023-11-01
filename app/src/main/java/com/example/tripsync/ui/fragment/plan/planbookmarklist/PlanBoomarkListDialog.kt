@@ -12,9 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanBoomarkListBinding
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.setup.NaverMapFragment.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModel
 import com.example.tripsync.viewmodel.BookmarkManageViewModelFactory
+import com.naver.maps.map.util.FusedLocationSource
 
 
 class PlanBoomarkListDialog : DialogFragment() {
@@ -37,6 +39,7 @@ class PlanBoomarkListDialog : DialogFragment() {
 
     private val viewModel: BookmarkManageViewModel by viewModels { BookmarkManageViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
+    private lateinit var locationSource: FusedLocationSource
 
 
 
@@ -46,6 +49,7 @@ class PlanBoomarkListDialog : DialogFragment() {
     ): View? {
         _binding = FragmentPlanBoomarkListBinding.inflate(inflater, container, false)
 
+        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
         initView()
         return binding.root
     }
