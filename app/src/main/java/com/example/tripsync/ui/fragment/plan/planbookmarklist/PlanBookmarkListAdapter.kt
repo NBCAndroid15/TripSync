@@ -47,7 +47,7 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean)
             }
 
             planbookListItemTitle.text = item.title
-            planbookListItemAddr.text = item.area
+            planbookListItemAddr.text = item.addr
         }
 
     }

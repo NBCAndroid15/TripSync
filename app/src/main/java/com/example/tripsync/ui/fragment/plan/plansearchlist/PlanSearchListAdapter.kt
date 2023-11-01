@@ -66,7 +66,7 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
             }
 
             planSearchTitle.text = item.title
-            planSearchAddr.text = item.area
+            planSearchAddr.text = item.addr
         }
 
     }

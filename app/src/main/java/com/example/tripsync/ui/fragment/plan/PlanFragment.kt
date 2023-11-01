@@ -98,11 +98,9 @@ class PlanFragment : Fragment() {
                 false
         }
 
-        binding.planMap.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, NaverMapFragment())
-                .addToBackStack(null)
-                .commit()
+
+        binding.planBackBtn.setOnClickListener {
+            requireActivity().onBackPressed()
         }
 
         getTitleOrDate()
