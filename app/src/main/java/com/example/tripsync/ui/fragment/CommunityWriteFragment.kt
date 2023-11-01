@@ -5,12 +5,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.tripsync.R
+import com.example.tripsync.data.CommunityRepositoryImpl
 import com.example.tripsync.databinding.FragmentCommunityWriteBinding
-import com.google.android.gms.common.internal.safeparcel.SafeParcelReader.createBundle
+import com.example.tripsync.model.ContentPost
+import com.example.tripsync.model.Post
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class CommunityWriteFragment : Fragment() {
 
+    private val communityRepository = CommunityRepositoryImpl()
     private var _binding: FragmentCommunityWriteBinding? = null
     private val binding: FragmentCommunityWriteBinding
         get() = _binding!!
@@ -20,59 +25,44 @@ class CommunityWriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentCommunityWriteBinding.inflate(inflater, container, false)
-
-        // 뒤로가기 버튼 클릭 -> (지금은 임시)
-        binding.communityBackButton.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, CommunityContentFragment())
-                .addToBackStack(null)
-                .commit()
-        }
-
-        binding.communityPostButton.setOnClickListener {
-            val communityTitle = binding.communityTitleText.text.toString()
-            val communityContent = binding.communityContentText.text.toString()
-            var category: String? = null
-
-            if (binding.communityCategoryLifeButton.isPressed) {
-                category = "life"
-            } else if (binding.communityCategoryReviewButton.isPressed) {
-                category = "review"
-            } else if (binding.communityCategoryQuestionButton.isPressed) {
-                category = "question"
-            }
-            val bundle = createBundle(communityTitle, communityContent, category)
-            navigateBundle(bundle)
-        }
         return binding.root
     }
 
-    private fun createBundle(title: String, content: String, category: String?): Bundle {
-        val bundle = Bundle()
-        bundle.putString("title", title)
-        bundle.putString("content", content)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        if (category != null) {
-            bundle.putString(category, category)
+        binding.communityPostButton.setOnClickListener {
+            val post = Post (
+                title = "여행지 추천해드려요",
+                timeStamp = System.currentTimeMillis(),
+                postType = "여행",
+                        content =
+                listOf(
+                    ContentPost(
+                        memoNo = "안녕안녕",
+                        imageUrl = listOf("dsadsa", "dasda", "asdadsa"),
+                    )
+                )
+
+            )
+
+            GlobalScope.launch(Dispatchers.IO) {
+                communityRepository.addPost(post)
+            }
         }
 
-        return bundle
+        binding.communityBackButton.setOnClickListener {
+            val post = Post(
+                title = "여행지 추천해드려요"
+            )
+
+            GlobalScope.launch(Dispatchers.IO) {
+                communityRepository.removePost(post)
+            }
+        }
     }
 
-    private fun navigateBundle(bundle: Bundle) {
-        val communityContentFragment = CommunityContentFragment()
-        communityContentFragment.arguments = bundle
 
-        requireActivity().supportFragmentManager.beginTransaction()
-            .replace(R.id.main_frame, communityContentFragment)
-            .addToBackStack(null)
-            .commit()
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
-    }
 
     companion object {
         fun newInstance(): CommunityWriteFragment {

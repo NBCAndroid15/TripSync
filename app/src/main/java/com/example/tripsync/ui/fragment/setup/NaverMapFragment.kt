@@ -34,12 +34,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         Manifest.permission.ACCESS_COARSE_LOCATION
     )
 
-    private val test = intArrayOf(1,2,3,4)
-    private val test2 = intArrayOf(3,4,5,6)
-
-
-
-
 
     private var _binding: NavermapBinding? = null
     private val binding: NavermapBinding
@@ -136,7 +130,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     }
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+        const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
 
         fun newInstance(): NaverMapFragment {

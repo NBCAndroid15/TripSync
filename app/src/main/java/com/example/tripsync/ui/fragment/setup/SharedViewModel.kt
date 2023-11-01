@@ -138,7 +138,7 @@ class SharedViewModel : ViewModel() {
     fun updatePlanBookItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
-        if (currentItem.none { it.imageUrl == item.imageUrl }) {
+        if (currentItem.none { it.title == item.title }) {
             if (currentItem.size < 10) {
                 _planItems.value = currentItem + listOf(
                     Travel(
@@ -163,7 +163,7 @@ class SharedViewModel : ViewModel() {
     fun updatePlanSearchItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty()
 
-        if (currentItem.none { it.imageUrl == item.imageUrl }) {
+        if (currentItem.none { it.title == item.title }) {
             if (currentItem.size < 10) {
                 _planItems.value = currentItem + listOf(
                     Travel(
