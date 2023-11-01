@@ -21,7 +21,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.setup.NaverMapFragment
-import com.example.tripsync.ui.fragment.setup.NaverMapFragment.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.google.type.LatLng
 import com.naver.maps.map.util.FusedLocationSource
@@ -119,6 +118,8 @@ class PlanSearchListDialog : DialogFragment() {
 
             }
         })
+
+        planSearchListSearch.isSubmitButtonEnabled = true
     }
 
     private fun performSearch(keyword: String) {

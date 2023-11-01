@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentNaverMapBinding
+import com.example.tripsync.ui.fragment.setup.NaverMapFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
@@ -43,6 +44,8 @@ class PlanNaverMap : Fragment(), OnMapReadyCallback {
         mapView = binding.mapContainer
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+
+        initView()
 
         return binding.root
     }
@@ -111,6 +114,15 @@ class PlanNaverMap : Fragment(), OnMapReadyCallback {
     companion object {
         fun newInstance(): PlanNaverMap {
             return PlanNaverMap()
+        }
+    }
+
+    private fun initView() {
+        binding.naverMapBtn.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, NaverMapFragment())
+                .addToBackStack(null)
+                .commit()
         }
     }
 

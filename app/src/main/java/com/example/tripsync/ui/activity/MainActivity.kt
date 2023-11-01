@@ -1,8 +1,12 @@
 package com.example.tripsync.ui.activity
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.example.tripsync.R
@@ -11,6 +15,7 @@ import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.CommunityWriteFragment
 import com.example.tripsync.ui.fragment.LoginFragment
 import com.example.tripsync.ui.fragment.MyPlanFragment
+import com.example.tripsync.ui.fragment.plan.LocationUtility.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 import com.example.tripsync.ui.fragment.setup.NaverMapFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
@@ -19,10 +24,20 @@ import com.example.tripsync.ui.fragment.setup.SetupFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
+    private val permissions = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if(!hasPermission()) {
+            ActivityCompat.requestPermissions(this, permissions,
+                PERMISSION_REQUEST_CODE
+            )
+        }
 
         supportFragmentManager
             .beginTransaction()
@@ -88,6 +103,20 @@ detail_btn_back
         }
         */
 
+    }
+
+    private fun hasPermission() : Boolean {
+        for (permission in permissions) {
+            if (ContextCompat.checkSelfPermission(this, permission)
+                != PackageManager.PERMISSION_GRANTED) {
+                return false
+            }
+        }
+        return true
+    }
+
+    companion object {
+        const val PERMISSION_REQUEST_CODE = 1001 // 원하는 코드로 설정
     }
 
 
