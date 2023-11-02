@@ -8,18 +8,27 @@
     android:background="#FFFFFF"
     tools:context=".ui.fragment.plan.PlanFragment">
 
-
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="70dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/plan_back_btn"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="10dp"
+                android:src="@drawable/ic_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
@@ -27,20 +36,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:text="계획제목"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/plan_map"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="지도보기"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_back_btn" />
 
 
             <TextView
@@ -48,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginTop="5dp"
                 android:text="2222년 10월 12일"
                 android:textColor="@color/gray_medium"
                 app:layout_constraintStart_toStartOf="parent"
@@ -57,11 +59,11 @@
                 android:id="@+id/plan_username_recycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/plan_username_item"
+                android:layout_marginTop="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_date"
-                />
+                tools:listitem="@layout/plan_username_item" />
 
 
             <androidx.cardview.widget.CardView
@@ -72,7 +74,6 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_username_recycler">
-
 
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -86,12 +87,12 @@
                         android:background="#00FFFFFF"
                         android:gravity="center"
                         android:hint="터치해서 메모를 입력해 보세요!"
-                        android:visibility="visible"
                         android:inputType="textMultiLine"
                         android:maxLines="5"
                         android:padding="10dp"
                         android:scrollbars="vertical"
                         android:textColor="@color/gray_medium"
+                        android:visibility="visible"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -120,24 +121,30 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_call_btn"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_call_bookmark"
+                app:layout_constraintEnd_toStartOf="@+id/plan_search_btn"
+                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/naver_map_fragment" />
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_search_btn"
-                android:layout_width="180dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="10dp"
+                android:layout_marginStart="5dp"
                 android:background="@drawable/setup_btn_round"
                 android:text="@string/plan_search_destination"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/plan_call_btn"
                 app:layout_constraintTop_toBottomOf="@+id/naver_map_fragment" />
 
 
@@ -149,7 +156,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_cardview"/>
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -157,35 +164,36 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:overScrollMode="never"
                 android:background="@color/white"
-                tools:listitem="@layout/plan_recycler_item"
-                app:layout_constraintBottom_toTopOf="@+id/plan_check_btn"
+                android:overScrollMode="never"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_call_btn" />
-
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/plan_check_btn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:background="@drawable/plan_btn_background"
-                android:text="확인"
-                android:textColor="@color/white"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_recycler" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_call_btn"
+                tools:listitem="@layout/plan_recycler_item" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.core.widget.NestedScrollView>
+
+    <LinearLayout
+        android:id="@+id/plan_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/plan_check_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/plan_btn_background"
+            android:text="확인"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
