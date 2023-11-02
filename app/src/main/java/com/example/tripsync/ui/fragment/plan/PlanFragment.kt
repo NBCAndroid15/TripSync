@@ -7,6 +7,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentPlanBinding
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.dialog.ConfirmDialog
 import com.example.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.NaverMapFragment
@@ -48,7 +51,10 @@ class PlanFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         adapter = PlanListAdapter {
-            deletePlanItem(it)
+            ConfirmDialog.newInstance(it).let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "ConfirmDialog")
+            }
         }
 
         initVisible()
@@ -134,6 +140,7 @@ class PlanFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        clearFragmentResultListener("deleteConfirm")
         _binding = null
     }
 
@@ -144,6 +151,12 @@ class PlanFragment : Fragment() {
     }
 
     private fun initView() = with(binding) {
+
+        setFragmentResultListener("deleteConfirm") { _, bundle ->
+            if (bundle.getBoolean("isConfirm")) {
+                sharedViewModel.planRemoveItem(bundle.getParcelable("travel") ?: Travel())
+            }
+        }
 
         planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListDialog()
@@ -195,10 +208,6 @@ class PlanFragment : Fragment() {
 
         }
 
-    }
-
-    private fun deletePlanItem(item: Travel) {
-        sharedViewModel.planRemoveItem(item)
     }
 
     private fun initVisible () {

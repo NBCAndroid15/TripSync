@@ -7,11 +7,11 @@ import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.BookmarkmanageBookmarkItemBinding
 import com.example.tripsync.model.Travel
 
-class BookmarkManageAdapter(private val deleteBookmark: (Travel) -> Unit) : RecyclerView.Adapter<BookmarkManageAdapter.ViewHolder>() {
+class BookmarkManageAdapter(private val deleteBookmark: (Travel) -> Unit, private val gotoDetail: (Travel) -> Unit) : RecyclerView.Adapter<BookmarkManageAdapter.ViewHolder>() {
 
     private var bookmarkList = listOf<Travel>()
 
-    class ViewHolder (private val binding : BookmarkmanageBookmarkItemBinding, private val deleteBookmark: (Travel) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (private val binding : BookmarkmanageBookmarkItemBinding, private val deleteBookmark: (Travel) -> Unit, private val gotoDetail: (Travel) -> Unit) : RecyclerView.ViewHolder(binding.root) {
         fun bind(travel: Travel) {
             Glide.with(binding.root.context)
                 .load(travel.imageUrl)
@@ -21,6 +21,10 @@ class BookmarkManageAdapter(private val deleteBookmark: (Travel) -> Unit) : Recy
 
             binding.bookmarkItemDelete.setOnClickListener {
                 deleteBookmark(travel)
+            }
+
+            binding.bookmarkManageLayout.setOnClickListener {
+                gotoDetail(travel)
             }
         }
     }
@@ -32,7 +36,7 @@ class BookmarkManageAdapter(private val deleteBookmark: (Travel) -> Unit) : Recy
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(BookmarkmanageBookmarkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), deleteBookmark)
+        return ViewHolder(BookmarkmanageBookmarkItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), deleteBookmark, gotoDetail)
     }
 
 
