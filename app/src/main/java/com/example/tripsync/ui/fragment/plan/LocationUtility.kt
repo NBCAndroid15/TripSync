@@ -7,7 +7,9 @@ import android.content.pm.PackageManager
 import android.location.Location
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.tasks.OnSuccessListener
 
@@ -15,6 +17,7 @@ class LocationUtility(private val context: Context) {
 
     private val fusedLocationClient: FusedLocationProviderClient =
         LocationServices.getFusedLocationProviderClient(context)
+    private var locationCallback: LocationCallback? = null
 
     fun requestLocationUpdate(onSuccessListener: OnSuccessListener<Location?>) {
         if (ContextCompat.checkSelfPermission(
@@ -27,12 +30,16 @@ class LocationUtility(private val context: Context) {
             ActivityCompat.requestPermissions(
                 context as Activity,
                 arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                LOCATION_PERMISSION_REQUEST_CODE
+                PERMISSION_REQUEST_CODE
             )
         }
     }
-
-    companion object {
-        const val LOCATION_PERMISSION_REQUEST_CODE = 1001
+    fun stopLocationUpdate() {
+        locationCallback?.let {
+            fusedLocationClient.removeLocationUpdates(it)
+            locationCallback = null
+        }
     }
+
+
 }
