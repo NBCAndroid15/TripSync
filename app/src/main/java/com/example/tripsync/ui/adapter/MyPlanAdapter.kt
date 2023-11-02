@@ -3,6 +3,9 @@ package com.example.tripsync.ui.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -15,10 +18,11 @@ import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.ui.collapse
 import com.example.tripsync.ui.expand
 
-class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
+class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit, private val lifecycleOwner: LifecycleOwner, private val editState: LiveData<Boolean>, private val deletePlan: (Plan) -> Unit) : RecyclerView.Adapter<MyPlanAdapter.ViewHolder>(){
     private var planList = listOf<Plan>()
+    private var sort = false
     
-    class ViewHolder (val binding : MyplanPlanItemBinding, private val parentAdapter: MyPlanAdapter, private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
+    class ViewHolder (val binding : MyplanPlanItemBinding, private val parentAdapter: MyPlanAdapter, private val gotoPlan : (Plan, Int) -> Unit, private val lifecycleOwner: LifecycleOwner, private val editState: LiveData<Boolean>, private val deletePlan: (Plan) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(plan: Plan) {
             binding.myplanDetailRv.visibility = View.GONE
@@ -48,6 +52,14 @@ class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.A
                 binding.myplanPlanPlusbtn.visibility = View.VISIBLE
                 binding.myplanDetailRv.collapse()
             }
+
+            editState.observe(lifecycleOwner) {
+                if (it) binding.myplanPlanDeletebtn.visibility = View.VISIBLE else binding.myplanPlanDeletebtn.visibility = View.GONE
+            }
+
+            binding.myplanPlanDeletebtn.setOnClickListener {
+                deletePlan(plan)
+            }
         }
     }
 
@@ -64,7 +76,7 @@ class MyPlanAdapter(private val gotoPlan : (Plan, Int) -> Unit) : RecyclerView.A
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(MyplanPlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), this, gotoPlan)
+        return ViewHolder(MyplanPlanItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), this, gotoPlan, lifecycleOwner, editState, deletePlan)
     }
 
 

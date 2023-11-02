@@ -29,18 +29,10 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="내 여행 리스트"
-                    android:maxLines="1"
-                    android:textSize="30sp"
-                    android:textStyle="bold" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:backgroundTint="#F2F2F2"
                     app:cardCornerRadius="100dp"
@@ -55,9 +47,25 @@
                         android:gravity="center_vertical"
                         android:layout_gravity="center_vertical"
                         android:layout_width="wrap_content"
-                        android:layout_height="30sp"/>
+                        android:layout_height="40dp"/>
 
                 </com.google.android.material.card.MaterialCardView>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/myplan_edit_btn"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/button_sub_solid"
+                    android:gravity="center|center_horizontal"
+                    android:textStyle="bold"
+                    android:text="편집"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
 
             </LinearLayout>

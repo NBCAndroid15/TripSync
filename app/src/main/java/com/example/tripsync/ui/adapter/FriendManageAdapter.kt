@@ -33,6 +33,7 @@ class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerVi
         notifyItemRangeInserted(0, this.friendList.size)
     }
 
+    fun isListEmpty() = friendList.isEmpty()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(FriendmanageFriendItemBinding.inflate(LayoutInflater.from(parent.context), parent, false), deleteFriend)
