@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.R
@@ -33,6 +34,7 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var naverMapFragment: PlanNaverMap
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
 
 
@@ -52,14 +54,14 @@ class PlanFragment : Fragment() {
         initVisible()
 
         recyclerView.adapter = adapter
-
+        itemTouchHelper = ItemTouchHelper(PlanSwapManage(adapter, requireContext(), ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initView()
         initViewModel()
@@ -204,6 +206,8 @@ class PlanFragment : Fragment() {
             binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
     }
+
+
 
 
 

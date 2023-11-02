@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.tripsync.R
 import com.example.tripsync.databinding.NavermapBinding
+import com.example.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.LocationTrackingMode
@@ -54,6 +55,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
+        locationSource = FusedLocationSource(this, PERMISSION_REQUEST_CODE)
 
 
         return binding.root
