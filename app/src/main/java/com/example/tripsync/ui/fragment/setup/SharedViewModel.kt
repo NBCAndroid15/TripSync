@@ -49,10 +49,10 @@ class SharedViewModel : ViewModel() {
     val isUserCheck: LiveData<Boolean> = _isUserCheck
 
     val _isDateSelected = MutableLiveData(false)
-    val isDateSelected: LiveData<Boolean> get() = _isDateSelected
 
     private val _ishint = MutableLiveData(false)
     val ishint : LiveData<Boolean> = _ishint
+
 
     fun setHint(visible: Boolean) {
         _ishint.value = visible
@@ -191,10 +191,6 @@ class SharedViewModel : ViewModel() {
         _planItems.value = currentItem
         _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
     }
-
-
-
-
 
 
 }

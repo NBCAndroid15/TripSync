@@ -1,8 +1,7 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
-import android.Manifest
 import android.app.Activity
-import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,8 +9,6 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -20,14 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
-import com.example.tripsync.ui.fragment.setup.NaverMapFragment
+import com.example.tripsync.ui.fragment.plan.LocationUtility
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
-import com.google.type.LatLng
-import com.naver.maps.map.util.FusedLocationSource
-import kotlin.math.atan2
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import com.google.android.gms.tasks.OnSuccessListener
+
 
 class PlanSearchListDialog : DialogFragment() {
 
@@ -50,6 +43,13 @@ class PlanSearchListDialog : DialogFragment() {
         }
     }
 
+    private val utility : LocationUtility by lazy {
+        LocationUtility(requireContext())
+    }
+    private val searchResults = mutableListOf<Travel>()
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -68,9 +68,20 @@ class PlanSearchListDialog : DialogFragment() {
 
         dialog?.window?.setLayout(width, height)
 
+        binding.planSearchLocation.setOnClickListener {
+            nearItem()
+        }
+        binding.planSearchAll.setOnClickListener {
+        }
+
 
 
         initView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        utility.stopLocationUpdate()
     }
 
     private fun initView()= with(binding) {
@@ -123,6 +134,7 @@ class PlanSearchListDialog : DialogFragment() {
     }
 
     private fun performSearch(keyword: String) {
+
         viewModel.updateSearchItem(keyword)
 
         viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
@@ -146,6 +158,22 @@ class PlanSearchListDialog : DialogFragment() {
         sharedViewModel.updatePlanSearchItem(item)
     }
 
+    private fun nearItem() {
+        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+            if (currentLocation != null) {
+                adapter.currentList.sortedBy { item ->
+                    val itemLocation = android.location.Location("itemLocation")
+                    itemLocation.latitude = item.mapY ?: 0.0
+                    itemLocation.longitude = item.mapX ?: 0.0
+                    val distance = currentLocation.distanceTo(itemLocation) / 1000
+                    distance
+                }
+
+                adapter.notifyDataSetChanged()
+
+            }
+        })
+    }
 
 
 

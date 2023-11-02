@@ -14,11 +14,7 @@ import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.CommunityWriteFragment
 import com.example.tripsync.ui.fragment.LoginFragment
-import com.example.tripsync.ui.fragment.MyPlanFragment
-import com.example.tripsync.ui.fragment.plan.LocationUtility.Companion.LOCATION_PERMISSION_REQUEST_CODE
 import com.example.tripsync.ui.fragment.plan.PlanFragment
-import com.example.tripsync.ui.fragment.setup.NaverMapFragment
-import com.example.tripsync.ui.fragment.setup.SetupFragment
 
 
 class MainActivity : AppCompatActivity() {
@@ -116,7 +112,7 @@ detail_btn_back
     }
 
     companion object {
-        const val PERMISSION_REQUEST_CODE = 1001 // 원하는 코드로 설정
+        const val PERMISSION_REQUEST_CODE = 1001
     }
 
 

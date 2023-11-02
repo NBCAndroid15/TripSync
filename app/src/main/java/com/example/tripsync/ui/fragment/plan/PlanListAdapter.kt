@@ -1,7 +1,6 @@
 package com.example.tripsync.ui.fragment.plan
 
-import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -25,6 +24,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
 ) {
 
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding = PlanRecyclerItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
@@ -45,7 +45,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
 
             planItemTitle.text = item.title
             planItemWhere.text = item.addr
-            planListNumber.text = (currentList.indexOf(item) + 1).toString()
+                planListNumber.text = (absoluteAdapterPosition + 1).toString()
 
             tvRemove.setOnClickListener {
                 onItemRemove(item)
@@ -54,6 +54,15 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
 
         }
     }
+
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        val list = currentList.toMutableList()
+        val item = list.removeAt(fromPosition)
+        list.add(toPosition, item)
+        submitList(list)
+    }
+
+
 
 
 }
