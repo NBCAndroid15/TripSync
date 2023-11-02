@@ -50,12 +50,14 @@ class PlanFragment : Fragment() {
         recyclerView = binding.planRecycler
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = PlanListAdapter {
+        adapter = PlanListAdapter ( {
             ConfirmDialog.newInstance(it).let { dialog ->
                 dialog.isCancelable = false
                 dialog.show(parentFragmentManager, "ConfirmDialog")
             }
-        }
+        }, {
+            sharedViewModel.setPlanItems(it)
+        })
 
         initVisible()
 
@@ -215,10 +217,6 @@ class PlanFragment : Fragment() {
             binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
     }
-
-
-
-
 
 
 

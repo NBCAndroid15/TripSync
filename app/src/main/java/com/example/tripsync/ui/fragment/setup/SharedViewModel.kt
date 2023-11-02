@@ -192,5 +192,9 @@ class SharedViewModel : ViewModel() {
         _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
     }
 
+    fun setPlanItems(item: List<Travel>) {
+        _planItems.value = item
+    }
+
 
 }

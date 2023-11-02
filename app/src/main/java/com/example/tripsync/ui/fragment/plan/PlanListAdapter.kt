@@ -11,7 +11,8 @@ import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Travel
 
-class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
+class PlanListAdapter(private val onItemRemove: (Travel) -> Unit,
+                      private val onItemMove: (List<Travel>)-> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -59,8 +60,12 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
         val list = currentList.toMutableList()
         val item = list.removeAt(fromPosition)
         list.add(toPosition, item)
-        submitList(list)
+        onItemMove(list)
+
+
     }
+
+
 
 
 
