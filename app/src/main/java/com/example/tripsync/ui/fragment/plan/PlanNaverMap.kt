@@ -90,6 +90,7 @@ class PlanNaverMap : Fragment(), OnMapReadyCallback {
                     marker.icon = OverlayImage.fromResource(markerImage)
 
                     marker.map = naverMap
+                    marker.alpha = 0.8f
                     naverMap.minZoom = 5.0
                     markers.add(marker)
 
@@ -104,6 +105,8 @@ class PlanNaverMap : Fragment(), OnMapReadyCallback {
                 line.coords = lineLatLng
                 line.color = Color.GRAY
                 line.width = 3
+                line.setPattern(10, 5)
+                line.joinType = PolylineOverlay.LineJoin.Round
                 line.map = naverMap
             } else {
                 line.map = null

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanSearchListItemBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.plan.LocationUtility
@@ -42,6 +43,7 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
         fun bind(item: Travel) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
+                .error(R.drawable.item_error)
                 .into(planSearchThumbnail)
 
             val locationUtility = LocationUtility(binding.root.context)

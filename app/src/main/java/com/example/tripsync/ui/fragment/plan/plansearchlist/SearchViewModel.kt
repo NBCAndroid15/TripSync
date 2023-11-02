@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
+import android.location.Location
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -23,7 +24,6 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
     private var currentKeyword: String? = null
     fun updateSearchItem (keyword: String) {
         viewModelScope.launch {
-            Log.d("Plan", "keyword: $keyword")
             if ( currentKeyword != keyword) {
                 _getSearchItem.value = emptyList()
                 page = 1
@@ -35,6 +35,20 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
             page++
             currentKeyword = keyword
 
+        }
+    }
+
+    fun searchItemSorted(currentLocation : Location) {
+        _getSearchItem.value?.let { items ->
+            val sortedItems = items.sortedBy { item ->
+                val itemLocation = Location("itemLocation")
+                itemLocation.latitude = item.mapY ?: 0.0
+                itemLocation.longitude = item.mapX ?: 0.0
+                val distance = currentLocation.distanceTo(itemLocation) / 1000
+                distance
+            }
+
+            _getSearchItem.value = sortedItems
         }
     }
 

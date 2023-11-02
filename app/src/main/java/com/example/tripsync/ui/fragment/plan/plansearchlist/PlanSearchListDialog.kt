@@ -32,6 +32,7 @@ class PlanSearchListDialog : DialogFragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
+
     private val adapter by lazy {
         PlanSearchListAdapter {item ->
             if(sharedViewModel.planItems.value?.size ?: 0 < 10) {
@@ -46,8 +47,6 @@ class PlanSearchListDialog : DialogFragment() {
     private val utility : LocationUtility by lazy {
         LocationUtility(requireContext())
     }
-    private val searchResults = mutableListOf<Travel>()
-
 
 
     override fun onCreateView(
@@ -130,7 +129,7 @@ class PlanSearchListDialog : DialogFragment() {
             }
         })
 
-        planSearchListSearch.isSubmitButtonEnabled = true
+//        planSearchListSearch.isSubmitButtonEnabled = true
     }
 
     private fun performSearch(keyword: String) {
@@ -161,19 +160,32 @@ class PlanSearchListDialog : DialogFragment() {
     private fun nearItem() {
         utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
             if (currentLocation != null) {
-                adapter.currentList.sortedBy { item ->
-                    val itemLocation = android.location.Location("itemLocation")
-                    itemLocation.latitude = item.mapY ?: 0.0
-                    itemLocation.longitude = item.mapX ?: 0.0
-                    val distance = currentLocation.distanceTo(itemLocation) / 1000
-                    distance
-                }
-
-                adapter.notifyDataSetChanged()
-
+                viewModel.searchItemSorted(currentLocation)
             }
         })
     }
+
+
+
+
+
+//    private fun nearItem(item: List<Travel>) {
+//        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+//            if (currentLocation != null) {
+//                val sortedItems = item.sortedBy { item ->
+//                    val itemLocation = android.location.Location("itemLocation")
+//                    itemLocation.latitude = item.mapY ?: 0.0
+//                    itemLocation.longitude = item.mapX ?: 0.0
+//                    val distance = currentLocation.distanceTo(itemLocation) / 1000
+//                    distance
+//                }
+//
+//                adapter.submitList(sortedItems)
+//
+//
+//            }
+//        })
+//    }
 
 
 
