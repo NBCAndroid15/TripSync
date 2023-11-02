@@ -1,17 +1,24 @@
 package com.example.tripsync.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.clearFragmentResultListener
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentFriendManageBinding
+import com.example.tripsync.model.Travel
+import com.example.tripsync.model.User
 import com.example.tripsync.ui.adapter.FriendManageAdapter
+import com.example.tripsync.ui.dialog.ConfirmDialog
+import com.example.tripsync.ui.dialog.ConfirmFriendDialog
 import com.example.tripsync.ui.dialog.FriendAddDialogFragment
 import com.example.tripsync.viewmodel.FriendManageViewModel
 import com.example.tripsync.viewmodel.FriendManageViewModelFactory
@@ -23,11 +30,15 @@ class FriendManageFragment : Fragment() {
         get() = _binding!!
 
     private val viewModel: FriendManageViewModel by activityViewModels { FriendManageViewModelFactory() }
+    var targetUser = User()
 
     private val adapter by lazy {
         FriendManageAdapter {
-            viewModel.deleteFriend(it)
-            Toast.makeText(requireContext(), "삭제를 완료하였습니다", Toast.LENGTH_SHORT).show()
+            targetUser = it
+            ConfirmFriendDialog.newInstance().let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "ConfirmFriendDialog")
+            }
         }
     }
 
@@ -50,13 +61,32 @@ class FriendManageFragment : Fragment() {
         initView()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+        clearFragmentResultListener("deleteConfirmFriend")
+    }
+
     private fun initView() {
         binding.friendManageFriendRv.adapter = adapter
         binding.friendManageFriendRv.itemAnimator = null
         binding.friendManageFriendRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.friendManageHintText.visibility = View.VISIBLE
 
         viewModel.curUser.observe(viewLifecycleOwner) {
-            adapter.setList(it?.friends ?: listOf())
+            val result = it?.friends ?: listOf()
+
+            if(result.isEmpty()) {
+                adapter.setList(result)
+                binding.friendManageFriendRv.visibility = View.GONE
+                binding.friendManageHintText.visibility = View.VISIBLE
+            } else {
+                binding.friendManageHintText.visibility = View.GONE
+                binding.friendManageFriendRv.visibility = View.VISIBLE
+                adapter.setList(result)
+            }
+
+
         }
 
         binding.friendManageAddBtn.setOnClickListener {
@@ -64,6 +94,13 @@ class FriendManageFragment : Fragment() {
                 dialog.isCancelable = false
                 dialog.show(parentFragmentManager, "FriendAddDialog")
             }
+        }
+
+        setFragmentResultListener("deleteConfirmFriend") { _, bundle ->
+            if (bundle.getBoolean("isConfirmFriend")) {
+                viewModel.deleteFriend(targetUser)
+            }
+
         }
     }
 

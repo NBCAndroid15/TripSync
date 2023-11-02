@@ -11,6 +11,7 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentBookmarkManageBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.adapter.BookmarkAreaAdapter
@@ -48,12 +49,21 @@ class BookmarkManageFragment : Fragment() {
     }
 
     private fun initView() {
-        binding.bookmarkManageBookmarkRv.adapter = BookmarkManageAdapter {
+        binding.bookmarkManageBookmarkRv.adapter = BookmarkManageAdapter ({
             ConfirmDialog.newInstance(it).let { dialog ->
                 dialog.isCancelable = false
                 dialog.show(parentFragmentManager, "ConfirmDialog")
             }
-        }
+        }, { travel ->
+            val fragment = DetailFragment(travel)
+            requireActivity().supportFragmentManager.beginTransaction()
+                .setCustomAnimations(
+                    R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,
+                    R.anim.exit_to_right)
+                .add(R.id.main_frame, fragment)
+                .addToBackStack(null)
+                .commit()
+        })
         binding.bookmarkManageBookmarkRv.layoutManager = LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
         binding.bookmarkManageBookmarkRv.itemAnimator = null
 
@@ -72,7 +82,15 @@ class BookmarkManageFragment : Fragment() {
         }
 
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
-            (binding.bookmarkManageBookmarkRv.adapter as BookmarkManageAdapter).setList(it)
+            if (it.isEmpty()) {
+                (binding.bookmarkManageBookmarkRv.adapter as BookmarkManageAdapter).setList(it)
+                binding.bookmarkManageHintText.visibility = View.VISIBLE
+                binding.bookmarkManageBookmarkRv.visibility = View.GONE
+            } else {
+                binding.bookmarkManageHintText.visibility = View.GONE
+                binding.bookmarkManageBookmarkRv.visibility = View.VISIBLE
+                (binding.bookmarkManageBookmarkRv.adapter as BookmarkManageAdapter).setList(it)
+            }
         }
 
         setFragmentResultListener("deleteConfirm") { _, bundle ->

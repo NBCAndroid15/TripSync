@@ -78,73 +78,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/mypage_id_text" />
 
             <TextView
-                android:id="@+id/mypage_pw_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="비밀번호"
-                android:textSize="16sp"
-                android:layout_marginTop="30sp"
-                app:layout_constraintTop_toBottomOf="@+id/user_manage_id_current" />
-
-            <EditText
-                android:id="@+id/user_manage_pw_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@drawable/border_user_edit"
-                android:gravity="center_vertical"
-                android:hint="6자리이상 입력해 주세요."
-                android:paddingEnd="15dp"
-                android:textSize="15sp"
-                android:layout_marginTop="15dp"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mypage_pw_text" />
-
-            <TextView
-                android:id="@+id/mypage_checkpw_text"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="비밀번호 확인"
-                android:textSize="16sp"
-                android:layout_marginTop="30sp"
-                app:layout_constraintTop_toBottomOf="@+id/user_manage_pw_edittext" />
-
-            <TextView
-                android:id="@+id/mypage_pw_save_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_sub_solid"
-                android:text="비밀번호 저장"
-                android:paddingVertical="10dp"
-                android:paddingHorizontal="20dp"
-                app:layout_constraintBottom_toBottomOf="@+id/mypage_checkpw_text"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/mypage_checkpw_text" />
-
-            <EditText
-                android:id="@+id/user_manage_checkpw_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:background="@drawable/border_user_edit"
-                android:gravity="center_vertical"
-                android:hint="다시한번 입력해 주세요."
-                android:paddingEnd="15dp"
-                android:textSize="15sp"
-                android:layout_marginTop="15dp"
-                android:inputType="textPassword"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/mypage_checkpw_text" />
-
-            <TextView
                 android:id="@+id/mypage_nickname_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="닉네임"
                 android:textSize="16sp"
                 android:layout_marginTop="30sp"
-                app:layout_constraintTop_toBottomOf="@+id/user_manage_checkpw_edittext" />
+                app:layout_constraintTop_toBottomOf="@+id/user_manage_id_current" />
 
             <TextView
                 android:id="@+id/mypage_nickname_save_button"
@@ -172,6 +112,17 @@
                 app:layout_constraintTop_toBottomOf="@+id/mypage_nickname_text" />
 
             <TextView
+                android:id="@+id/user_manage_password_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="비밀번호 변경"
+                android:textColor="@color/gray_medium"
+                android:textSize="16sp"
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/user_manage_nickname_edittext" />
+
+            <TextView
                 android:id="@+id/user_manage_signout_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -179,8 +130,8 @@
                 android:text="회원탈퇴"
                 android:textColor="@color/gray_medium"
                 android:textSize="16sp"
-                android:layout_marginTop="30dp"
-                app:layout_constraintTop_toBottomOf="@+id/user_manage_nickname_edittext" />
+                android:layout_marginTop="40dp"
+                app:layout_constraintTop_toBottomOf="@+id/user_manage_password_btn" />
 
             <TextView
                 android:id="@+id/user_manage_back_btn"

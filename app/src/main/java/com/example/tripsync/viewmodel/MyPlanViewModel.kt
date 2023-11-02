@@ -12,10 +12,21 @@ import kotlinx.coroutines.launch
 
 class MyPlanViewModel(private val planRepositoryImpl: PlanRepositoryImpl) : ViewModel() {
     var planList: LiveData<List<Plan>> = planRepositoryImpl.getPlanListSnapshot().asLiveData()
+    private var _editState: MutableLiveData<Boolean> = MutableLiveData(false)
+    val editState: LiveData<Boolean>
+        get() = _editState
+
+    var sortOption = false
 
     fun getPlanListSnapshot() {
         planList = planRepositoryImpl.getPlanListSnapshot().asLiveData()
     }
+
+    fun toggleEditState() {
+        _editState.value = !(_editState.value!!)
+    }
+
+
     fun deletePlan(plan: Plan) {
         viewModelScope.launch {
             planRepositoryImpl.deletePlan(plan)
