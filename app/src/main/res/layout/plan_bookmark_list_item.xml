@@ -4,78 +4,91 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="5dp"
     android:clipToPadding="false">
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent"
+        android:id="@+id/materialCardView"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="10dp"
         android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginTop="5dp"
         android:elevation="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:strokeColor="#F2F2F2"
         app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#F2F2F2"
         app:strokeWidth="1dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-
-            <ImageView
-                android:id="@+id/planbook_list_item_thumbnail"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_gravity="center"
-                android:layout_weight="0.5"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_launcher_foreground"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-
-            <TextView
-                android:id="@+id/planbook_list_item_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
-                android:text="여행지 제목"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/planbook_list_item_thumbnail"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/planbook_list_item_addr"
-                android:layout_width="wrap_content"
-                android:layout_height="0dp"
-                android:layout_marginStart="5dp"
-                android:layout_weight="1"
-                android:textSize="12dp"
-                android:text="여행지 주소"
-                app:layout_constraintStart_toEndOf="@+id/planbook_list_item_thumbnail"
-                app:layout_constraintTop_toBottomOf="@+id/planbook_list_item_title" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/plan_booklist_btn"
-                android:layout_width="49dp"
-                android:layout_height="41dp"
-                android:layout_gravity="center"
-                android:background="@drawable/setup_btn_round"
-                android:backgroundTint="@color/gray_light"
-                android:text="선택"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ImageView
+            android:id="@+id/planbook_list_item_thumbnail"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_weight="0.5"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_launcher_foreground"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
     </com.google.android.material.card.MaterialCardView>
+
+
+    <TextView
+        android:id="@+id/planbook_list_item_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:paddingHorizontal="5dp"
+        android:text="여행지 제목"
+        android:textSize="15dp"
+        android:textStyle="bold"
+        android:layout_marginEnd="5dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/planbook_list_item_addr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:layout_marginEnd="40dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingHorizontal="5dp"
+        android:layout_weight="1"
+        android:text="여행지 주소"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toStartOf="@+id/plan_booklist_btn"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView"
+        app:layout_constraintTop_toBottomOf="@+id/planbook_list_item_title" />
+
+    <TextView
+        android:id="@+id/plan_book_km"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="80dp"
+        android:paddingHorizontal="5dp"
+        android:text="나와의 거리"
+        android:textSize="10dp"
+        android:textColor="@color/gray_medium"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView" />
+
+    <ImageView
+        android:id="@+id/plan_booklist_btn"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_plan_add"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

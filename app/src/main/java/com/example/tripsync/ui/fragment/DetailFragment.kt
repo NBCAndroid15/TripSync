@@ -94,11 +94,7 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
         binding.detailBtnBack.setOnClickListener {
             val fragmentManager = requireActivity().supportFragmentManager
-            fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
-                .replace(R.id.main_frame, MainFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
+            fragmentManager.popBackStack()
 
         }
 

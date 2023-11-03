@@ -1,5 +1,6 @@
 package com.example.tripsync.ui.fragment.plan.planbookmarklist
 
+import android.location.Location
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -10,7 +11,7 @@ import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanBookmarkListItemBinding
 import com.example.tripsync.model.Travel
 
-class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
+class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean, private val currentLocation: Location): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -47,7 +48,16 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean)
             }
 
             planbookListItemTitle.text = item.title
-            planbookListItemAddr.text = item.area
+            planbookListItemAddr.text = item.addr
+
+            val travelLoc = Location("travelLoc")
+            travelLoc.latitude = item.mapY!!
+            travelLoc.longitude = item.mapX!!
+
+            val distance = currentLocation.distanceTo(travelLoc) / 1000
+            val distanceInKM = (distance * 10).toInt() / 10.0
+            val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
+            planBookKm.text = formatKM
         }
 
     }

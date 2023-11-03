@@ -30,7 +30,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
     private var isLoading = false
     private var currentPage = 1
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,59 +38,35 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
         return binding.root
     }
 
+    override fun onResume() {
+        super.onResume()
+        searchResult()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val recyclerView = binding.recyclerView4
+        val recyclerView = binding.searchRecyclerView
 
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
-
         adapter.setOnItemClickListener (this)
-
-
-
 
         binding.searchEtSearchbar.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
-                val searchText = binding.searchEtSearchbar.text.toString()
-
-                if (searchText.isNotEmpty()) {
-                    insearch(searchText)
-
-                    binding.searchIvChar.visibility = View.GONE
-                    binding.searchIvChar2.visibility = View.GONE
-                    binding.searchProgress.visibility = View.VISIBLE
-
-
-                    val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                    imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
-                    Toast.makeText(requireContext(), "검색했어요!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show()
-                }
+                searchResult()
                 return@setOnKeyListener true
             }
             return@setOnKeyListener false
         }
 
         binding.searchBtn.setOnClickListener {
-            val searchText = binding.searchEtSearchbar.text.toString()
-            if (searchText.isNotEmpty()) {
-            insearch(binding.searchEtSearchbar.text.toString())
-
-                binding.searchIvChar.visibility = View.GONE
-                binding.searchIvChar2.visibility = View.GONE
-                binding.searchProgress.visibility = View.VISIBLE
-
-
-                val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-                imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
-                Toast.makeText(requireContext(), "검색했어요!", Toast.LENGTH_SHORT).show()
-            }  else {
+            searchResult()
+            if (binding.searchEtSearchbar.text.isEmpty()) {
                 Toast.makeText(requireContext(), "검색어를 입력해주세요!", Toast.LENGTH_SHORT).show()
             }
         }
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                 val layoutManager = recyclerView.layoutManager as LinearLayoutManager
@@ -108,6 +83,19 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
     }
 
 
+    private fun searchResult() {
+        val searchText = binding.searchEtSearchbar.text.toString()
+        if (searchText.isNotEmpty()) {
+            insearch(searchText)
+            requireView().post {
+                binding.searchIvChar.visibility = View.GONE
+                binding.searchIvChar2.visibility = View.GONE
+                binding.searchProgress.visibility = View.VISIBLE
+            }
+            val imm = context?.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(binding.searchEtSearchbar.windowToken, 0)
+        }
+    }
 
     private fun insearch(query: String) {
         val travelRepository = TravelRepositoryImpl()

@@ -1,7 +1,6 @@
 package com.example.tripsync.ui.fragment.plan
 
-import android.os.Bundle
-import android.util.Log
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -12,7 +11,8 @@ import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanRecyclerItemBinding
 import com.example.tripsync.model.Travel
 
-class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
+class PlanListAdapter(private val onItemRemove: (Travel) -> Unit,
+                      private val onItemMove: (List<Travel>)-> Unit): ListAdapter<Travel, PlanListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -23,6 +23,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
         }
     }
 ) {
+
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -45,7 +46,7 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
 
             planItemTitle.text = item.title
             planItemWhere.text = item.addr
-            planListNumber.text = (currentList.indexOf(item) + 1).toString()
+                planListNumber.text = (absoluteAdapterPosition + 1).toString()
 
             tvRemove.setOnClickListener {
                 onItemRemove(item)
@@ -54,6 +55,19 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit): ListAdapter<T
 
         }
     }
+
+    fun swapItems(fromPosition: Int, toPosition: Int) {
+        val list = currentList.toMutableList()
+        val item = list.removeAt(fromPosition)
+        list.add(toPosition, item)
+        onItemMove(list)
+
+
+    }
+
+
+
+
 
 
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.R
@@ -21,6 +22,7 @@ import com.example.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.example.tripsync.ui.fragment.setup.NaverMapFragment
 import com.example.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.google.android.gms.location.LocationServices
 
 class PlanFragment : Fragment() {
 
@@ -35,6 +37,7 @@ class PlanFragment : Fragment() {
     private lateinit var userAdapter : PlanUserNameAdapter
 
     private lateinit var naverMapFragment: PlanNaverMap
+    private lateinit var itemTouchHelper: ItemTouchHelper
 
 
 
@@ -47,24 +50,26 @@ class PlanFragment : Fragment() {
         recyclerView = binding.planRecycler
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        adapter = PlanListAdapter {
+        adapter = PlanListAdapter ( {
             ConfirmDialog.newInstance(it).let { dialog ->
                 dialog.isCancelable = false
                 dialog.show(parentFragmentManager, "ConfirmDialog")
             }
-        }
+        }, {
+            sharedViewModel.setPlanItems(it)
+        })
 
         initVisible()
 
         recyclerView.adapter = adapter
-
+        itemTouchHelper = ItemTouchHelper(PlanSwapManage(adapter, requireContext(), ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0))
+        itemTouchHelper.attachToRecyclerView(recyclerView)
 
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         initView()
         initViewModel()
@@ -103,13 +108,10 @@ class PlanFragment : Fragment() {
                 false
         }
 
-        binding.planMap.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, NaverMapFragment())
-                .addToBackStack(null)
-                .commit()
-        }
 
+        binding.planBackBtn.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
 
         getTitleOrDate()
 
@@ -215,8 +217,6 @@ class PlanFragment : Fragment() {
             binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
     }
-
-
 
 
 
