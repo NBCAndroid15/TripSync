@@ -1,6 +1,7 @@
 package com.example.tripsync.ui.fragment.plan.plansearchlist
 
 import android.app.Activity
+import android.location.Location
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.tripsync.databinding.FragmentPlanSearchListBinding
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.plan.LocationUtility
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.google.android.gms.tasks.OnSuccessListener
+
 
 class PlanSearchListDialog : DialogFragment() {
 
@@ -26,6 +30,7 @@ class PlanSearchListDialog : DialogFragment() {
 
     private val viewModel: SearchViewModel by viewModels { SearchViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
+
 
 
     private val adapter by lazy {
@@ -39,11 +44,17 @@ class PlanSearchListDialog : DialogFragment() {
         }
     }
 
+    private val utility : LocationUtility by lazy {
+        LocationUtility(requireContext())
+    }
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentPlanSearchListBinding.inflate(inflater, container, false)
+
 
         return binding.root
     }
@@ -56,7 +67,20 @@ class PlanSearchListDialog : DialogFragment() {
 
         dialog?.window?.setLayout(width, height)
 
+        binding.planSearchLocation.setOnClickListener {
+            nearItem()
+        }
+        binding.planSearchAll.setOnClickListener {
+        }
+
+
+
         initView()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        utility.stopLocationUpdate()
     }
 
     private fun initView()= with(binding) {
@@ -104,9 +128,12 @@ class PlanSearchListDialog : DialogFragment() {
 
             }
         })
+
+//        planSearchListSearch.isSubmitButtonEnabled = true
     }
 
     private fun performSearch(keyword: String) {
+
         viewModel.updateSearchItem(keyword)
 
         viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
@@ -129,6 +156,38 @@ class PlanSearchListDialog : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
     }
+
+    private fun nearItem() {
+        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+            if (currentLocation != null) {
+                viewModel.searchItemSorted(currentLocation)
+            }
+        })
+    }
+
+
+
+
+
+//    private fun nearItem(item: List<Travel>) {
+//        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+//            if (currentLocation != null) {
+//                val sortedItems = item.sortedBy { item ->
+//                    val itemLocation = android.location.Location("itemLocation")
+//                    itemLocation.latitude = item.mapY ?: 0.0
+//                    itemLocation.longitude = item.mapX ?: 0.0
+//                    val distance = currentLocation.distanceTo(itemLocation) / 1000
+//                    distance
+//                }
+//
+//                adapter.submitList(sortedItems)
+//
+//
+//            }
+//        })
+//    }
+
+
 
 
 }

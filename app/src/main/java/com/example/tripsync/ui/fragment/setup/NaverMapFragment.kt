@@ -15,6 +15,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.example.tripsync.R
 import com.example.tripsync.databinding.NavermapBinding
+import com.example.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.LocationTrackingMode
@@ -28,15 +29,6 @@ import com.naver.maps.map.util.FusedLocationSource
 
 
 class NaverMapFragment : Fragment(), OnMapReadyCallback {
-
-    private val permissions = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
-
-    private val test = intArrayOf(1,2,3,4)
-    private val test2 = intArrayOf(3,4,5,6)
-
 
 
 
@@ -52,13 +44,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
     private val line = PolylineOverlay()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-        if(!hasPermission()) {
-            ActivityCompat.requestPermissions(requireActivity(), permissions, LOCATION_PERMISSION_REQUEST_CODE)
-        }
-    }
 
 
     override fun onCreateView(
@@ -69,7 +55,7 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
         mapView = binding.map
         mapView.onCreate(savedInstanceState)
         mapView.getMapAsync(this)
-        locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        locationSource = FusedLocationSource(this, PERMISSION_REQUEST_CODE)
 
 
         return binding.root
@@ -113,7 +99,6 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
                     marker.map = naverMap
                     naverMap.minZoom = 5.0
                     markers.add(marker)
-                    Log.d("map", "Selected locations: ${location.mapX}, ${location.mapY}")
 
                     val cameraPosition = CameraPosition(LatLng(location.mapY, location.mapX), 9.0)
                     naverMap.cameraPosition = cameraPosition
@@ -131,28 +116,19 @@ class NaverMapFragment : Fragment(), OnMapReadyCallback {
 
         val uiSettings = naverMap.uiSettings
         uiSettings.isLocationButtonEnabled = true
-        naverMap.locationTrackingMode = LocationTrackingMode.Face
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+
 
     }
 
     companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-
-
         fun newInstance(): NaverMapFragment {
             return NaverMapFragment()
         }
     }
 
-    private fun hasPermission() : Boolean {
-        for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(requireActivity(), permission)
-                != PackageManager.PERMISSION_GRANTED) {
-                return false
-            }
-        }
-        return true
-    }
+
 
 
 }
