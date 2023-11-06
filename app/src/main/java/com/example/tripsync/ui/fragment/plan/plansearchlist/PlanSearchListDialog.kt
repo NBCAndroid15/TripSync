@@ -3,6 +3,7 @@ package com.example.tripsync.ui.fragment.plan.plansearchlist
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,17 +32,17 @@ class PlanSearchListDialog : DialogFragment() {
     private val viewModel: SearchViewModel by viewModels { SearchViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-
-
     private val adapter by lazy {
-        PlanSearchListAdapter {item ->
+        PlanSearchListAdapter ({item ->
             if(sharedViewModel.planItems.value?.size ?: 0 < 10) {
                 sendItem(item)
                 return@PlanSearchListAdapter true
             } else {
                 return@PlanSearchListAdapter false
             }
-        }
+        }, sharedViewModel.planItems, { travel ->
+            sharedViewModel.planRemoveItem(travel)
+        })
     }
 
 //    private val utility : LocationUtility by lazy {
@@ -67,11 +68,11 @@ class PlanSearchListDialog : DialogFragment() {
 
         dialog?.window?.setLayout(width, height)
 
-        binding.planSearchLocation.setOnClickListener {
+//        binding.planSearchLocation.setOnClickListener {
 //            nearItem()
-        }
-        binding.planSearchAll.setOnClickListener {
-        }
+//        }
+//        binding.planSearchAll.setOnClickListener {
+//        }
 
 
 
@@ -156,6 +157,7 @@ class PlanSearchListDialog : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
     }
+
 
 //    private fun nearItem() {
 //        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->

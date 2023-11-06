@@ -45,19 +45,20 @@ class PlanBoomarkListDialog : DialogFragment() {
 //    }
 
     private val adapter by lazy {
-        PlanBookmarkListAdapter { item ->
+        PlanBookmarkListAdapter ({ item ->
             if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
                 sendItem(item)
                 return@PlanBookmarkListAdapter true
             } else {
                 return@PlanBookmarkListAdapter false
             }
-        }
+        }, sharedViewModel.planItems, { travel ->
+            sharedViewModel.planRemoveItem(travel)
+        })
     }
 
     private val viewModel: BookmarkManageViewModel by viewModels { BookmarkManageViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
-
 
 
     override fun onCreateView(
