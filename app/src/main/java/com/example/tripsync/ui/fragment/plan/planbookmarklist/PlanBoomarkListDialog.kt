@@ -55,14 +55,14 @@ class PlanBoomarkListDialog : DialogFragment() {
     ): View? {
         _binding = FragmentPlanBoomarkListBinding.inflate(inflater, container, false)
 
-        val locationUtility = LocationUtility(requireContext())
-        val onSuccessListener = OnSuccessListener<Location?> { location ->
-            if (location != null) {
-                currentLocation = location
-                initView()
-            }
-        }
-        locationUtility.requestLocationUpdate(onSuccessListener)
+//        val locationUtility = LocationUtility(requireContext())
+//        val onSuccessListener = OnSuccessListener<Location?> { location ->
+//            if (location != null) {
+//                currentLocation = location
+//                initView()
+//            }
+//        }
+//        locationUtility.requestLocationUpdate(onSuccessListener)
 
         return binding.root
     }

@@ -45,25 +45,27 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
                 .load(item.imageUrl)
                 .error(R.drawable.item_error)
                 .into(planSearchThumbnail)
-
-            val locationUtility = LocationUtility(binding.root.context)
-            locationUtility.requestLocationUpdate(OnSuccessListener { currentLocation ->
-                if (currentLocation != null) {
-                    val itemLocation = android.location.Location("itemLocation")
-                    itemLocation.latitude = item.mapY ?: 0.0
-                    itemLocation.longitude = item.mapX ?: 0.0
-
-                    val distance = currentLocation.distanceTo(itemLocation) / 1000
-                    val distanceInKM = (distance * 10).toInt() / 10.0
-                    val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
-                    planSearchKm.text = formatKM
-
-                }
-            })
+//
+//            val locationUtility = LocationUtility(binding.root.context)
+//            locationUtility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+//                if (currentLocation != null) {
+//                    val itemLocation = android.location.Location("itemLocation")
+//                    itemLocation.latitude = item.mapY ?: 0.0
+//                    itemLocation.longitude = item.mapX ?: 0.0
+//
+//                    val distance = currentLocation.distanceTo(itemLocation) / 1000
+//                    val distanceInKM = (distance * 10).toInt() / 10.0
+//                    val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
+//                    planSearchKm.text = formatKM
+//
+//                }
+//            })
 
             planSearchCheck.setOnClickListener {
                 if(!itemClickCallBack(item)) {
                     Toast.makeText(binding.root.context, "여행지는 최대 10개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                } else {
+                    planSearchCheck.setImageResource(R.drawable.ic_plansearch_plus)
                 }
             }
 

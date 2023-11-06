@@ -20,24 +20,24 @@ import com.example.tripsync.ui.fragment.plan.PlanFragment
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 
-    private val permissions = arrayOf(
-        Manifest.permission.ACCESS_FINE_LOCATION,
-        Manifest.permission.ACCESS_COARSE_LOCATION
-    )
+//    private val permissions = arrayOf(
+//        Manifest.permission.ACCESS_FINE_LOCATION,
+//        Manifest.permission.ACCESS_COARSE_LOCATION
+//    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if(!hasPermission()) {
-            ActivityCompat.requestPermissions(this, permissions,
-                PERMISSION_REQUEST_CODE
-            )
-        }
+//        if(!hasPermission()) {
+//            ActivityCompat.requestPermissions(this, permissions,
+//                PERMISSION_REQUEST_CODE
+//            )
+//        }
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, LoginFragment.newInstance())
+            .add(R.id.main_frame, PlanFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {
@@ -101,15 +101,15 @@ detail_btn_back
 
     }
 
-    private fun hasPermission() : Boolean {
-        for (permission in permissions) {
-            if (ContextCompat.checkSelfPermission(this, permission)
-                != PackageManager.PERMISSION_GRANTED) {
-                return false
-            }
-        }
-        return true
-    }
+//    private fun hasPermission() : Boolean {
+//        for (permission in permissions) {
+//            if (ContextCompat.checkSelfPermission(this, permission)
+//                != PackageManager.PERMISSION_GRANTED) {
+//                return false
+//            }
+//        }
+//        return true
+//    }
 
     companion object {
         const val PERMISSION_REQUEST_CODE = 1001
