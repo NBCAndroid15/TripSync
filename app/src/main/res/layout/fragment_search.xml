@@ -31,16 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_iv_logo" />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/search_et_searchbar"
         android:layout_width="match_parent"
         android:layout_height="55dp"
         android:background="@drawable/border_user_edit"
         android:backgroundTintMode="add"
+        android:completionThreshold="1"
         android:hint="검색어를 입력해 주세요."
         android:inputType="text"
         android:textSize="15sp"
         android:layout_marginTop="10dp"
+        android:popupBackground="@android:drawable/edit_text"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search_tv_label" />
@@ -55,14 +57,15 @@
         app:layout_constraintEnd_toEndOf="@+id/search_et_searchbar"
         app:layout_constraintTop_toTopOf="@+id/search_et_searchbar" />
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/search_recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_height="match_parent"
+        android:layout_marginTop="190dp"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/search_et_searchbar" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
