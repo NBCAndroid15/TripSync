@@ -9,9 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.activityViewModels
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentLoginBinding
 import com.example.tripsync.model.User
+import com.example.tripsync.ui.fragment.setup.SharedViewModel
+import com.example.tripsync.viewmodel.MyPageViewModel
+import com.example.tripsync.viewmodel.MyPageViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -26,6 +30,7 @@ class LoginFragment : Fragment() {
 
     private lateinit var auth: FirebaseAuth
     private lateinit var gooleSignInClient: GoogleSignInClient
+    private val myPageViewModel: MyPageViewModel by activityViewModels { MyPageViewModelFactory() }
 
     private var _binding: FragmentLoginBinding? = null
     private val binding: FragmentLoginBinding
@@ -46,6 +51,7 @@ class LoginFragment : Fragment() {
             .build()
 
         gooleSignInClient = GoogleSignIn.getClient(requireActivity(), gso)
+        myPageViewModel.googleSignInClient = gooleSignInClient
 
         // Google 로그인 버튼 클릭
         binding.loginGoogleButton.setOnClickListener {
@@ -86,6 +92,7 @@ class LoginFragment : Fragment() {
 
 
     }
+
     // Google Intent를 얻어와서 로그인을 시작
     private fun signInGoogle() {
         val signInIntent = gooleSignInClient.signInIntent
@@ -93,31 +100,26 @@ class LoginFragment : Fragment() {
     }
 
     // Google 로그인 결과 데이터에서 로그인 정보 추출
-    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
-            handleResults(task)
-        } else {
-            Log.d("googlelogin", result.toString())
+    private val launcher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val task = GoogleSignIn.getSignedInAccountFromIntent(result.data)
+                handleResults(task)
+            } else {
+                Log.d("googlelogin", result.toString())
+            }
         }
-    }
 
     // Google 로그인 결과 처리
     private fun handleResults(task: Task<GoogleSignInAccount>) {
         if (task.isSuccessful) {
             // 로그인 성공 시 Account에서 사용자 정보 가져옴
-            val account : GoogleSignInAccount? = task.result
+            val account: GoogleSignInAccount? = task.result
             if (account != null) {
                 // 사용자 정보를 Firebase Authentication으로 전달하여 로그인 완료
                 updateUi(account)
-
-                val email = account.email
-                val displayName = account.displayName
-                // 사용자 정보 DB에 저장
-                saveUserInfoToDatabase(email, displayName)
             }
-        }
-        else {
+        } else {
             Log.d("googlelogin", task.exception.toString())
         }
     }
@@ -129,12 +131,18 @@ class LoginFragment : Fragment() {
 
             // 사용자 정보를 Firebase Firestore에 저장
             val user = User(email = email, nickname = displayName, uid = auth.currentUser!!.uid)
-            usersRef.document(auth.currentUser!!.uid).set(user)
+
+            usersRef.whereEqualTo("uid", auth.currentUser!!.uid).get()
                 .addOnSuccessListener {
-                    Toast.makeText(context, "Google 로그인을 통해 가입되었습니다.", Toast.LENGTH_SHORT).show()
-                }
-                .addOnFailureListener {
-                    Toast.makeText(context, "Google 로그인이 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                    if (it.documents.isEmpty()) {
+                        usersRef.document(auth.currentUser!!.uid).set(user)
+                            .addOnSuccessListener {
+                                //Toast.makeText(requireActivity(), "Google 로그인을 통해 가입되었습니다.", Toast.LENGTH_SHORT).show()
+                            }
+                            .addOnFailureListener {
+                                //Toast.makeText(requireActivity(), "Google 로그인이 실패했습니다. 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                            }
+                    }
                 }
         }
     }
@@ -144,8 +152,18 @@ class LoginFragment : Fragment() {
         val credential = GoogleAuthProvider.getCredential(account.idToken, null)
         auth.signInWithCredential(credential).addOnCompleteListener {
             if (it.isSuccessful) {
+                val email = account.email
+                val displayName = account.displayName
+                // 사용자 정보 DB에 저장
+                saveUserInfoToDatabase(email, displayName)
+
                 requireActivity().supportFragmentManager.beginTransaction()
-                    .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                    .setCustomAnimations(
+                        R.anim.enter_from_right,
+                        R.anim.exit_to_left,
+                        R.anim.enter_from_left,
+                        R.anim.exit_to_right
+                    )
                     .replace(R.id.main_frame, MainFragment.newInstance())
                     .commit()
             }
@@ -159,12 +177,18 @@ class LoginFragment : Fragment() {
                 .addOnCompleteListener { result ->
                     if (result.isSuccessful) {
                         requireActivity().supportFragmentManager.beginTransaction()
-                            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                            .setCustomAnimations(
+                                R.anim.enter_from_right,
+                                R.anim.exit_to_left,
+                                R.anim.enter_from_left,
+                                R.anim.exit_to_right
+                            )
                             .replace(R.id.main_frame, MainFragment.newInstance())
                             .commit()
                     } else {
                         Log.d("logincheck", result.exception.toString())
-                        Toast.makeText(context, "로그인 정보가 올바르지 않습니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, "로그인 정보가 올바르지 않습니다. 다시 확인해주세요.", Toast.LENGTH_SHORT)
+                            .show()
                     }
                 }
         } else {
@@ -173,7 +197,7 @@ class LoginFragment : Fragment() {
     }
 
     // 이메일 형식 체크
-    private fun isLoginChecked(email: String) : Boolean {
+    private fun isLoginChecked(email: String): Boolean {
         val regexPattern = "^(?=.*[A-Za-z])(?=.*[@#$%^&+=])(?=\\S+$).{1,}"
         val pattern = Pattern.compile(regexPattern)
         val matcher = pattern.matcher(email)
