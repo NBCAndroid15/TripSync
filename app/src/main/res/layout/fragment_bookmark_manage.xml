@@ -28,6 +28,7 @@
             android:id="@+id/bookmark_manage_bookmark_rv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
             android:overScrollMode="never"
             app:layout_constraintTop_toBottomOf="@+id/bookmark_category_rv"
             tools:listitem="@layout/bookmarkmanage_bookmark_item" />
