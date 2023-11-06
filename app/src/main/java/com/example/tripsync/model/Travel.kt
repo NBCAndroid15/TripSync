@@ -17,6 +17,7 @@ data class Travel(
     val tel: String? = null,
     val startDate: String? = null,
     val endDate: String? = null,
+    var isChecked: Boolean = false
 ) : Parcelable
 
 
