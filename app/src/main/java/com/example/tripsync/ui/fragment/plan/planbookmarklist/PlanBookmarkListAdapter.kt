@@ -11,7 +11,8 @@ import com.bumptech.glide.Glide
 import com.example.tripsync.databinding.PlanBookmarkListItemBinding
 import com.example.tripsync.model.Travel
 
-class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean, private val currentLocation: Location): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
+//, private val currentLocation: Location
+class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl

@@ -44,9 +44,9 @@ class PlanSearchListDialog : DialogFragment() {
         }
     }
 
-    private val utility : LocationUtility by lazy {
-        LocationUtility(requireContext())
-    }
+//    private val utility : LocationUtility by lazy {
+//        LocationUtility(requireContext())
+//    }
 
 
     override fun onCreateView(
@@ -68,7 +68,7 @@ class PlanSearchListDialog : DialogFragment() {
         dialog?.window?.setLayout(width, height)
 
         binding.planSearchLocation.setOnClickListener {
-            nearItem()
+//            nearItem()
         }
         binding.planSearchAll.setOnClickListener {
         }
@@ -80,7 +80,7 @@ class PlanSearchListDialog : DialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        utility.stopLocationUpdate()
+//        utility.stopLocationUpdate()
     }
 
     private fun initView()= with(binding) {
@@ -157,13 +157,13 @@ class PlanSearchListDialog : DialogFragment() {
         sharedViewModel.updatePlanSearchItem(item)
     }
 
-    private fun nearItem() {
-        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
-            if (currentLocation != null) {
-                viewModel.searchItemSorted(currentLocation)
-            }
-        })
-    }
+//    private fun nearItem() {
+//        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+//            if (currentLocation != null) {
+//                viewModel.searchItemSorted(currentLocation)
+//            }
+//        })
+//    }
 
 
 
