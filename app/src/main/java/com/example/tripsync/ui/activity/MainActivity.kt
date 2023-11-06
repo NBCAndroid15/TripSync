@@ -14,6 +14,7 @@ import com.example.tripsync.databinding.ActivityMainBinding
 import com.example.tripsync.model.Plan
 import com.example.tripsync.ui.fragment.CommunityWriteFragment
 import com.example.tripsync.ui.fragment.LoginFragment
+import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.example.tripsync.ui.fragment.plan.PlanFragment
 
 

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginHorizontal="5dp"
     tools:context=".ui.fragment.home.HomeFragment">
 
     <ScrollView
@@ -14,39 +13,47 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white" >
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/home_start_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="20dp"
                 android:text="여행 시작하기"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_marginStart="5dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView4" />
 
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="150dp"
-                android:layout_marginHorizontal="5dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/corner_home_box"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/home_start_title" />
+                app:layout_constraintTop_toBottomOf="@+id/home_plan_text" />
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/home_plan_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:text="인생은 곧 여행, 어디로 떠나볼까요?"
+                app:layout_constraintTop_toBottomOf="@+id/home_start_title"
+                tools:layout_editor_absoluteX="5dp" />
+
+            <TextView
+                android:id="@+id/home_feed_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="40dp"
                 android:paddingTop="30dp"
                 android:paddingBottom="10dp"
-                android:paddingHorizontal="40dp"
                 android:text="날짜별 여행 계획표를 만들어 즐겁고 편리한 여행 시작해보세요!"
                 android:textAlignment="center"
                 app:layout_constraintStart_toStartOf="parent"
@@ -62,16 +69,16 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="@+id/view2"
                 app:layout_constraintStart_toStartOf="@+id/view2"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
-
+                app:layout_constraintTop_toBottomOf="@+id/home_feed_tv" />
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_category_rv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
+                android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/home_travel_text"
@@ -81,7 +88,7 @@
                 android:id="@+id/home_travel_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="20dp"
                 android:text="추천 여행지"
                 android:textSize="20sp"
@@ -93,15 +100,17 @@
                 android:id="@+id/home_travel_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:text="오늘은 여기로 떠나보시는 것 어떠세요?"
-                app:layout_constraintTop_toBottomOf="@+id/home_travel_title" />
+                app:layout_constraintTop_toBottomOf="@+id/home_travel_title"
+                tools:layout_editor_absoluteX="16dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_travel_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginTop="8dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintStart_toStartOf="parent"
@@ -112,26 +121,28 @@
                 android:id="@+id/home_festival_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="20dp"
                 android:text="축제"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toBottomOf="@+id/home_travel_rv"
-                tools:layout_editor_absoluteX="10dp" />
+                app:layout_constraintTop_toBottomOf="@+id/imageView3"
+                tools:layout_editor_absoluteX="5dp" />
 
             <TextView
                 android:id="@+id/home_festival_text"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="5dp"
+                android:layout_marginHorizontal="10dp"
                 android:text="요즘 반응이 가장 뜨거운 축제를 살펴보세요!"
-                app:layout_constraintTop_toBottomOf="@+id/home_festival_title" />
+                app:layout_constraintTop_toBottomOf="@+id/home_festival_title"
+                tools:layout_editor_absoluteX="5dp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/home_festival_rv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
+                android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
@@ -139,8 +150,34 @@
                 app:layout_constraintTop_toBottomOf="@+id/home_festival_text"
                 tools:listitem="@layout/festival_item" />
 
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/border_user_edit"
+                app:layout_constraintTop_toBottomOf="@+id/home_travel_rv"
+                tools:layout_editor_absoluteX="92dp" />
 
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="150dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/logo_main"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
+            <TextView
+                android:id="@+id/home_login_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="로그인"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/imageView4"
+                app:layout_constraintTop_toTopOf="parent" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
