@@ -94,7 +94,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
         if (searchText.isNotEmpty()) {
             insearch(searchText)
             requireView().post {
-                binding.searchIvChar.visibility = View.GONE
                 binding.searchIvChar2.visibility = View.GONE
                 binding.searchProgress.visibility = View.VISIBLE
             }
