@@ -122,8 +122,10 @@ class PlanFragment : Fragment() {
         with(sharedViewModel) {
             planItems.observe(viewLifecycleOwner, Observer { planItems ->
                 adapter.submitList(null)
-                adapter.submitList(planItems)
-                adapter.notifyDataSetChanged()
+
+                    adapter.submitList(planItems)
+                    adapter.notifyDataSetChanged()
+
 
             })
 
