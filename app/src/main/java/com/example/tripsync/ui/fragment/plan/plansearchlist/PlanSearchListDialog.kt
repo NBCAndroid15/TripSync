@@ -3,6 +3,7 @@ package com.example.tripsync.ui.fragment.plan.plansearchlist
 import android.app.Activity
 import android.location.Location
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -31,22 +32,22 @@ class PlanSearchListDialog : DialogFragment() {
     private val viewModel: SearchViewModel by viewModels { SearchViewModelFactory() }
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
-
-
     private val adapter by lazy {
-        PlanSearchListAdapter {item ->
+        PlanSearchListAdapter ({item ->
             if(sharedViewModel.planItems.value?.size ?: 0 < 10) {
                 sendItem(item)
                 return@PlanSearchListAdapter true
             } else {
                 return@PlanSearchListAdapter false
             }
-        }
+        }, sharedViewModel.planItems, { travel ->
+            sharedViewModel.planRemoveItem(travel)
+        })
     }
 
-    private val utility : LocationUtility by lazy {
-        LocationUtility(requireContext())
-    }
+//    private val utility : LocationUtility by lazy {
+//        LocationUtility(requireContext())
+//    }
 
 
     override fun onCreateView(
@@ -67,11 +68,11 @@ class PlanSearchListDialog : DialogFragment() {
 
         dialog?.window?.setLayout(width, height)
 
-        binding.planSearchLocation.setOnClickListener {
-            nearItem()
-        }
-        binding.planSearchAll.setOnClickListener {
-        }
+//        binding.planSearchLocation.setOnClickListener {
+//            nearItem()
+//        }
+//        binding.planSearchAll.setOnClickListener {
+//        }
 
 
 
@@ -80,7 +81,7 @@ class PlanSearchListDialog : DialogFragment() {
 
     override fun onDestroy() {
         super.onDestroy()
-        utility.stopLocationUpdate()
+//        utility.stopLocationUpdate()
     }
 
     private fun initView()= with(binding) {
@@ -157,13 +158,14 @@ class PlanSearchListDialog : DialogFragment() {
         sharedViewModel.updatePlanSearchItem(item)
     }
 
-    private fun nearItem() {
-        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
-            if (currentLocation != null) {
-                viewModel.searchItemSorted(currentLocation)
-            }
-        })
-    }
+
+//    private fun nearItem() {
+//        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+//            if (currentLocation != null) {
+//                viewModel.searchItemSorted(currentLocation)
+//            }
+//        })
+//    }
 
 
 
