@@ -2,13 +2,13 @@ package com.example.tripsync.ui.fragment.search
 
 import android.app.Activity
 import android.os.Bundle
-import android.util.Log
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,7 +19,6 @@ import com.example.tripsync.databinding.FragmentSearchBinding
 import com.example.tripsync.model.Travel
 import com.example.tripsync.ui.fragment.DetailFragment
 import kotlinx.coroutines.launch
-import kotlin.concurrent.thread
 
 class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
 
@@ -52,12 +51,20 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
         recyclerView.adapter = adapter
         adapter.setOnItemClickListener (this)
 
+        val areaKeywords = listOf("서울", "인천", "대전", "대구", "광주", "부산", "울산", "세종특별자치시", "경기도", "강원특별자치도", "충청북도", "충청남도", "경상북도", "경상남도", "전라북도", "전라남도", "제주도", "전체")
+        val autoAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_dropdown_item_1line, areaKeywords)
+        binding.searchEtSearchbar.setAdapter(autoAdapter)
+
         binding.searchEtSearchbar.setOnKeyListener { v, keyCode, event ->
             if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_DOWN) {
                 searchResult()
                 return@setOnKeyListener true
             }
             return@setOnKeyListener false
+        }
+
+        binding.searchEtSearchbar.setOnItemClickListener { parent, view, position, id ->
+            searchResult()
         }
 
         binding.searchBtn.setOnClickListener {
@@ -81,7 +88,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
             }
         })
     }
-
 
     private fun searchResult() {
         val searchText = binding.searchEtSearchbar.text.toString()
