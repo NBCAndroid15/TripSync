@@ -13,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
 import com.example.tripsync.model.Travel
+import com.example.tripsync.ui.fragment.CoinFragment
 import com.example.tripsync.ui.fragment.DetailFragment
 import com.example.tripsync.ui.fragment.LoginFragment
+import com.example.tripsync.ui.fragment.SignupFragment
 import com.example.tripsync.ui.fragment.setup.SetupFragment
 import com.example.tripsync.ui.fragment.setup.SharedViewModel
 import com.example.tripsync.viewmodel.FestivalViewModel
@@ -89,6 +91,12 @@ class HomeFragment : Fragment(),
         binding.homeFestivalRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        binding.homeBannerCoin.setOnClickListener {
+            requireActivity().supportFragmentManager.beginTransaction()
+                .replace(R.id.main_frame, CoinFragment())
+                .addToBackStack(null)
+                .commit()
+        }
 
         binding.homeStartplanBtn.setOnClickListener {
             if (isUserLogIn()) {
@@ -111,12 +119,12 @@ class HomeFragment : Fragment(),
             }
         }
 
-        binding.homeLoginTv.setOnClickListener() {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, LoginFragment())
-                .addToBackStack(null)
-                .commit()
-        }
+//        binding.homeLoginTv.setOnClickListener() {
+//            requireActivity().supportFragmentManager.beginTransaction()
+//                .replace(R.id.main_frame, LoginFragment())
+//                .addToBackStack(null)
+//                .commit()
+//        }
 
 
         return binding.root
@@ -148,11 +156,11 @@ class HomeFragment : Fragment(),
 
         val isUserLoggedIn = isUserLogIn()
 
-        if (isUserLoggedIn) {
-            binding.homeLoginTv.visibility = View.GONE
-        } else {
-            binding.homeLoginTv.visibility = View.VISIBLE
-        }
+//        if (isUserLoggedIn) {
+//            binding.homeLoginTv.visibility = View.GONE
+//        } else {
+//            binding.homeLoginTv.visibility = View.VISIBLE
+//        }
 
         homeTravelAdapter.setOntravelClickListener(this)
         homeFestivalAdapter.setOnFestivalClickListener(this)
