@@ -47,7 +47,7 @@ interface TravelApiService {
         @Query("_type") type: String = "json",
         @Query("listYN") listYN: String = "Y",
         @Query("arrange") arrange: String = "A",
-        @Query("eventStartDate") eventStartDate: String = "20231001",
+        @Query("eventStartDate") eventStartDate: String = "20231101",
         @Query("serviceKey") serviceKey: String = AUTH_HEADER
     ): Response<FestivalInfoResponse>
 
