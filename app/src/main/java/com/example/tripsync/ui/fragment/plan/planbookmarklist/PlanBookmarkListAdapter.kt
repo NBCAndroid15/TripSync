@@ -50,14 +50,14 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
             planbookListItemTitle.text = item.title
             planbookListItemAddr.text = item.addr
 
-            val travelLoc = Location("travelLoc")
-            travelLoc.latitude = item.mapY!!
-            travelLoc.longitude = item.mapX!!
-
-            val distance = currentLocation.distanceTo(travelLoc) / 1000
-            val distanceInKM = (distance * 10).toInt() / 10.0
-            val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
-            planBookKm.text = formatKM
+//            val travelLoc = Location("travelLoc")
+//            travelLoc.latitude = item.mapY!!
+//            travelLoc.longitude = item.mapX!!
+//
+//            val distance = currentLocation.distanceTo(travelLoc) / 1000
+//            val distanceInKM = (distance * 10).toInt() / 10.0
+//            val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
+//            planBookKm.text = formatKM
         }
 
     }
