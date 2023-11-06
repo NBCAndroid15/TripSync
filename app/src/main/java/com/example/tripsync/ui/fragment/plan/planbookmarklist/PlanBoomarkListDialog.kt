@@ -31,16 +31,27 @@ class PlanBoomarkListDialog : DialogFragment() {
 
 
 
+//    private val adapter by lazy {
+//        currentLocation?.let {
+//            PlanBookmarkListAdapter ({ item ->
+//                if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
+//                    sendItem(item)
+//                    return@PlanBookmarkListAdapter true
+//                } else {
+//                    return@PlanBookmarkListAdapter false
+//                }
+//            }, it)
+//        }
+//    }
+
     private val adapter by lazy {
-        currentLocation?.let {
-            PlanBookmarkListAdapter ({ item ->
-                if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
-                    sendItem(item)
-                    return@PlanBookmarkListAdapter true
-                } else {
-                    return@PlanBookmarkListAdapter false
-                }
-            }, it)
+        PlanBookmarkListAdapter { item ->
+            if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
+                sendItem(item)
+                return@PlanBookmarkListAdapter true
+            } else {
+                return@PlanBookmarkListAdapter false
+            }
         }
     }
 
@@ -63,6 +74,7 @@ class PlanBoomarkListDialog : DialogFragment() {
 //            }
 //        }
 //        locationUtility.requestLocationUpdate(onSuccessListener)
+        initView()
 
         return binding.root
     }
