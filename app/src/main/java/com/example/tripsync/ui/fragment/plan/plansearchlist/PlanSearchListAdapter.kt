@@ -4,6 +4,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +16,9 @@ import com.example.tripsync.ui.fragment.plan.LocationUtility
 import com.google.android.gms.tasks.OnSuccessListener
 import com.naver.maps.geometry.LatLng
 
-class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) : ListAdapter<Travel, PlanSearchListAdapter.ViewHolder> (
+class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
+                            private val planItems: LiveData<List<Travel>>,
+                            private val deleteItem: (Travel) -> Unit) : ListAdapter<Travel, PlanSearchListAdapter.ViewHolder> (
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -27,6 +30,7 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
 
     }
 ) {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -37,9 +41,11 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
+
     }
 
     inner class ViewHolder(private val binding: PlanSearchListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var itemState = false
         fun bind(item: Travel) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
@@ -61,11 +67,32 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
 //                }
 //            })
 
+            if (planItems.value.orEmpty().any {
+                    it.title == item.title
+                }) {
+                planSearchCheck.setImageResource(R.drawable.ic_plansearch_plus)
+                itemState = true
+            } else {
+                itemState = false
+                planSearchCheck.setImageResource(R.drawable.ic_plansearch_add)
+            }
+
             planSearchCheck.setOnClickListener {
-                if(!itemClickCallBack(item)) {
-                    Toast.makeText(binding.root.context, "여행지는 최대 10개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                if(!itemState) {
+                    if (!itemClickCallBack(item)) {
+                        Toast.makeText(
+                            binding.root.context,
+                            "여행지는 최대 10개까지 추가할 수 있습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        planSearchCheck.setImageResource(R.drawable.ic_plansearch_plus)
+                        itemState = true
+                    }
                 } else {
-                    planSearchCheck.setImageResource(R.drawable.ic_plansearch_plus)
+                    deleteItem(item)
+                    itemState = false
+                    planSearchCheck.setImageResource(R.drawable.ic_plansearch_add)
                 }
             }
 
@@ -74,5 +101,6 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean ) 
         }
 
     }
+
 
 }

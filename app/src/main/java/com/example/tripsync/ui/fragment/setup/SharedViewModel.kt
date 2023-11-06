@@ -189,7 +189,7 @@ class SharedViewModel : ViewModel() {
     // planfragment에서 아이템을 삭제하기 위한 메서드
     fun planRemoveItem(item: Travel) {
         val currentItem = _planItems.value.orEmpty().toMutableList()
-        currentItem.remove(item)
+        currentItem.remove(currentItem.filter { item.title == it.title }.getOrNull(0))
         _planItems.value = currentItem
         _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
     }

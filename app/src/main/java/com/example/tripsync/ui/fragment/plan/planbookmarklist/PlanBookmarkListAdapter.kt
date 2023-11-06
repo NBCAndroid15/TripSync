@@ -4,15 +4,19 @@ import android.location.Location
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.tripsync.R
 import com.example.tripsync.databinding.PlanBookmarkListItemBinding
 import com.example.tripsync.model.Travel
 
 //, private val currentLocation: Location
-class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
+class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
+                              private val planItems: LiveData<List<Travel>>,
+                              private val deleteItem: (Travel) -> Unit): ListAdapter<Travel, PlanBookmarkListAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<Travel>() {
         override fun areItemsTheSame(oldItem: Travel, newItem: Travel): Boolean {
             return oldItem.imageUrl == newItem.imageUrl
@@ -34,18 +38,42 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean)
     }
 
     inner class ViewHolder(private val binding: PlanBookmarkListItemBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        private var isItemState = false
         fun bind(item: Travel) = with(binding) {
             Glide.with(itemView)
                 .load(item.imageUrl)
+                .error(R.drawable.item_error)
                 .into(planbookListItemThumbnail)
 
+            if (planItems.value.orEmpty().any {
+                    it.title == item.title
+                }) {
+                planBooklistBtn.setImageResource(R.drawable.ic_plansearch_plus)
+                isItemState = true
+            } else {
+                isItemState = false
+                planBooklistBtn.setImageResource(R.drawable.ic_plansearch_add)
+            }
+
             binding.planBooklistBtn.setOnClickListener {
-
-                    if(!itemClickCallBack(item)) {
-                        Toast.makeText(binding.root.context, "여행지는 최대 10개까지 추가할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                if(!isItemState) {
+                    if (!itemClickCallBack(item)) {
+                        Toast.makeText(
+                            binding.root.context,
+                            "여행지는 최대 10개까지 추가할 수 있습니다.",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    } else {
+                        planBooklistBtn.setImageResource(R.drawable.ic_plansearch_plus)
+                        isItemState = true
                     }
+                } else {
+                    deleteItem(item)
+                    isItemState = false
+                    planBooklistBtn.setImageResource(R.drawable.ic_plansearch_add)
 
-
+                }
             }
 
             planbookListItemTitle.text = item.title
