@@ -15,6 +15,7 @@ import com.example.tripsync.model.Plan
 import com.example.tripsync.model.PlanDetail
 import com.example.tripsync.model.Travel
 import com.example.tripsync.model.User
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
@@ -31,6 +32,7 @@ class SharedViewModel : ViewModel() {
     val userList : LiveData<List<User>> get() = _userList
 
     private val _memoList = MutableLiveData<List<String>>()
+
 
 /*
 *

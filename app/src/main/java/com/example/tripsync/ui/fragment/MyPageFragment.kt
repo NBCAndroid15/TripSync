@@ -29,7 +29,7 @@ class MyPageFragment : Fragment() {
 
     private val title = arrayOf("북마크 리스트", "친구 목록")
 
-    private val viewModel: MyPageViewModel by viewModels { MyPageViewModelFactory() }
+    private val viewModel: MyPageViewModel by activityViewModels { MyPageViewModelFactory() }
     private val userProfileViewModel: UserProfileViewModel by activityViewModels()
 
     override fun onCreateView(

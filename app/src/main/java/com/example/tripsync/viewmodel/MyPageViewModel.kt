@@ -6,12 +6,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.tripsync.data.AuthRepositoryImpl
 import com.example.tripsync.model.User
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import kotlinx.coroutines.launch
 
 class MyPageViewModel (private val authRepositoryImpl: AuthRepositoryImpl) : ViewModel() {
     private var _curUser: MutableLiveData<User?> = MutableLiveData<User?>()
     val curUser: LiveData<User?>
         get() = _curUser
+
+    var googleSignInClient: GoogleSignInClient? = null
 
     init {
         viewModelScope.launch {
@@ -21,5 +24,6 @@ class MyPageViewModel (private val authRepositoryImpl: AuthRepositoryImpl) : Vie
 
     fun logout() {
         authRepositoryImpl.logout()
+        googleSignInClient?.signOut()
     }
 }
