@@ -102,7 +102,7 @@
 
                 <fragment
                     android:id="@+id/map_fragment"
-                    android:name="com.example.tripsync.ui.fragment.MapFragment"
+                    android:name="com.trip.tripsync.ui.fragment.MapFragment"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
             </FrameLayout>

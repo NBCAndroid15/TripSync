@@ -1,4 +1,4 @@
-package com.example.tripsync
+package com.trip.tripsync
 
 import org.junit.Test
 

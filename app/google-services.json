@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:416981517471:android:4ee506ad27920174be8eaa",
         "android_client_info": {
-          "package_name": "com.example.tripsync"
+          "package_name": "com.trip.tripsync"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "416981517471-eleokjjkqjvbe1ngl5ppladu7l6ddti1.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.tripsync",
+            "package_name": "com.trip.tripsync",
             "certificate_hash": "33e8c9ab3442a8c7cd0a452f6b63fa02f9315ca1"
           }
         },
