@@ -91,8 +91,24 @@ class MyPlanFragment : Fragment() {
 
         Log.d("myplanInit", "myplanInit")
 
+        if (curList.isEmpty()) {
+            binding.myplanRv.visibility = View.GONE
+            binding.myplanPlanHinttext.visibility = View.VISIBLE
+        } else {
+            binding.myplanRv.visibility = View.VISIBLE
+            binding.myplanPlanHinttext.visibility = View.GONE
+        }
+
         viewModel.planList.observe(viewLifecycleOwner) {
             curList = it
+
+            if (curList.isEmpty()) {
+                binding.myplanRv.visibility = View.GONE
+                binding.myplanPlanHinttext.visibility = View.VISIBLE
+            } else {
+                binding.myplanRv.visibility = View.VISIBLE
+                binding.myplanPlanHinttext.visibility = View.GONE
+            }
 
             if (viewModel.sortOption) {
                 adapter.setList(it)
