@@ -1,15 +1,20 @@
 package com.example.tripsync.ui.fragment
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.viewpager2.widget.ViewPager2
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentMainBinding
 import com.example.tripsync.ui.adapter.ViewPagerFragmentAdapter
+import com.example.tripsync.ui.fragment.home.HomeFragment
 import com.google.android.material.tabs.TabLayoutMediator
 
 class MainFragment : Fragment() {
@@ -21,6 +26,7 @@ class MainFragment : Fragment() {
     private val title = arrayOf("검색", "플랜", "홈", "게임", "내 정보")
 
     private var position = 2
+    private var backToExit = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -38,6 +44,18 @@ class MainFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (backToExit) {
+                requireActivity().finish()
+            } else {
+                backToExit = true
+                Toast.makeText(requireContext(), "한 번 더 누르시면 종료됩니다.", Toast.LENGTH_SHORT).show()
+                Handler(Looper.getMainLooper()).postDelayed({
+                    backToExit = false
+                }, 2000)
+            }
+        }
         initView()
     }
 
