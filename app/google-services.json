@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "416981517471",
+    "firebase_url": "https://tripsync-59afb-default-rtdb.firebaseio.com",
     "project_id": "tripsync-59afb",
     "storage_bucket": "tripsync-59afb.appspot.com"
   },
@@ -9,16 +10,101 @@
       "client_info": {
         "mobilesdk_app_id": "1:416981517471:android:4ee506ad27920174be8eaa",
         "android_client_info": {
+          "package_name": "com.example.tripsync"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "416981517471-b06c9svbi51j01f28fibjkqbs4md0ktf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "db5b423d3f55c988092b3e4e4448595e56089dd1"
+          }
+        },
+        {
+          "client_id": "416981517471-cqre52nf13f0sfaq3tovt4fmo85dpe89.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "7f255d4d1b76b21a3614d1a98db7ca6bc6622ab9"
+          }
+        },
+        {
+          "client_id": "416981517471-eleokjjkqjvbe1ngl5ppladu7l6ddti1.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "33e8c9ab3442a8c7cd0a452f6b63fa02f9315ca1"
+          }
+        },
+        {
+          "client_id": "416981517471-ia7nbpd8123uijojjcioo6sbb621d2lt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "c7114d5a9c5d25d03c6be7872a9353232b7da88d"
+          }
+        },
+        {
+          "client_id": "416981517471-ib7vdv571itd5ic91iu44eju9s9gsn0p.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "1e401e8a214cd3381fcf4545d7ffc13515411f10"
+          }
+        },
+        {
+          "client_id": "416981517471-pv6u0obe6hsdhd3bde8b6mb5slgj4bq4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.tripsync",
+            "certificate_hash": "5ff2bb5d3ec20b4d42b62696defd8ad24ed166bf"
+          }
+        },
+        {
+          "client_id": "416981517471-0mmsu5uo6m578muhvspq1qgl6v3ndkf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB2--5vNWZ4VxxegBVj6PxKmtNsYvpjrJI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "416981517471-0mmsu5uo6m578muhvspq1qgl6v3ndkf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:416981517471:android:0d564872a0bd265abe8eaa",
+        "android_client_info": {
           "package_name": "com.trip.tripsync"
         }
       },
       "oauth_client": [
         {
-          "client_id": "416981517471-eleokjjkqjvbe1ngl5ppladu7l6ddti1.apps.googleusercontent.com",
+          "client_id": "416981517471-74mt1lks7k8cmiunva9ruvdiug9d72se.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.trip.tripsync",
-            "certificate_hash": "33e8c9ab3442a8c7cd0a452f6b63fa02f9315ca1"
+            "certificate_hash": "1e401e8a214cd3381fcf4545d7ffc13515411f10"
+          }
+        },
+        {
+          "client_id": "416981517471-uplpmpjtb82pd492p1rlhsmve9u7lamv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.trip.tripsync",
+            "certificate_hash": "5ff2bb5d3ec20b4d42b62696defd8ad24ed166bf"
           }
         },
         {
