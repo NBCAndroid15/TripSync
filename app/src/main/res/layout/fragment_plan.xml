@@ -150,7 +150,7 @@
 
             <fragment
                 android:id="@+id/naver_map_fragment"
-                android:name="com.example.tripsync.ui.fragment.plan.PlanNaverMap"
+                android:name="com.trip.tripsync.ui.fragment.plan.PlanNaverMap"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 android:layout_marginTop="10dp"

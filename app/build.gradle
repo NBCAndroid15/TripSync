@@ -9,11 +9,11 @@ plugins {
 android {
 
 
-    namespace 'com.example.tripsync'
+    namespace 'com.trip.tripsync'
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.tripsync"
+        applicationId "com.trip.tripsync"
         minSdk 31
         targetSdk 33
         versionCode 1
