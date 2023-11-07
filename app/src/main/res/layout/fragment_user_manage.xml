@@ -15,12 +15,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/user_manage_profile_bg"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/defalt_profile_edit"
-                android:background="@drawable/button_sub_solid"
+                app:shapeAppearanceOverlay="@style/Circle"
+                app:shapeAppearance="@style/Circle"
                 android:layout_marginTop="50dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
