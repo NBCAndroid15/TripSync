@@ -1,15 +1,19 @@
 package com.example.tripsync.ui.fragment.home
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
 import com.example.tripsync.model.Travel
@@ -91,11 +95,11 @@ class HomeFragment : Fragment(),
         binding.homeFestivalRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        // 코인 배너
         binding.homeBannerCoin.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, CoinFragment())
-                .addToBackStack(null)
-                .commit()
+            val coinFragmentPosition = 3
+            val viewPager: ViewPager2 = requireActivity().findViewById(R.id.main_view_pager)
+            viewPager.currentItem = coinFragmentPosition
         }
 
         binding.homeStartplanBtn.setOnClickListener {
@@ -129,6 +133,7 @@ class HomeFragment : Fragment(),
 
         return binding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -165,7 +170,10 @@ class HomeFragment : Fragment(),
         homeTravelAdapter.setOntravelClickListener(this)
         homeFestivalAdapter.setOnFestivalClickListener(this)
 
+
     }
+
+
 
     override fun onTravelClick(travel: Travel) {
         val fragment = DetailFragment(travel)
@@ -212,5 +220,6 @@ class HomeFragment : Fragment(),
             return HomeFragment()
         }
     }
+
 
 }
