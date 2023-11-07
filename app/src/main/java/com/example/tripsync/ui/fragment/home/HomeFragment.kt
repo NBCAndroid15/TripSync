@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.viewpager2.widget.ViewPager2
 import com.example.tripsync.R
 import com.example.tripsync.databinding.FragmentHomeBinding
 import com.example.tripsync.model.Travel
@@ -91,11 +92,11 @@ class HomeFragment : Fragment(),
         binding.homeFestivalRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        // 코인 배너
         binding.homeBannerCoin.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, CoinFragment())
-                .addToBackStack(null)
-                .commit()
+            val coinFragmentPosition = 3
+            val viewPager: ViewPager2 = requireActivity().findViewById(R.id.main_view_pager)
+            viewPager.currentItem = coinFragmentPosition
         }
 
         binding.homeStartplanBtn.setOnClickListener {
