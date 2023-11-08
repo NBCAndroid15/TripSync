@@ -1,6 +1,8 @@
 package com.trip.tripsync.ui.fragment.plan
 
+import android.graphics.Rect
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -31,9 +33,6 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
                 .load(item.profileImg)
                 .error(R.drawable.defalt_profile)
                 .into(planUserProfile)
-
-
-
         }
     }
 
@@ -42,7 +41,25 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
         return ViewHolder(binding)
     }
 
+    private val maxItemCount = 5
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun getItemCount(): Int {
+        return if (super.getItemCount() >= maxItemCount) maxItemCount else super.getItemCount()
+    }
+}
+
+class ItemDecoration : RecyclerView.ItemDecoration() {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        super.getItemOffsets(outRect, view, parent, state)
+        val offset = -85
+        outRect.right = offset
     }
 }
