@@ -76,6 +76,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         initVisible()
         initView()
 
+
         return view
     }
 

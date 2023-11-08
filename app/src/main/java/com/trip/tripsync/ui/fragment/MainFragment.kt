@@ -28,6 +28,7 @@ class MainFragment : Fragment() {
     private var backToExit = false
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         position = arguments?.getInt("initPosition", 2) ?: 2
@@ -55,6 +56,7 @@ class MainFragment : Fragment() {
                 }, 2000)
             }
         }
+
         initView()
     }
 
