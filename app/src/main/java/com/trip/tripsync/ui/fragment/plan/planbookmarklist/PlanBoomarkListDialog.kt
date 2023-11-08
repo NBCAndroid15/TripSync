@@ -101,7 +101,13 @@ class PlanBoomarkListDialog : DialogFragment() {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
-            adapter?.submitList(it)
+            if (it.isEmpty()) {
+                binding.hintText.visibility = View.VISIBLE
+            } else {
+                adapter?.submitList(it)
+                binding.hintText.visibility = View.GONE
+            }
+
         }
 
         planbookListClose.setOnClickListener {
