@@ -20,10 +20,9 @@ import com.trip.tripsync.model.Travel
 import com.trip.tripsync.ui.dialog.ConfirmDialog
 import com.trip.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
 import com.trip.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
-import com.trip.tripsync.ui.fragment.setup.NaverMapFragment
 import com.trip.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
-import com.google.android.gms.location.LocationServices
+import com.trip.tripsync.ui.dialog.UserCheckDialogFragment
 
 class PlanFragment : Fragment() {
 
@@ -89,6 +88,9 @@ class PlanFragment : Fragment() {
             sharedViewModel.setHint(true)
         }
 
+        binding.planUserCheckBtn.setOnClickListener {
+            showUserCheckDialog()
+        }
 
         binding.planTextView.setOnClickListener {
             showMemoDialog()
@@ -144,6 +146,16 @@ class PlanFragment : Fragment() {
         planUsernameRecycler.adapter = userAdapter
         planUsernameRecycler.layoutManager= LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
 
+        val decoration = ItemDecoration()
+        planUsernameRecycler.addItemDecoration(decoration)
+
+        planUsernameRecycler.setOnClickListener {
+            UserCheckDialogFragment.newInstance().let { dialog ->
+                dialog.isCancelable = false
+                dialog.show(parentFragmentManager, "UserCheckDialog")
+            }
+        }
+
         sharedViewModel.userList.observe(viewLifecycleOwner, Observer { name ->
             userAdapter.submitList(name)
         })
@@ -183,6 +195,13 @@ class PlanFragment : Fragment() {
 
         if (binding.planTextView.text.isNotEmpty()){
             sharedViewModel.setHint(false)
+        }
+    }
+
+    private fun showUserCheckDialog() {
+        UserCheckDialogFragment.newInstance().let { dialog ->
+            dialog.isCancelable = false
+            dialog.show(parentFragmentManager, "UserCheckDialog")
         }
     }
 
