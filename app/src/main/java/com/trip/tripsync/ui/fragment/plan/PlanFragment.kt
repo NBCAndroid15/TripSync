@@ -41,6 +41,7 @@ class PlanFragment : Fragment() {
     private lateinit var naverMapFragment: PlanNaverMap
     private lateinit var itemTouchHelper: ItemTouchHelper
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -113,11 +114,7 @@ class PlanFragment : Fragment() {
                 false
         }
 
-
-//        binding.planBackBtn.setOnClickListener {
-//            requireActivity().onBackPressed()
-//        }
-
+        moveToDate()
         getTitleOrDate()
 
         /*

@@ -80,6 +80,8 @@ class SharedViewModel : ViewModel() {
         _memoList.value = curremtMemo
     }
 
+
+
     // 초기 plan data class을 초기화시켜주는 메서드
     fun initPlan(title: String, size: Int, dateList: List<String>) {
         viewModelScope.launch {
@@ -118,7 +120,6 @@ class SharedViewModel : ViewModel() {
             currentPosition = position
             _planItems.value =
                 _plan.planDetailList?.getOrNull(currentPosition)?.travelList?.toMutableList()
-            Log.d("position", currentPosition.toString())
         }
     }
 

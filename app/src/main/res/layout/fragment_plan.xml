@@ -21,49 +21,18 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ImageButton
-                android:id="@+id/plan_before"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/previous"
-                app:layout_constraintEnd_toStartOf="@+id/plan_next"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/date_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:textStyle="bold"
-                android:text="1/10"
-                app:layout_constraintEnd_toStartOf="@+id/plan_next"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toEndOf="@+id/plan_before"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageButton
-                android:id="@+id/plan_next"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:background="@drawable/next"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/plan_before"
-                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/plan_text_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 android:text="계획제목"
                 android:textSize="17dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_before" />
+                app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
@@ -141,6 +110,26 @@
 
             </androidx.cardview.widget.CardView>
 
+            <ImageButton
+                android:id="@+id/plan_before"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/previous"
+                app:layout_constraintEnd_toStartOf="@+id/plan_next"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
+
+            <ImageButton
+                android:id="@+id/plan_next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/next"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/plan_before"
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/plan_call_btn"
                 android:layout_width="0dp"
@@ -175,10 +164,10 @@
                 android:name="com.trip.tripsync.ui.fragment.plan.PlanNaverMap"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/plan_next" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -192,6 +181,19 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_call_btn"
                 tools:listitem="@layout/plan_recycler_item" />
+
+            <TextView
+                android:id="@+id/date_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="1/10"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/plan_next"
+                app:layout_constraintHorizontal_bias="0.494"
+                app:layout_constraintStart_toEndOf="@+id/plan_before"
+                app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -212,9 +214,9 @@
             android:id="@+id/plan_check_btn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/plan_btn_background"
-            android:text="확인"
-            android:textColor="@color/white" />
+            android:background="@drawable/setup_btn_round"
+            android:text="뒤로가기"
+            android:textColor="@color/black" />
     </LinearLayout>
 
 
