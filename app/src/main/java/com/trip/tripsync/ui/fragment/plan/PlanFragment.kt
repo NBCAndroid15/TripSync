@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
@@ -39,9 +40,6 @@ class PlanFragment : Fragment() {
 
     private lateinit var naverMapFragment: PlanNaverMap
     private lateinit var itemTouchHelper: ItemTouchHelper
-
-
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,11 +114,24 @@ class PlanFragment : Fragment() {
         }
 
 
-        binding.planBackBtn.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
+//        binding.planBackBtn.setOnClickListener {
+//            requireActivity().onBackPressed()
+//        }
 
         getTitleOrDate()
+
+        /*
+        * 1. PlanFragment에서 다른 날짜의 프래그먼트로 이동할 수 있음
+        * 2. 이동할 때마다 plandate의 텍스트 변경
+        * */
+        binding.planBefore.setOnClickListener {
+            moveToBefore()
+            moveToDate()
+        }
+        binding.planNext.setOnClickListener {
+            moveToNext()
+            moveToDate()
+        }
 
     }
 
@@ -226,6 +237,33 @@ class PlanFragment : Fragment() {
             binding.planTextHint.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
     }
+
+    private fun moveToNext () {
+        if (sharedViewModel.currentPosition < sharedViewModel._plan.planDetailList?.size?.minus(1) ?: 0) {
+            sharedViewModel.initPosition(sharedViewModel.currentPosition + 1)
+        }
+        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+    }
+
+    private fun moveToBefore() {
+        if ( sharedViewModel.currentPosition > 0) {
+            sharedViewModel.initPosition(sharedViewModel.currentPosition - 1)
+        }
+        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+    }
+
+    private fun moveToDate() {
+        val toDays = sharedViewModel._plan.planDetailList?.size ?: 0
+        binding.dateText.text = "${sharedViewModel.currentPosition + 1}/$toDays"
+    }
+
+    private fun moveVisible() {
+        val isFirstDay = sharedViewModel.currentPosition == 0
+        val isLastDay = sharedViewModel.currentPosition == (sharedViewModel._plan.planDetailList?.size ?: 0) - 1
+        binding.planBefore.visibility = if (isFirstDay) View.GONE else View.VISIBLE
+        binding.planNext.visibility = if (isLastDay) View.GONE else View.VISIBLE
+    }
+
 
 
 
