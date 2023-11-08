@@ -20,7 +20,7 @@ import com.naver.maps.map.overlay.Marker
 
 class MapFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var mapView: MapView
+    lateinit var mapView: MapView
     private lateinit var navermap: NaverMap
     private val viewModel: MapViewModel by viewModels ()
     private var markers = mutableListOf<Marker>()
