@@ -10,6 +10,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
+import androidx.activity.addCallback
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentCoinBinding
 import com.trip.tripsync.databinding.FragmentLoginBinding
@@ -65,7 +67,7 @@ class CoinFragment : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        //doSomething
+
     }
 
     override fun onDestroyView() {
