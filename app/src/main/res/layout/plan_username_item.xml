@@ -9,15 +9,25 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/plan_user_profile"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:background="@drawable/button_sub_solid"
         android:scaleType="centerCrop"
         app:shapeAppearance="@style/Circle"
         app:shapeAppearanceOverlay="@style/Circle"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/plan_user_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="닉네임"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/plan_user_profile"
+        app:layout_constraintStart_toEndOf="@+id/plan_user_profile"
+        app:layout_constraintTop_toTopOf="@+id/plan_user_profile" />
 
 
 

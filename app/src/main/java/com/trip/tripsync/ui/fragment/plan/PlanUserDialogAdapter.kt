@@ -1,6 +1,5 @@
 package com.trip.tripsync.ui.fragment.plan
 
-import android.graphics.Rect
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,8 +11,7 @@ import com.trip.tripsync.R
 import com.trip.tripsync.databinding.PlanUsernameItemBinding
 import com.trip.tripsync.model.User
 
-
-class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
+class PlanUserDialogAdapter : ListAdapter<User, PlanUserDialogAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem == newItem
@@ -29,6 +27,9 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
     class ViewHolder(private val binding: PlanUsernameItemBinding) : RecyclerView.ViewHolder(binding.root) {
         fun bind(item: User) = with(binding) {
 
+            planUserName.text = item.nickname
+            planUserName.visibility = View.VISIBLE
+
             Glide.with(itemView)
                 .load(item.profileImg)
                 .error(R.drawable.defalt_profile)
@@ -40,26 +41,10 @@ class PlanUserNameAdapter : ListAdapter<User, PlanUserNameAdapter.ViewHolder>(
         val binding = PlanUsernameItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
-
-    private val maxItemCount = 5
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
     override fun getItemCount(): Int {
-        return if (super.getItemCount() >= maxItemCount) maxItemCount else super.getItemCount()
-    }
-}
-
-class ItemDecoration : RecyclerView.ItemDecoration() {
-    override fun getItemOffsets(
-        outRect: Rect,
-        view: View,
-        parent: RecyclerView,
-        state: RecyclerView.State
-    ) {
-        super.getItemOffsets(outRect, view, parent, state)
-        val offset = -85
-        outRect.right = offset
+        return currentList.size
     }
 }

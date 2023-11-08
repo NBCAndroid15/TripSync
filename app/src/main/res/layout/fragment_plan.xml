@@ -51,11 +51,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_date"
                 tools:listitem="@layout/plan_username_item" />
 
+            <TextView
+                android:id="@+id/plan_user_check_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="자세히보기"
+                android:gravity="center"
+                android:layout_marginEnd="10sp"
+                android:paddingVertical="7dp"
+                android:paddingHorizontal="15dp"
+                android:background="@drawable/button_sub_solid"
+                app:layout_constraintBottom_toBottomOf="@+id/plan_username_recycler"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/plan_username_recycler" />
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/plan_cardview"
