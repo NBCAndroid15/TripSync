@@ -96,7 +96,7 @@ class MyPageFragment : Fragment() {
         // 회원정보 수정
         binding.mypageConfigBtn.setOnClickListener {
             requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, UserManageFragment())
+                .add(R.id.main_frame, UserManageFragment())
                 .addToBackStack(null)
                 .commit()
             }

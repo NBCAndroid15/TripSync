@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
@@ -103,10 +104,6 @@ class DetailFragment(val travel: Travel) : Fragment() {
             val fragmentManager = requireActivity().supportFragmentManager
 
             fragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MainFragment.newInstance())
-                .addToBackStack(null)
-                .commit()
-            fragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
                 .add(R.id.main_frame, setupFragment)
                 .addToBackStack(null)
@@ -129,6 +126,12 @@ class DetailFragment(val travel: Travel) : Fragment() {
             }
 
 
+        }
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (requireActivity().supportFragmentManager.backStackEntryCount > 0) {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
         }
 
     }

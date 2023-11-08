@@ -7,6 +7,7 @@ import com.trip.tripsync.util.Constants.Companion.AUTH_HEADER
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.time.LocalDate
 
 interface TravelApiService {
     @GET("locationBasedList1")
@@ -47,7 +48,7 @@ interface TravelApiService {
         @Query("_type") type: String = "json",
         @Query("listYN") listYN: String = "Y",
         @Query("arrange") arrange: String = "A",
-        @Query("eventStartDate") eventStartDate: String = "20231107",
+        @Query("eventStartDate") eventStartDate: String = LocalDate.now().toString().replace("-", ""),
         @Query("serviceKey") serviceKey: String = AUTH_HEADER
     ): Response<FestivalInfoResponse>
 
