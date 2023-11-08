@@ -2,8 +2,6 @@ package com.trip.tripsync.ui.fragment.search
 
 import android.app.Activity
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.KeyEvent
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -12,7 +10,6 @@ import android.view.ViewGroup
 import android.view.inputmethod.InputMethodManager
 import android.widget.ArrayAdapter
 import android.widget.Toast
-import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -31,7 +28,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
         get() = _binding!!
     private var isLoading = false
     private var currentPage = 1
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -91,8 +87,6 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
                 }
             }
         })
-
-
     }
 
     private fun searchResult() {
@@ -133,11 +127,10 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
         val fragment = DetailFragment(travel)
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
-            .replace(R.id.main_frame, fragment)
+            .add(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
     }
-
 
     override fun onDestroyView() {
         super.onDestroyView()

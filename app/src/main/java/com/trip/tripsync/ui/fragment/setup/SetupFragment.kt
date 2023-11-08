@@ -76,8 +76,17 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         initVisible()
         initView()
 
-
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            if (requireActivity().supportFragmentManager.backStackEntryCount > 0) {
+                requireActivity().supportFragmentManager.popBackStack()
+            }
+        }
     }
 
 
