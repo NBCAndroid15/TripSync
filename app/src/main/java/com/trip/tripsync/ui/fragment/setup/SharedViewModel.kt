@@ -56,6 +56,7 @@ class SharedViewModel : ViewModel() {
     val ishint : LiveData<Boolean> = _ishint
 
 
+
     fun setHint(visible: Boolean) {
         _ishint.value = visible
     }

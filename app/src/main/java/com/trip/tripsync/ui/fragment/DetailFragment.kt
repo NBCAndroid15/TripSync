@@ -71,13 +71,17 @@ class DetailFragment(val travel: Travel) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bind(travel)
 
-        val contentId = travel.contentId!!
-        val contentTypeId = travel.contentTypeId!!
+        travel.contentId?.let { contentId ->
+            val contentTypeId = travel.contentTypeId ?: 0
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            val detailContentInfo = travelRepository.getTravelDetailInfo(contentId, contentTypeId)
-            binding.detailTvContent.text = detailContentInfo
+            viewLifecycleOwner.lifecycleScope.launch {
+                val detailContentInfo = travelRepository.getTravelDetailInfo(contentId, contentTypeId)
+                binding.detailTvContent.text = detailContentInfo
+            }
         }
+
+
+
 
 
         binding.detailBtnWishList.setOnClickListener {

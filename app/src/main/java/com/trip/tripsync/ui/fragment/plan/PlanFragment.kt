@@ -24,8 +24,9 @@ import com.trip.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.trip.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.trip.tripsync.ui.dialog.UserCheckDialogFragment
+import com.trip.tripsync.ui.fragment.DetailFragment
 
-class PlanFragment : Fragment() {
+class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
 
 
     private var _binding: FragmentPlanBinding? = null
@@ -63,6 +64,8 @@ class PlanFragment : Fragment() {
         recyclerView.adapter = adapter
         itemTouchHelper = ItemTouchHelper(PlanSwapManage(adapter, requireContext(), ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        adapter.setOnItemClickListener(this)
 
         return binding.root
     }
@@ -191,12 +194,12 @@ class PlanFragment : Fragment() {
 
         planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListDialog()
-            fragment.show(parentFragmentManager, "bookmarkListDialog")
+            fragment.show(childFragmentManager, "bookmarkListDialog")
         }
 
         planSearchBtn.setOnClickListener {
             val fragment = PlanSearchListDialog()
-            fragment.show(parentFragmentManager, "searchListDialog")
+            fragment.show(childFragmentManager, "searchListDialog")
         }
 
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
@@ -280,7 +283,13 @@ class PlanFragment : Fragment() {
         binding.planNext.visibility = if (isLastDay) View.GONE else View.VISIBLE
     }
 
-
+    override fun onItemClick(item: Travel) {
+        val fragment = DetailFragment(item)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
 
 }
