@@ -262,6 +262,8 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
             sharedViewModel.initPosition(sharedViewModel.currentPosition + 1)
         }
         binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
+        sharedViewModel.setHint(binding.planTextView.text.isEmpty())
     }
 
     private fun moveToBefore() {
@@ -269,6 +271,8 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
             sharedViewModel.initPosition(sharedViewModel.currentPosition - 1)
         }
         binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
+        sharedViewModel.setHint(binding.planTextView.text.isEmpty())
     }
 
     private fun moveToDate() {
