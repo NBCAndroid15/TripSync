@@ -32,7 +32,6 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
                 .into(planUserProfile)
 
             planUserName.text = user.nickname
-            planUserEmail.text = user.email
 
             planUserAddBtn.setOnClickListener {
                     itemClickCallBack(user)

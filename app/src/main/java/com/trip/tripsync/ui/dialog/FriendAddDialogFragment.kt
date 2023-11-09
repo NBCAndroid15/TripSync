@@ -3,6 +3,8 @@ package com.trip.tripsync.ui.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +13,19 @@ import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trip.tripsync.databinding.FragmentFriendAddDialogBinding
 import com.trip.tripsync.ui.adapter.FriendAddAdapter
 import com.trip.tripsync.viewmodel.FriendManageViewModel
 import com.trip.tripsync.viewmodel.FriendManageViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.launchIn
+import kotlinx.coroutines.flow.onEach
 
 class FriendAddDialogFragment : DialogFragment() {
 
@@ -52,7 +62,8 @@ class FriendAddDialogFragment : DialogFragment() {
 
     private fun initView() {
         binding.friendAddDialogFriendRv.adapter = adapter
-        binding.friendAddDialogFriendRv.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        binding.friendAddDialogFriendRv.layoutManager =
+            LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
         viewModel.friendList.observe(viewLifecycleOwner) {
             adapter.setList(it)
@@ -61,6 +72,42 @@ class FriendAddDialogFragment : DialogFragment() {
         binding.friendAddNoBtn.setOnClickListener {
             dismiss()
         }
+
+        callbackFlow {
+            val callback = object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
+
+                override fun onTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    before: Int,
+                    count: Int
+                ) {
+                }
+
+                override fun afterTextChanged(s: Editable?) {
+                    trySend(s.toString())
+                }
+            }
+
+            binding.friendAddDialogSearchText.addTextChangedListener(callback)
+
+            awaitClose {
+                binding.friendAddDialogSearchText.removeTextChangedListener(callback)
+            }
+        }
+            .debounce(100)
+            .onEach {
+                viewModel.getFriendList(it)
+            }.launchIn(CoroutineScope(Dispatchers.Main))
+
+
 
         binding.friendAddDialogSearchBtn.setOnClickListener {
             viewModel.getFriendList(binding.friendAddDialogSearchText.text.toString())
@@ -80,6 +127,7 @@ class FriendAddDialogFragment : DialogFragment() {
         super.onDestroyView()
         _binding = null
     }
+
     companion object {
         fun newInstance() =
             FriendAddDialogFragment().apply {

@@ -18,7 +18,6 @@ class FriendAddAdapter(private val addFriend: (User) -> Unit) : RecyclerView.Ada
                 .load(user.profileImg)
                 .error(R.drawable.defalt_profile)
                 .into(binding.friendManageProfileImg)
-            binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
             binding.friendManageAddFriendBtn.setOnClickListener {
                 addFriend(user)

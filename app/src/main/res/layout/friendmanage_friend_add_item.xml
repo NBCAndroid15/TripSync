@@ -23,21 +23,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닉네임"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginTop="15dp"
         app:layout_constraintStart_toEndOf="@+id/friend_manage_profile_img"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-    <TextView
-        android:id="@+id/friend_manage_email"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="이메일"
-        android:textSize="14sp"
-        android:layout_marginHorizontal="10dp"
-        app:layout_constraintStart_toEndOf="@+id/friend_manage_profile_img"
-        app:layout_constraintTop_toBottomOf="@+id/friend_manage_nickname" />
 
     <ImageView
         android:id="@+id/friend_manage_add_friend_btn"
