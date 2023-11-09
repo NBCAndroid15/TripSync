@@ -21,9 +21,11 @@ import com.trip.tripsync.model.Travel
 import com.trip.tripsync.ui.fragment.plan.LocationUtility
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.google.android.gms.tasks.OnSuccessListener
+import com.trip.tripsync.R
+import com.trip.tripsync.ui.fragment.DetailFragment
 
 
-class PlanSearchListDialog : DialogFragment() {
+class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClickListener {
 
     private var _binding: FragmentPlanSearchListBinding? = null
     private val binding: FragmentPlanSearchListBinding
@@ -56,6 +58,7 @@ class PlanSearchListDialog : DialogFragment() {
     ): View? {
         _binding = FragmentPlanSearchListBinding.inflate(inflater, container, false)
 
+        adapter.setOnItemClickListener(this)
 
         return binding.root
     }
@@ -73,7 +76,6 @@ class PlanSearchListDialog : DialogFragment() {
 //        }
 //        binding.planSearchAll.setOnClickListener {
 //        }
-
 
 
         initView()
@@ -157,6 +159,18 @@ class PlanSearchListDialog : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanSearchItem(item)
     }
+
+    override fun onItemClick(item: Travel) {
+        val detailFragment = DetailFragment(item)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame, detailFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+
+
+
 
 
 //    private fun nearItem() {

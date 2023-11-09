@@ -20,9 +20,10 @@ import com.trip.tripsync.viewmodel.BookmarkManageViewModel
 import com.trip.tripsync.viewmodel.BookmarkManageViewModelFactory
 import com.google.android.gms.tasks.OnSuccessListener
 import com.naver.maps.map.util.FusedLocationSource
+import com.trip.tripsync.ui.fragment.DetailFragment
 
 
-class PlanBoomarkListDialog : DialogFragment() {
+class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemClickListener {
 
     private var _binding: FragmentPlanBoomarkListBinding? = null
     private val binding: FragmentPlanBoomarkListBinding
@@ -75,6 +76,7 @@ class PlanBoomarkListDialog : DialogFragment() {
 //            }
 //        }
 //        locationUtility.requestLocationUpdate(onSuccessListener)
+        adapter.setOnItemClickListener(this)
         initView()
 
         return binding.root
@@ -101,7 +103,13 @@ class PlanBoomarkListDialog : DialogFragment() {
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
-            adapter?.submitList(it)
+            if (it.isEmpty()) {
+                binding.hintText.visibility = View.VISIBLE
+            } else {
+                adapter?.submitList(it)
+                binding.hintText.visibility = View.GONE
+            }
+
         }
 
         planbookListClose.setOnClickListener {
@@ -112,6 +120,14 @@ class PlanBoomarkListDialog : DialogFragment() {
     private fun sendItem(item: Travel) {
         sharedViewModel.updatePlanBookItem(item)
 
+    }
+
+    override fun onItemClick(item: Travel) {
+        val fragment = DetailFragment(item)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .replace(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 
 

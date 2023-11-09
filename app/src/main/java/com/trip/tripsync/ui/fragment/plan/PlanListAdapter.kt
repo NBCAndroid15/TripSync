@@ -53,6 +53,10 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit,
 
             }
 
+            itemView.setOnClickListener {
+                itemClickListener?.onItemClick(item)
+            }
+
         }
     }
 
@@ -63,6 +67,15 @@ class PlanListAdapter(private val onItemRemove: (Travel) -> Unit,
         onItemMove(list)
 
 
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: Travel)
+    }
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 
 
