@@ -204,6 +204,18 @@
         app:layout_constraintTop_toBottomOf="@+id/signup_nickname_edittext" />
 
     <TextView
+        android:id="@+id/signup_nickname_length"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="10자리 이하로 입력해주세요."
+        android:layout_marginTop="5dp"
+        android:layout_marginHorizontal="10dp"
+        android:textColor="@color/red"
+        android:textSize="12sp"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@+id/signup_nickname_edittext" />
+
+    <TextView
         android:id="@+id/signup_button"
         android:layout_width="match_parent"
         android:layout_height="55dp"
