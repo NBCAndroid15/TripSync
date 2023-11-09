@@ -1,8 +1,14 @@
 package com.trip.tripsync.ui.fragment.plan.plansearchlist
 
+import android.Manifest
 import android.app.Activity
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,6 +16,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.SearchView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -23,6 +30,7 @@ import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.google.android.gms.tasks.OnSuccessListener
 import com.trip.tripsync.R
 import com.trip.tripsync.ui.fragment.DetailFragment
+import com.trip.tripsync.ui.fragment.setup.SetupFragment
 
 
 class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClickListener {
@@ -47,9 +55,9 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
         })
     }
 
-//    private val utility : LocationUtility by lazy {
-//        LocationUtility(requireContext())
-//    }
+    private val utility : LocationUtility by lazy {
+        LocationUtility(requireContext())
+    }
 
 
     override fun onCreateView(
@@ -71,19 +79,14 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
 
         dialog?.window?.setLayout(width, height)
 
-//        binding.planSearchLocation.setOnClickListener {
-//            nearItem()
-//        }
-//        binding.planSearchAll.setOnClickListener {
-//        }
+        binding.planSearchLocation.setOnClickListener {
+            nearItem()
+        }
+        binding.planSearchAll.setOnClickListener {
+        }
 
 
         initView()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-//        utility.stopLocationUpdate()
     }
 
     private fun initView()= with(binding) {
@@ -168,18 +171,47 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
             .commit()
     }
 
+    private fun nearItem() {
+        if (hasLocationPermission()) {
+            utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+                if (currentLocation != null) {
+                    viewModel.searchItemSorted(currentLocation)
+                }
+            })
+        } else {
+            showPermissionSettingsDialog()
+        }
+
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun showPermissionSettingsDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("권한 필요")
+        builder.setMessage("위치 권한이 필요합니다. 설정에서 권한을 변경하세요.")
+        builder.setPositiveButton("설정으로 이동") { _, _ ->
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", requireActivity().packageName, null)
+            intent.data = uri
+            startActivity(intent)
+        }
+        builder.setNegativeButton("취소") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
+    }
 
 
 
 
 
-//    private fun nearItem() {
-//        utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
-//            if (currentLocation != null) {
-//                viewModel.searchItemSorted(currentLocation)
-//            }
-//        })
-//    }
+
 
 
 

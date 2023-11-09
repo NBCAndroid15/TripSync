@@ -5,6 +5,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.util.Log
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.trip.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
@@ -20,26 +21,37 @@ class LocationUtility(private val context: Context) {
     private var locationCallback: LocationCallback? = null
 
     fun requestLocationUpdate(onSuccessListener: OnSuccessListener<Location?>) {
-        if (ContextCompat.checkSelfPermission(
-                context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
-        ) {
-            fusedLocationClient.lastLocation.addOnSuccessListener(onSuccessListener)
-        } else {
-            ActivityCompat.requestPermissions(
-                context as Activity,
-                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
-                PERMISSION_REQUEST_CODE
-            )
+        try {
+                if (ContextCompat.checkSelfPermission(
+                        context,
+                        Manifest.permission.ACCESS_FINE_LOCATION
+                    ) == PackageManager.PERMISSION_GRANTED
+                ) {
+                    fusedLocationClient.lastLocation.addOnSuccessListener(onSuccessListener)
+                } else {
+                    val activity = context as? Activity
+                    activity?.let {
+                        ActivityCompat.requestPermissions(
+                            it,
+                            arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                            PERMISSION_REQUEST_CODE
+                        )
+                    }
+                }
+
+    } catch (e: SecurityException) {
+            e.printStackTrace()
         }
     }
     fun stopLocationUpdate() {
         locationCallback?.let {
-            fusedLocationClient.removeLocationUpdates(it)
-            locationCallback = null
+            try {
+                fusedLocationClient.removeLocationUpdates(it)
+                locationCallback = null
+            } catch (e:SecurityException) {
+                e.printStackTrace()
+            }
         }
     }
-
 
 }

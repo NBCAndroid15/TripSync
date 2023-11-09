@@ -28,22 +28,6 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
     private var _binding: FragmentPlanBoomarkListBinding? = null
     private val binding: FragmentPlanBoomarkListBinding
         get() = _binding!!
-    private var currentLocation: Location? = null
-
-
-
-//    private val adapter by lazy {
-//        currentLocation?.let {
-//            PlanBookmarkListAdapter ({ item ->
-//                if (sharedViewModel.planItems.value?.size ?: 0 < 10) {
-//                    sendItem(item)
-//                    return@PlanBookmarkListAdapter true
-//                } else {
-//                    return@PlanBookmarkListAdapter false
-//                }
-//            }, it)
-//        }
-//    }
 
     private val adapter by lazy {
         PlanBookmarkListAdapter ({ item ->
@@ -68,16 +52,8 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
     ): View? {
         _binding = FragmentPlanBoomarkListBinding.inflate(inflater, container, false)
 
-//        val locationUtility = LocationUtility(requireContext())
-//        val onSuccessListener = OnSuccessListener<Location?> { location ->
-//            if (location != null) {
-//                currentLocation = location
-//                initView()
-//            }
-//        }
-//        locationUtility.requestLocationUpdate(onSuccessListener)
-        adapter.setOnItemClickListener(this)
         initView()
+        adapter?.setOnItemClickListener(this)
 
         return binding.root
     }
@@ -100,7 +76,7 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
     private fun initView() = with(binding) {
         planbookListReyclerview.adapter = adapter
         planbookListReyclerview.layoutManager =
-            LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
+            LinearLayoutManager(requireActivity(), RecyclerView.VERTICAL, false)
 
         viewModel.bookmarkList.observe(viewLifecycleOwner) {
             if (it.isEmpty()) {

@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.gms.tasks.OnSuccessListener
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.PlanBookmarkListItemBinding
 import com.trip.tripsync.model.Travel
+import com.trip.tripsync.ui.fragment.plan.LocationUtility
 
 //, private val currentLocation: Location
 class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
@@ -83,14 +85,27 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
                 itemClickListener?.onItemClick(item)
             }
 
-//            val travelLoc = Location("travelLoc")
-//            travelLoc.latitude = item.mapY!!
-//            travelLoc.longitude = item.mapX!!
-//
-//            val distance = currentLocation.distanceTo(travelLoc) / 1000
-//            val distanceInKM = (distance * 10).toInt() / 10.0
-//            val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
-//            planBookKm.text = formatKM
+            val locationUtility = LocationUtility(binding.root.context)
+            locationUtility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+                try {
+                    if (currentLocation != null) {
+                        val itemLocation = Location("itemLocation")
+                        itemLocation.latitude = item.mapY ?: 0.0
+                        itemLocation.longitude = item.mapX ?: 0.0
+
+                        val distance = currentLocation.distanceTo(itemLocation) / 1000
+                        val distanceInKM = (distance * 10).toInt() / 10.0
+                        val formatKM = "나와의 거리 - ${distanceInKM.toInt()}km"
+                        planBookKm.text = formatKM
+                    }
+                } catch (e: SecurityException) {
+                    planBookKm.text = "알 수 없음"
+                    e.printStackTrace()
+                }
+            })
+
+
+
         }
 
     }
@@ -103,6 +118,7 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
     fun setOnItemClickListener(listener: OnItemClickListener) {
         itemClickListener = listener
     }
+
 
 
 
