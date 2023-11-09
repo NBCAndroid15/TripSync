@@ -49,7 +49,7 @@
 
     <TextView
         android:id="@+id/bookmark_item_addr"
-        android:layout_width="250dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
         android:maxLines="2"

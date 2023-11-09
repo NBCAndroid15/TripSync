@@ -18,7 +18,6 @@ class FriendManageAdapter(private val deleteFriend: (User) -> Unit) : RecyclerVi
                 .load(user.profileImg)
                 .error(R.drawable.defalt_profile)
                 .into(binding.friendManageImage)
-            binding.friendManageEmail.text = user.email
             binding.friendManageNickname.text = user.nickname
             binding.friendManageDeleteBtn.setOnClickListener {
                 deleteFriend(user)
