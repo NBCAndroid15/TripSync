@@ -79,6 +79,10 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
             planbookListItemTitle.text = item.title
             planbookListItemAddr.text = item.addr
 
+            itemView.setOnClickListener {
+                itemClickListener?.onItemClick(item)
+            }
+
 //            val travelLoc = Location("travelLoc")
 //            travelLoc.latitude = item.mapY!!
 //            travelLoc.longitude = item.mapX!!
@@ -89,6 +93,15 @@ class PlanBookmarkListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
 //            planBookKm.text = formatKM
         }
 
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: Travel)
+    }
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 
 

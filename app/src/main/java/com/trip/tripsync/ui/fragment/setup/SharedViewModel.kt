@@ -56,6 +56,7 @@ class SharedViewModel : ViewModel() {
     val ishint : LiveData<Boolean> = _ishint
 
 
+
     fun setHint(visible: Boolean) {
         _ishint.value = visible
     }
@@ -79,6 +80,8 @@ class SharedViewModel : ViewModel() {
         _plan.planDetailList?.getOrNull(currentPosition)?.content = memo
         _memoList.value = curremtMemo
     }
+
+
 
     // 초기 plan data class을 초기화시켜주는 메서드
     fun initPlan(title: String, size: Int, dateList: List<String>) {
@@ -118,7 +121,6 @@ class SharedViewModel : ViewModel() {
             currentPosition = position
             _planItems.value =
                 _plan.planDetailList?.getOrNull(currentPosition)?.travelList?.toMutableList()
-            Log.d("position", currentPosition.toString())
         }
     }
 

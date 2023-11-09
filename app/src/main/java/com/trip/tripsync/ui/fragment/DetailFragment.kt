@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
@@ -31,15 +32,15 @@ import kotlinx.coroutines.withContext
 
 class DetailFragment(val travel: Travel) : Fragment() {
 
-    lateinit var travelXY : Travel
+    lateinit var travelXY: Travel
 
     val bookmarkRepository = BookmarkRepositoryImpl()
     val travelRepository = TravelRepositoryImpl()
     private var _binding: FragmentDetailBinding? = null
-    private val viewModel: MapViewModel by viewModels ()
+    private val viewModel: MapViewModel by viewModels()
+    private lateinit var mapFragment: com.trip.tripsync.ui.fragment.MapFragment
     private val binding: FragmentDetailBinding
         get() = _binding!!
-
 
 
     override fun onCreateView(
@@ -70,13 +71,17 @@ class DetailFragment(val travel: Travel) : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         bind(travel)
 
-        val contentId = travel.contentId!!
-        val contentTypeId = travel.contentTypeId!!
+        travel.contentId?.let { contentId ->
+            val contentTypeId = travel.contentTypeId ?: 0
 
-        viewLifecycleOwner.lifecycleScope.launch {
-            val detailContentInfo = travelRepository.getTravelDetailInfo(contentId, contentTypeId)
-            binding.detailTvContent.text = detailContentInfo
+            viewLifecycleOwner.lifecycleScope.launch {
+                val detailContentInfo = travelRepository.getTravelDetailInfo(contentId, contentTypeId)
+                binding.detailTvContent.text = detailContentInfo
+            }
         }
+
+
+
 
 
         binding.detailBtnWishList.setOnClickListener {
@@ -88,7 +93,12 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
             fragmentManager
                 .beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
                 .replace(R.id.main_frame, mainFragment)
                 .commit()
         }
@@ -104,7 +114,12 @@ class DetailFragment(val travel: Travel) : Fragment() {
             val fragmentManager = requireActivity().supportFragmentManager
 
             fragmentManager.beginTransaction()
-                .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+                .setCustomAnimations(
+                    R.anim.enter_from_right,
+                    R.anim.exit_to_left,
+                    R.anim.enter_from_left,
+                    R.anim.exit_to_right
+                )
                 .add(R.id.main_frame, setupFragment)
                 .addToBackStack(null)
                 .commit()
@@ -134,6 +149,23 @@ class DetailFragment(val travel: Travel) : Fragment() {
             }
         }
 
+        mapFragment =
+            childFragmentManager.findFragmentById(R.id.map_fragment) as com.trip.tripsync.ui.fragment.MapFragment
+
+
+        mapFragment
+            .mapView.setOnTouchListener { _, event ->
+                when (event.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        binding.detailFrameScrollView.requestDisallowInterceptTouchEvent(true)
+                    }
+
+                    MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                        binding.detailFrameScrollView.requestDisallowInterceptTouchEvent(false)
+                    }
+                }
+                false
+            }
     }
 
 

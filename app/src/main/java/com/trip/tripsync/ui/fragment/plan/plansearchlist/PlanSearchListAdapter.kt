@@ -1,6 +1,5 @@
 package com.trip.tripsync.ui.fragment.plan.plansearchlist
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
@@ -12,9 +11,6 @@ import com.bumptech.glide.Glide
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.PlanSearchListItemBinding
 import com.trip.tripsync.model.Travel
-import com.trip.tripsync.ui.fragment.plan.LocationUtility
-import com.google.android.gms.tasks.OnSuccessListener
-import com.naver.maps.geometry.LatLng
 
 class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
                             private val planItems: LiveData<List<Travel>>,
@@ -98,8 +94,23 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
 
             planSearchTitle.text = item.title
             planSearchAddr.text = item.addr
+
+            itemView.setOnClickListener {
+                itemClickListener?.onItemClick(item)
+            }
+
         }
 
+
+    }
+
+    interface OnItemClickListener {
+        fun onItemClick(item: Travel)
+    }
+    private var itemClickListener: OnItemClickListener? = null
+
+    fun setOnItemClickListener(listener: OnItemClickListener) {
+        itemClickListener = listener
     }
 
 

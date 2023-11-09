@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
@@ -23,8 +24,9 @@ import com.trip.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
 import com.trip.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.trip.tripsync.ui.dialog.UserCheckDialogFragment
+import com.trip.tripsync.ui.fragment.DetailFragment
 
-class PlanFragment : Fragment() {
+class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
 
 
     private var _binding: FragmentPlanBinding? = null
@@ -38,8 +40,6 @@ class PlanFragment : Fragment() {
 
     private lateinit var naverMapFragment: PlanNaverMap
     private lateinit var itemTouchHelper: ItemTouchHelper
-
-
 
 
     override fun onCreateView(
@@ -64,6 +64,8 @@ class PlanFragment : Fragment() {
         recyclerView.adapter = adapter
         itemTouchHelper = ItemTouchHelper(PlanSwapManage(adapter, requireContext(), ItemTouchHelper.UP or ItemTouchHelper.DOWN, 0))
         itemTouchHelper.attachToRecyclerView(recyclerView)
+
+        adapter.setOnItemClickListener(this)
 
         return binding.root
     }
@@ -117,12 +119,21 @@ class PlanFragment : Fragment() {
                 false
         }
 
-
-        binding.planBackBtn.setOnClickListener {
-            requireActivity().onBackPressed()
-        }
-
+        moveToDate()
         getTitleOrDate()
+
+        /*
+        * 1. PlanFragment에서 다른 날짜의 프래그먼트로 이동할 수 있음
+        * 2. 이동할 때마다 plandate의 텍스트 변경
+        * */
+        binding.planBefore.setOnClickListener {
+            moveToBefore()
+            moveToDate()
+        }
+        binding.planNext.setOnClickListener {
+            moveToNext()
+            moveToDate()
+        }
 
     }
 
@@ -183,12 +194,12 @@ class PlanFragment : Fragment() {
 
         planCallBtn.setOnClickListener {
             val fragment = PlanBoomarkListDialog()
-            fragment.show(parentFragmentManager, "bookmarkListDialog")
+            fragment.show(childFragmentManager, "bookmarkListDialog")
         }
 
         planSearchBtn.setOnClickListener {
             val fragment = PlanSearchListDialog()
-            fragment.show(parentFragmentManager, "searchListDialog")
+            fragment.show(childFragmentManager, "searchListDialog")
         }
 
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content
@@ -246,6 +257,43 @@ class PlanFragment : Fragment() {
         }
     }
 
+    private fun moveToNext () {
+        if (sharedViewModel.currentPosition < sharedViewModel._plan.planDetailList?.size?.minus(1) ?: 0) {
+            sharedViewModel.initPosition(sharedViewModel.currentPosition + 1)
+        }
+        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
+        sharedViewModel.setHint(binding.planTextView.text.isEmpty())
+    }
+
+    private fun moveToBefore() {
+        if ( sharedViewModel.currentPosition > 0) {
+            sharedViewModel.initPosition(sharedViewModel.currentPosition - 1)
+        }
+        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+        binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
+        sharedViewModel.setHint(binding.planTextView.text.isEmpty())
+    }
+
+    private fun moveToDate() {
+        val toDays = sharedViewModel._plan.planDetailList?.size ?: 0
+        binding.dateText.text = "${sharedViewModel.currentPosition + 1}/$toDays"
+    }
+
+    private fun moveVisible() {
+        val isFirstDay = sharedViewModel.currentPosition == 0
+        val isLastDay = sharedViewModel.currentPosition == (sharedViewModel._plan.planDetailList?.size ?: 0) - 1
+        binding.planBefore.visibility = if (isFirstDay) View.GONE else View.VISIBLE
+        binding.planNext.visibility = if (isLastDay) View.GONE else View.VISIBLE
+    }
+
+    override fun onItemClick(item: Travel) {
+        val fragment = DetailFragment(item)
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, fragment)
+            .addToBackStack(null)
+            .commit()
+    }
 
 
 }
