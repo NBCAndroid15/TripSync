@@ -92,14 +92,18 @@ class SignupFragment : Fragment() {
 
             if (inputId.isNotEmpty() && inputPw.isNotEmpty() && inputPwRe.isNotEmpty() && inputNickname.isNotEmpty()) {
                 if (inputPw == inputPwRe && inputPw.length >= 6) {
-                    checkEmailAndNickname(inputId, inputNickname) { isAvailable ->
-                        if (isAvailable) {
-                            signup(inputId, inputPw, inputNickname)
-                            Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                    if (inputNickname.length <= 10) {
+                        checkEmailAndNickname(inputId, inputNickname) { isAvailable ->
+                            if (isAvailable) {
+                                signup(inputId, inputPw, inputNickname)
+                                Toast.makeText(context, "회원가입 성공!", Toast.LENGTH_SHORT).show()
+                            }
                         }
+                    } else {
+                        Toast.makeText(context, "닉네임은 10자 이하로 입력해주세요.", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    Toast.makeText(context, "비밀번호가 일치하지 않습니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "비밀번호가 일치하지 않거나 6자 이상이어야 합니다. 다시 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
             } else {
                 Toast.makeText(context, "회원가입 정보를 올바르게 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -164,13 +168,16 @@ class SignupFragment : Fragment() {
             val inputNickname = binding.signupNicknameEdittext.text.toString().trim()
             binding.signupNicknamePass.visibility = View.GONE
             binding.signupNicknameFailed.visibility = View.GONE
+            binding.signupNicknameLength.visibility = View.GONE
             usersRef.whereEqualTo("nickname", inputNickname).get()
                 .addOnSuccessListener {documents ->
-                    if (documents.isEmpty && inputNickname.isNotEmpty()) {
+                    if (documents.isEmpty && inputNickname.isNotEmpty() && inputNickname.length <= 10) {
                         binding.signupNicknamePass.visibility = View.VISIBLE
                     } else if (inputNickname.isEmpty()) {
                         binding.signupNicknamePass.visibility = View.GONE
-                    }else {
+                    } else if (inputNickname.length > 10) {
+                        binding.signupNicknameLength.visibility = View.VISIBLE
+                    } else {
                         binding.signupNicknameFailed.visibility = View.VISIBLE
                     }
                 }
