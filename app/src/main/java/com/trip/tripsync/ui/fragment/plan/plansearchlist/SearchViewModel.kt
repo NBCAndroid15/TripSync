@@ -48,7 +48,8 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
                 distance
             }
 
-            _getSearchItem.value = sortedItems
+            val distinctItems = sortedItems.distinctBy { it }
+            _getSearchItem.value = distinctItems
         }
     }
 

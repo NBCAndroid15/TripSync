@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .add(R.id.main_frame, SetupFragment.newInstance())
+            .add(R.id.main_frame, LoginFragment.newInstance())
             .commit()
         /*
         lifecycleScope.launch {
