@@ -45,7 +45,8 @@ class LoginFragment : Fragment() {
 
         auth = FirebaseAuth.getInstance()
 
-        val sharedPreferences = requireContext().getSharedPreferences("AutoLoginPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireContext().getSharedPreferences("AutoLoginPrefs", Context.MODE_PRIVATE)
         val isAutoLogin = sharedPreferences.getBoolean("autoLogin", false)
 
         val autoLoginCheckBox = binding.logionAutoCb
@@ -56,18 +57,15 @@ class LoginFragment : Fragment() {
         }
 
         val currentUser = auth.currentUser
-        if (currentUser != null) {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MainFragment.newInstance())
-                .commit()
-        } else if (isAutoLogin) {
-            val savedEmail = sharedPreferences.getString("savedEmail", "")
-            val savedPassword = sharedPreferences.getString("savedPassword", "")
 
-            if (!savedEmail.isNullOrEmpty() && !savedPassword.isNullOrEmpty()) {
-                login(savedEmail, savedPassword)
+        if (isAutoLogin) {
+            if(currentUser != null) {
+                requireActivity().supportFragmentManager.beginTransaction()
+                    .replace(R.id.main_frame, MainFragment.newInstance())
+                    .commit()
             }
         }
+
         // Google 로그인 옵션 설정
         val gso = GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
             .requestIdToken(getString(R.string.default_web_client_id))
@@ -86,16 +84,10 @@ class LoginFragment : Fragment() {
         binding.loginButton.setOnClickListener {
             val inputId = binding.loginIdEdittext.text.toString().trim()
             val inputPw = binding.loginPwEdittext.text.toString().trim()
-            val isAutoLogin = autoLoginCheckBox.isChecked // 체크박스 상태 확인
+            val isAutoLogin = autoLoginCheckBox.isChecked
 
             if (inputId.isNotEmpty() && inputPw.isNotEmpty() && isLoginChecked(inputId)) {
-                if (isAutoLogin) {
-                    requireActivity().supportFragmentManager.beginTransaction()
-                        .replace(R.id.main_frame, MainFragment.newInstance())
-                        .commit()
-                } else {
-                    login(inputId, inputPw)
-                }
+                login(inputId, inputPw)
             } else {
                 Toast.makeText(context, "아이디 또는 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
             }
@@ -121,8 +113,6 @@ class LoginFragment : Fragment() {
         }
 
         return binding.root
-
-
     }
 
     // Google Intent를 얻어와서 로그인을 시작
