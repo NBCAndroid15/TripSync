@@ -52,5 +52,9 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
         }
     }
 
+    fun searchItemAll() {
+        updateSearchItem("")
+    }
+
 
 }

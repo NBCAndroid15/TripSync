@@ -1,5 +1,6 @@
 package com.trip.tripsync.viewmodel
 
+import android.location.Location
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -44,6 +45,19 @@ class BookmarkManageViewModel(private val bookmarkRepositoryImpl: BookmarkReposi
             result?.let {
                 _bookmarkList.value = it
             }
+        }
+    }
+
+    fun bookmarkItemSorted(currentLocation : Location) {
+        _bookmarkList.value?.let { items ->
+            val sorted = items.sortedBy { item ->
+                val itemLocation = Location("itemLocation")
+                itemLocation.latitude = item.mapY ?: 0.0
+                itemLocation.longitude = item.mapX ?: 0.0
+                val distance = currentLocation.distanceTo(itemLocation) / 1000
+                distance
+            }
+            _bookmarkList.value = sorted
         }
     }
 }

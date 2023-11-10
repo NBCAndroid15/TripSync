@@ -1,5 +1,6 @@
 package com.trip.tripsync.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -53,8 +54,16 @@ class SignOutDialogFragment : DialogFragment() {
 
         binding.signoutDialogYesBtn.setOnClickListener {
             signOutAccount()
-        }
 
+            val sharedPreferences =
+                requireContext().getSharedPreferences("AutoLoginPrefs", Context.MODE_PRIVATE)
+            sharedPreferences.edit().remove("autoLogin").apply()
+
+            parentFragmentManager
+                .beginTransaction()
+                .replace(R.id.main_frame, LoginFragment.newInstance())
+                .commit()
+        }
     }
 
     override fun onDestroyView() {

@@ -82,8 +82,8 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
         binding.planSearchLocation.setOnClickListener {
             nearItem()
         }
-        binding.planSearchAll.setOnClickListener {
-
+            binding.planSearchAll.setOnClickListener {
+                viewModel.searchItemAll()
         }
 
 

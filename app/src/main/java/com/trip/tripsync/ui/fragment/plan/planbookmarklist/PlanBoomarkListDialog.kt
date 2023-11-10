@@ -1,11 +1,18 @@
 package com.trip.tripsync.ui.fragment.plan.planbookmarklist
 
+import android.Manifest
+import android.app.AlertDialog
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.location.Location
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.WindowManager
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
@@ -46,6 +53,10 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
 
+    private val utility : LocationUtility by lazy {
+        LocationUtility(requireContext())
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -65,6 +76,14 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
         val height = WindowManager.LayoutParams.MATCH_PARENT
 
         dialog?.window?.setLayout(width, height)
+
+        binding.planBookLocation.setOnClickListener {
+            nearItem()
+        }
+        binding.planBookAll.setOnClickListener {
+            viewModel.getBookmarkList()
+
+        }
 
     }
 
@@ -104,6 +123,42 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
             .replace(R.id.main_frame, fragment)
             .addToBackStack(null)
             .commit()
+    }
+
+    private fun nearItem() {
+        if (hasLocationPermission()) {
+            utility.requestLocationUpdate(OnSuccessListener { currentLocation ->
+                if (currentLocation != null) {
+                    viewModel.bookmarkItemSorted(currentLocation)
+                }
+            })
+        } else {
+            showPermissionSettingsDialog()
+        }
+
+    }
+
+    private fun hasLocationPermission(): Boolean {
+        return ContextCompat.checkSelfPermission(
+            requireContext(),
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
+    }
+
+    private fun showPermissionSettingsDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("권한 필요")
+        builder.setMessage("위치 권한이 필요합니다. 설정에서 권한을 변경하세요.")
+        builder.setPositiveButton("설정으로 이동") { _, _ ->
+            val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            val uri = Uri.fromParts("package", requireActivity().packageName, null)
+            intent.data = uri
+            startActivity(intent)
+        }
+        builder.setNegativeButton("취소") { dialog, _ ->
+            dialog.dismiss()
+        }
+        builder.show()
     }
 
 
