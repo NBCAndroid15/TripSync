@@ -1,5 +1,7 @@
 package com.trip.tripsync.ui.fragment.setup
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -7,6 +9,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -21,6 +25,7 @@ import com.trip.tripsync.ui.fragment.home.HomeFragment
 import com.trip.tripsync.ui.fragment.plan.PlanFragment
 import com.trip.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.trip.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
 import kotlinx.coroutines.launch
 
 class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
@@ -33,6 +38,11 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     private val adapter = SetupListAdapter()
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
+    private val permissions = arrayOf(
+        Manifest.permission.ACCESS_FINE_LOCATION,
+        Manifest.permission.ACCESS_COARSE_LOCATION
+    )
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -44,6 +54,13 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         val layoutManager = LinearLayoutManager(requireContext())
         recyclerView.layoutManager = layoutManager
         recyclerView.adapter = adapter
+
+        if (!hasPermission()) {
+            ActivityCompat.requestPermissions(
+                requireActivity(), permissions,
+                PERMISSION_REQUEST_CODE
+            )
+        }
 
         adapter.setOnItemClickListener(this)
 
@@ -134,7 +151,11 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         Log.d("SetupFragment", "Selected Dates: $selectedDates")
         val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }
         binding.setupTitleBtn.text = "계획 이름을 입력해주세요!"
-        sharedViewModel.initPlan(binding.setupTitleBtn.text.toString(), selectedDates.size, dateList)
+        sharedViewModel.initPlan(
+            binding.setupTitleBtn.text.toString(),
+            selectedDates.size,
+            dateList
+        )
         adapter.submitList(dateList)
 
         if (selectedDates.isNotEmpty()) {
@@ -155,7 +176,12 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         val planFragment = PlanFragment()
 
         requireActivity().supportFragmentManager.beginTransaction()
-            .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
+            .setCustomAnimations(
+                R.anim.enter_from_right,
+                R.anim.exit_to_left,
+                R.anim.enter_from_left,
+                R.anim.exit_to_right
+            )
             .replace(R.id.main_frame, planFragment)
             .addToBackStack(null)
             .commit()
@@ -176,7 +202,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     private fun createPlan() {
         val title = binding.setupTitleBtn.text.toString()
-        if(title.isEmpty() ) {
+        if (title.isEmpty()) {
             Toast.makeText(requireContext(), "여행 이름을 정해주세요.", Toast.LENGTH_SHORT)
                 .show()
             return
@@ -194,7 +220,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
     }
 
-    private fun initVisible()=with(binding){
+    private fun initVisible() = with(binding) {
         sharedViewModel.isTitleVisible.observe(viewLifecycleOwner) { isVisible ->
             setupTitleBtn.visibility = if (isVisible) View.VISIBLE else View.GONE
             setupDateCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
@@ -202,7 +228,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
 
         sharedViewModel.isUserVisible.observe(viewLifecycleOwner) { isVisible ->
             setupUserAdd.visibility = if (isVisible) View.VISIBLE else View.GONE
-            setupTitleCheck.visibility = if(isVisible) View.VISIBLE else View.GONE
+            setupTitleCheck.visibility = if (isVisible) View.VISIBLE else View.GONE
         }
 
         sharedViewModel.isUserCheck.observe(viewLifecycleOwner) { isVisible ->
@@ -217,6 +243,16 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         sharedViewModel.setUserCheck(false)
     }
 
+    private fun hasPermission(): Boolean {
+        for (permission in permissions) {
+            if (ContextCompat.checkSelfPermission(requireActivity(), permission)
+                != PackageManager.PERMISSION_GRANTED
+            ) {
+                return false
+            }
+        }
+        return true
+    }
 }
 
 

@@ -67,16 +67,15 @@
         app:layout_constraintTop_toBottomOf="@+id/plan_search_title" />
 
 
-<!--    <TextView-->
-<!--        android:id="@+id/plan_search_km"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:text="나와의 거리"-->
-<!--        android:layout_marginStart="5dp"-->
-<!--        android:textColor="@color/gray_medium"-->
-<!--        android:textSize="10dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintStart_toEndOf="@+id/materialCardView" />-->
+    <TextView
+        android:id="@+id/plan_search_km"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:textColor="@color/gray_medium"
+        android:textSize="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/materialCardView" />
 
     <ImageView
         android:id="@+id/plan_search_check"

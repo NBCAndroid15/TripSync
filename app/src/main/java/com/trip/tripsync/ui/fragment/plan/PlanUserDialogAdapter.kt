@@ -14,7 +14,7 @@ import com.trip.tripsync.model.User
 class PlanUserDialogAdapter : ListAdapter<User, PlanUserDialogAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
-            return oldItem == newItem
+            return oldItem.uid == newItem.uid
         }
 
         override fun areContentsTheSame(oldItem: User, newItem: User): Boolean {
