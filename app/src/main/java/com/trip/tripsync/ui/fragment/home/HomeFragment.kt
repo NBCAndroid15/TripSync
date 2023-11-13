@@ -89,7 +89,6 @@ class HomeFragment : Fragment(),
         binding.homeTravelRv.adapter = homeTravelAdapter
         binding.homeTravelRv.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-
         // 축제
         binding.homeFestivalRv.adapter = homeFestivalAdapter
         binding.homeFestivalRv.layoutManager =
@@ -140,6 +139,7 @@ class HomeFragment : Fragment(),
 
         homeTravelAdapter.setOntravelClickListener(this)
         homeFestivalAdapter.setOnFestivalClickListener(this)
+
 
 
         // 여행 아이템 목록 업데이트
