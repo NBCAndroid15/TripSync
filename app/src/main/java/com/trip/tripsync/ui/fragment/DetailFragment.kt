@@ -142,7 +142,10 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
             binding.detailBtnBookmark.setOnClickListener {
                 viewLifecycleOwner.lifecycleScope.launch {
-                    if (isBookmarked == true) { // 여기서 변경
+                    val bookmarkList = bookmarkRepository.getBookmarkList()
+                    val travelToBookmark = travel
+                    val isBookmarked: Boolean? = bookmarkList?.any { it.title == travelToBookmark.title }
+                    if (isBookmarked == true) {
                         bookmarkRepository.deleteBookmark(travelToBookmark)
                         Toast.makeText(requireContext(), "북마크가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
                         binding.detailBtnBookmark.setImageResource(R.drawable.ic_bookmark_white)
