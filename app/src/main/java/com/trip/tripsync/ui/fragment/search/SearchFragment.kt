@@ -124,7 +124,7 @@ class SearchFragment : Fragment(), SearchAdapter.OnItemClick {
     }
 
     override fun onItemClick(travel: Travel) {
-        val fragment = DetailFragment(travel)
+        val fragment = DetailFragment(travel, true)
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_left,R.anim.exit_to_right)
             .add(R.id.main_frame, fragment)

@@ -166,7 +166,7 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
     }
 
     override fun onItemClick(item: Travel) {
-        val detailFragment = DetailFragment(item)
+        val detailFragment = DetailFragment(item, false)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_frame, detailFragment)
             .addToBackStack(null)
