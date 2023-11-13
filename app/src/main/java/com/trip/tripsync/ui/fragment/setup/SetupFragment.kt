@@ -66,10 +66,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         showUserDialog()
 
         binding.setupBackBtn.setOnClickListener {
-            requireActivity().supportFragmentManager.beginTransaction()
-                .replace(R.id.main_frame, MainFragment())
-                .addToBackStack(null)
-                .commit()
+            requireActivity().onBackPressed()
 
             visibleState()
         }
@@ -122,7 +119,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             val setupTitleDialog = SetupTitleDialog(requireContext()) { title ->
                 setupTitleBtn.text = title
                 sharedViewModel._plan.title = setupTitleBtn.text.toString()
-                Log.d("title", setupTitleBtn.text.toString())
 
                 sharedViewModel.setUserVisible(true)
 
@@ -146,7 +142,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     }
 
     private fun onDateSelected(selectedDates: Set<CalendarDay>) {
-        Log.d("SetupFragment", "Selected Dates: $selectedDates")
         val dateList = selectedDates.toList().map { "${it.year}년 ${it.month}월 ${it.day}일" }
         binding.setupTitleBtn.text = "계획 이름을 입력해주세요!"
         sharedViewModel.initPlan(
@@ -183,7 +178,6 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             .replace(R.id.main_frame, planFragment)
             .addToBackStack(null)
             .commit()
-        Log.d("setup", "$selectedDates")
     }
 
     private fun showUserDialog() = with(binding) {

@@ -135,6 +135,8 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
             moveToDate()
         }
 
+        moveNextVisible()
+        moveBeforeVisible()
 
     }
 
@@ -244,7 +246,7 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         if (plan != null && sharedViewModel.currentPosition >= 0) {
             planTextTitle.text = plan.title
             if (plan.planDetailList != null && sharedViewModel.currentPosition < plan.planDetailList!!.size) {
-                planDate.text = plan.planDetailList!![sharedViewModel.currentPosition]?.date
+//                planDate.text = plan.planDetailList!![sharedViewModel.currentPosition]?.date
 
             }
 
@@ -262,7 +264,7 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         if (sharedViewModel.currentPosition < sharedViewModel._plan.planDetailList?.size?.minus(1) ?: 0) {
             sharedViewModel.initPosition(sharedViewModel.currentPosition + 1)
         }
-        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+//        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
         sharedViewModel.setHint(binding.planTextView.text.isEmpty())
 
@@ -274,7 +276,7 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         if ( sharedViewModel.currentPosition > 0) {
             sharedViewModel.initPosition(sharedViewModel.currentPosition - 1)
         }
-        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
+//        binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
         sharedViewModel.setHint(binding.planTextView.text.isEmpty())
 

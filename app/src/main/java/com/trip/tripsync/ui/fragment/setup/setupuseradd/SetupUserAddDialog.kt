@@ -89,7 +89,6 @@ class SetupUserAddDialog : DialogFragment() {
     }
 
     private fun sendUserNickname(name: User) {
-        Log.d("SetupUserAddDialog", "선택된 아이템: ${name.nickname}")
         sharedViewModel.getUserNickName(name)
     }
 
