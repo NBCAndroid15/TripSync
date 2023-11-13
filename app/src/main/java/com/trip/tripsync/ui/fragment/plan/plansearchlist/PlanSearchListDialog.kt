@@ -95,6 +95,11 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
         planSearchListRecycler.layoutManager =
             LinearLayoutManager(requireContext(), RecyclerView.VERTICAL, false)
 
+        viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
+            adapter.submitList(it)
+
+        })
+
         planSearchListSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener,
             androidx.appcompat.widget.SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(keyword: String): Boolean {
@@ -143,10 +148,6 @@ class PlanSearchListDialog : DialogFragment(), PlanSearchListAdapter.OnItemClick
 
         viewModel.updateSearchItem(keyword)
 
-        viewModel.getSearchItem.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-
-        })
     }
 
     override fun onDestroyView() {

@@ -41,8 +41,8 @@ class PlanSearchListAdapter(private val itemClickCallBack: (Travel)-> Boolean,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(getItem(position))
-
     }
+
 
     inner class ViewHolder(private val binding: PlanSearchListItemBinding) : RecyclerView.ViewHolder(binding.root) {
         private var itemState = false

@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FestivalItemBinding
 import com.trip.tripsync.model.Travel
@@ -13,7 +15,7 @@ class HomeFestivalAdapter(private var items: List<Travel>): RecyclerView.Adapter
 
     fun updateItems(newItems: List<Travel>) {
         items = newItems
-        notifyDataSetChanged()
+        notifyItemRangeChanged(0, items.size)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeFestivalAdapter.ViewHolder {
@@ -37,12 +39,23 @@ class HomeFestivalAdapter(private var items: List<Travel>): RecyclerView.Adapter
             val endDate = binding.festivalEnddateText
             val city = binding.festivalCityText
             val title = binding.festivalItemText
-            Glide.with(binding.root)
-                .load(item.imageUrl)
-                .error(R.drawable.item_error)
-                .into(image)
             val formattedStartDate = formatEventDate(item.startDate.toString())
             val formattedEndDate = formatEventDate(item.endDate.toString())
+
+            image.post {
+                val myOptions = RequestOptions()
+                    .override(image.width, image.height)
+                    .centerCrop()
+
+                Glide
+                    .with(image.context)
+                    .load(item.imageUrl)
+                    .apply(myOptions)
+                    .skipMemoryCache(true)
+                    .diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .error(R.drawable.item_error)
+                    .into(image)
+            }
 
             startDate.text = "$formattedStartDate 부터"
             endDate.text = "$formattedEndDate 까지"

@@ -39,18 +39,20 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
     }
 
     fun searchItemSorted(currentLocation : Location) {
+
+        var sortedItems = listOf<Travel>()
+
         _getSearchItem.value?.let { items ->
-            val sortedItems = items.sortedBy { item ->
+            sortedItems = items.sortedBy { item ->
                 val itemLocation = Location("itemLocation")
                 itemLocation.latitude = item.mapY ?: 0.0
                 itemLocation.longitude = item.mapX ?: 0.0
                 val distance = currentLocation.distanceTo(itemLocation) / 1000
                 distance
             }
-
-            val distinctItems = sortedItems.distinctBy { it }
-            _getSearchItem.value = distinctItems
         }
+
+        _getSearchItem.value = sortedItems
     }
 
     fun searchItemAll() {
