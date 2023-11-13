@@ -67,7 +67,6 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
-
         super.onViewCreated(view, savedInstanceState)
         bind(travel)
 
@@ -75,7 +74,8 @@ class DetailFragment(val travel: Travel) : Fragment() {
             val contentTypeId = travel.contentTypeId ?: 0
 
             viewLifecycleOwner.lifecycleScope.launch {
-                val detailContentInfo = travelRepository.getTravelDetailInfo(contentId, contentTypeId)
+                val detailContentInfo =
+                    travelRepository.getTravelDetailInfo(contentId, contentTypeId)
                 binding.detailTvContent.text = detailContentInfo
             }
         }
@@ -128,19 +128,31 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
 
 
-        binding.detailBtnBookmark.setOnClickListener() {
-            val travelToBookmark = (travel)
-            viewLifecycleOwner.lifecycleScope.launch {
-                val bookmarkList = bookmarkRepository.addBookmark(travelToBookmark)
+        viewLifecycleOwner.lifecycleScope.launch {
+            val bookmarkList = bookmarkRepository.getBookmarkList()
+            val travelToBookmark = travel
 
-                if (bookmarkList != null) {
-                    Toast.makeText(requireContext(), "북마크가 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(requireContext(), "북마크를 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
-                }
+            val isBookmarked: Boolean? = bookmarkList?.any { it.title == travelToBookmark.title }
+
+            if (isBookmarked == true) {
+                binding.detailBtnBookmark.setImageResource(R.drawable.ic_bookmark_blue)
+            } else {
+                binding.detailBtnBookmark.setImageResource(R.drawable.ic_bookmark_white)
             }
 
-
+            binding.detailBtnBookmark.setOnClickListener {
+                viewLifecycleOwner.lifecycleScope.launch {
+                    if (isBookmarked == true) { // 여기서 변경
+                        bookmarkRepository.deleteBookmark(travelToBookmark)
+                        Toast.makeText(requireContext(), "북마크가 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                        binding.detailBtnBookmark.setImageResource(R.drawable.ic_bookmark_white)
+                    } else {
+                        bookmarkRepository.addBookmark(travelToBookmark)
+                        Toast.makeText(requireContext(), "북마크가 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                        binding.detailBtnBookmark.setImageResource(R.drawable.ic_bookmark_blue)
+                    }
+                }
+            }
         }
 
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
