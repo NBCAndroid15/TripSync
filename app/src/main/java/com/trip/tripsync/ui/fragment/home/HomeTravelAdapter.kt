@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.bumptech.glide.request.RequestOptions
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.TravelItemBinding
@@ -41,6 +42,9 @@ class HomeTravelAdapter(private var items: List<Travel>): RecyclerView.Adapter<H
                 val myOptions = RequestOptions()
                     .override(image.width, image.height)
                     .centerCrop()
+                    .placeholder(R.drawable.item_error)
+
+
 
                 Glide
                     .with(image.context)
@@ -49,6 +53,7 @@ class HomeTravelAdapter(private var items: List<Travel>): RecyclerView.Adapter<H
                     .skipMemoryCache(true)
                     .diskCacheStrategy(DiskCacheStrategy.NONE)
                     .error(R.drawable.item_error)
+                    .transition(DrawableTransitionOptions().crossFade())
                     .into(image)
             }
 
