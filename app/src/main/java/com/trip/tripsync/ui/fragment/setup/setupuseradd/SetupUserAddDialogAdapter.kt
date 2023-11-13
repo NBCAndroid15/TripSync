@@ -3,6 +3,7 @@ package com.trip.tripsync.ui.fragment.setup.setupuseradd
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -11,7 +12,8 @@ import com.trip.tripsync.R
 import com.trip.tripsync.databinding.PlanUserAddItemBinding
 import com.trip.tripsync.model.User
 
-class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): ListAdapter<User, SetupUserAddDialogAdapter.ViewHolder>(
+class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit,
+                                private val planUsers: LiveData<List<User>>): ListAdapter<User, SetupUserAddDialogAdapter.ViewHolder>(
     object : DiffUtil.ItemCallback<User>() {
         override fun areItemsTheSame(oldItem: User, newItem: User): Boolean {
             return oldItem.email == newItem.email
@@ -24,6 +26,7 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
 ) {
 
     inner class ViewHolder(private val binding: PlanUserAddItemBinding) : RecyclerView.ViewHolder(binding.root) {
+        private var isState = false
         fun bind(user: User) = with(binding) {
 
             Glide.with(itemView)
@@ -34,8 +37,25 @@ class SetupUserAddDialogAdapter(private val itemClickCallBack: (User)-> Unit ): 
             planUserName.text = user.nickname
 
             planUserAddBtn.setOnClickListener {
+                if(!isState) {
                     itemClickCallBack(user)
+                    planUserAddBtn.setImageResource(R.drawable.ic_person_remove)
+                    isState = true
+                } else {
+                    isState = false
+                    itemClickCallBack(user)
+                    planUserAddBtn.setImageResource(R.drawable.ic_person_add)
+                }
+            }
 
+            if (planUsers.value.orEmpty().any {
+                    it.uid == user.uid
+                }) {
+                planUserAddBtn.setImageResource(R.drawable.ic_person_remove)
+                isState = true
+            } else {
+                isState = false
+                planUserAddBtn.setImageResource(R.drawable.ic_person_add)
             }
         }
     }

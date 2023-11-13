@@ -141,20 +141,17 @@ class HomeFragment : Fragment(),
         homeTravelAdapter.setOntravelClickListener(this)
         homeFestivalAdapter.setOnFestivalClickListener(this)
 
+
         // 여행 아이템 목록 업데이트
         travelViewModel.getTravelList()
         travelViewModel.travelData.observe(viewLifecycleOwner) { travelList ->
-
-                homeTravelAdapter.updateItems(travelList)
-
+            homeTravelAdapter.updateItems(travelList)
         }
 
         // 축제 아이템 목록 업데이트
         festivalViewModel.getFestivalList()
         festivalViewModel.festivalData.observe(viewLifecycleOwner) { travelList ->
-
-                homeFestivalAdapter.updateItems(travelList)
-
+            homeFestivalAdapter.updateItems(travelList)
         }
 
         val isUserLoggedIn = isUserLogIn()

@@ -129,6 +129,7 @@
                 android:id="@+id/plan_before"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/previous"
                 app:layout_constraintStart_toStartOf="parent"
@@ -139,6 +140,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:background="@drawable/next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
@@ -203,8 +205,8 @@
                 android:text="2022년12월12일"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="@+id/plan_next"
-                app:layout_constraintStart_toStartOf="@+id/plan_before"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
 

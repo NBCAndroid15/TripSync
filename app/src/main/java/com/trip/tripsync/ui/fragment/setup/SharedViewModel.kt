@@ -188,6 +188,15 @@ class SharedViewModel : ViewModel() {
         _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
     }
 
+    fun planUserRemove(user: User) {
+        val currentUser = _userList.value.orEmpty().toMutableList()
+        currentUser.remove(user)
+        _userList.value = currentUser.toList()
+        val groupList = _plan.group.orEmpty().toMutableList()
+        groupList.remove(user.uid)
+        _plan.group = groupList.toList()
+    }
+
     fun setPlanItems(item: List<Travel>) {
         _planItems.value = item
     }
