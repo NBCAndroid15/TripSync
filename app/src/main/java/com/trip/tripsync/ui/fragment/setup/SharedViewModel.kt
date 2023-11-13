@@ -1,23 +1,15 @@
 package com.trip.tripsync.ui.fragment.setup
 
-import android.content.ContentProvider
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trip.tripsync.data.AuthRepositoryImpl
 import com.trip.tripsync.data.PlanRepositoryImpl
 import com.trip.tripsync.model.Plan
 import com.trip.tripsync.model.PlanDetail
 import com.trip.tripsync.model.Travel
 import com.trip.tripsync.model.User
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {

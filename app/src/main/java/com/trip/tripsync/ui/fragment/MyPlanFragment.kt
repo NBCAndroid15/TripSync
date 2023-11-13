@@ -1,6 +1,5 @@
 package com.trip.tripsync.ui.fragment
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -12,7 +11,6 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
@@ -25,7 +23,6 @@ import com.trip.tripsync.ui.fragment.plan.PlanFragment
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.trip.tripsync.viewmodel.MyPlanViewModel
 import com.trip.tripsync.viewmodel.MyPlanViewModelFactory
-import okhttp3.internal.notify
 
 class MyPlanFragment : Fragment() {
 

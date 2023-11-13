@@ -1,12 +1,12 @@
 package com.trip.tripsync.ui.fragment.plan
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.activity.addCallback
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
@@ -134,6 +134,7 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
             moveToNext()
             moveToDate()
         }
+
 
     }
 
@@ -264,6 +265,9 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
         sharedViewModel.setHint(binding.planTextView.text.isEmpty())
+
+        moveNextVisible()
+        moveBeforeVisible()
     }
 
     private fun moveToBefore() {
@@ -273,18 +277,25 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         binding.planDate.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
         binding.planTextView.text = sharedViewModel._plan.planDetailList?.get(sharedViewModel.currentPosition)?.content ?: ""
         sharedViewModel.setHint(binding.planTextView.text.isEmpty())
+
+        moveBeforeVisible()
+        moveNextVisible()
     }
 
     private fun moveToDate() {
-        val toDays = sharedViewModel._plan.planDetailList?.size ?: 0
-        binding.dateText.text = "${sharedViewModel.currentPosition + 1}/$toDays"
+        binding.dateText.text = sharedViewModel._plan.planDetailList!![sharedViewModel.currentPosition]?.date
     }
 
-    private fun moveVisible() {
+    private fun moveBeforeVisible() {
         val isFirstDay = sharedViewModel.currentPosition == 0
-        val isLastDay = sharedViewModel.currentPosition == (sharedViewModel._plan.planDetailList?.size ?: 0) - 1
+
         binding.planBefore.visibility = if (isFirstDay) View.GONE else View.VISIBLE
+    }
+
+    private fun moveNextVisible() {
+        val isLastDay = sharedViewModel.currentPosition == (sharedViewModel._plan.planDetailList?.size ?: 0) - 1
         binding.planNext.visibility = if (isLastDay) View.GONE else View.VISIBLE
+
     }
 
     override fun onItemClick(item: Travel) {

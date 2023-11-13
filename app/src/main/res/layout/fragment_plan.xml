@@ -62,12 +62,12 @@
                 android:id="@+id/plan_user_check_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="자세히보기"
-                android:gravity="center"
                 android:layout_marginEnd="10sp"
-                android:paddingVertical="7dp"
-                android:paddingHorizontal="15dp"
                 android:background="@drawable/button_sub_solid"
+                android:gravity="center"
+                android:paddingHorizontal="15dp"
+                android:paddingVertical="7dp"
+                android:text="자세히보기"
                 app:layout_constraintBottom_toBottomOf="@+id/plan_username_recycler"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/plan_username_recycler" />
@@ -131,7 +131,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/previous"
-                app:layout_constraintEnd_toStartOf="@+id/plan_next"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
@@ -142,7 +141,6 @@
                 android:layout_marginTop="16dp"
                 android:background="@drawable/next"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/plan_before"
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
             <androidx.appcompat.widget.AppCompatButton
@@ -182,7 +180,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/plan_next" />
+                app:layout_constraintTop_toBottomOf="@+id/date_text" />
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -202,12 +200,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="1/10"
-                android:textStyle="bold"
+                android:text="2022년12월12일"
                 android:textSize="16dp"
-                app:layout_constraintEnd_toStartOf="@+id/plan_next"
-                app:layout_constraintHorizontal_bias="0.494"
-                app:layout_constraintStart_toEndOf="@+id/plan_before"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="@+id/plan_next"
+                app:layout_constraintStart_toStartOf="@+id/plan_before"
                 app:layout_constraintTop_toBottomOf="@+id/plan_cardview" />
 
 

@@ -145,18 +145,16 @@ class HomeFragment : Fragment(),
         travelViewModel.getTravelList()
         travelViewModel.travelData.observe(viewLifecycleOwner) { travelList ->
 
-            requireActivity().runOnUiThread {
                 homeTravelAdapter.updateItems(travelList)
-            }
+
         }
 
         // 축제 아이템 목록 업데이트
         festivalViewModel.getFestivalList()
         festivalViewModel.festivalData.observe(viewLifecycleOwner) { travelList ->
 
-            requireActivity().runOnUiThread {
                 homeFestivalAdapter.updateItems(travelList)
-            }
+
         }
 
         val isUserLoggedIn = isUserLogIn()

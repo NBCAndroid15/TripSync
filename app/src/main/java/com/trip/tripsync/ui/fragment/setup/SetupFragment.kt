@@ -20,8 +20,6 @@ import com.trip.tripsync.data.PlanRepositoryImpl
 import com.trip.tripsync.databinding.FragmentSetupBinding
 import com.trip.tripsync.model.Plan
 import com.trip.tripsync.ui.fragment.MainFragment
-import com.trip.tripsync.ui.fragment.MyPlanFragment
-import com.trip.tripsync.ui.fragment.home.HomeFragment
 import com.trip.tripsync.ui.fragment.plan.PlanFragment
 import com.trip.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
