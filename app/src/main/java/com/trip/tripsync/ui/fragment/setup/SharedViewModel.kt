@@ -1,23 +1,15 @@
 package com.trip.tripsync.ui.fragment.setup
 
-import android.content.ContentProvider
-import android.content.Context
-import android.util.Log
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.trip.tripsync.data.AuthRepositoryImpl
 import com.trip.tripsync.data.PlanRepositoryImpl
 import com.trip.tripsync.model.Plan
 import com.trip.tripsync.model.PlanDetail
 import com.trip.tripsync.model.Travel
 import com.trip.tripsync.model.User
-import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.firebase.auth.FirebaseAuth
-import com.prolificinteractive.materialcalendarview.CalendarDay
 import kotlinx.coroutines.launch
 
 class SharedViewModel : ViewModel() {
@@ -194,6 +186,15 @@ class SharedViewModel : ViewModel() {
         currentItem.remove(currentItem.filter { item.title == it.title }.getOrNull(0))
         _planItems.value = currentItem
         _plan.planDetailList?.getOrNull(currentPosition)?.travelList = currentItem
+    }
+
+    fun planUserRemove(user: User) {
+        val currentUser = _userList.value.orEmpty().toMutableList()
+        currentUser.remove(user)
+        _userList.value = currentUser.toList()
+        val groupList = _plan.group.orEmpty().toMutableList()
+        groupList.remove(user.uid)
+        _plan.group = groupList.toList()
     }
 
     fun setPlanItems(item: List<Travel>) {

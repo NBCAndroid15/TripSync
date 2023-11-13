@@ -27,14 +27,15 @@ class SetupUserAddDialog : DialogFragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
 
     private val adapter by lazy {
-        SetupUserAddDialogAdapter {item ->
+        SetupUserAddDialogAdapter ({item ->
             if (isUserCheck(item)) {
-                Toast.makeText(requireContext(), "이미 추가된 일행입니다.", Toast.LENGTH_SHORT).show()
+                isUserDelete(item)
+                Toast.makeText(requireContext(), "삭제되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 sendUserNickname(item)
-                Toast.makeText(requireContext(), "추가", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "추가되었습니다.", Toast.LENGTH_SHORT).show()
             }
-        }
+        }, sharedViewModel.userList)
     }
 
     private var onDissListener : (() -> Unit)? = null
@@ -88,7 +89,6 @@ class SetupUserAddDialog : DialogFragment() {
     }
 
     private fun sendUserNickname(name: User) {
-        Log.d("SetupUserAddDialog", "선택된 아이템: ${name.nickname}")
         sharedViewModel.getUserNickName(name)
     }
 
@@ -97,5 +97,9 @@ class SetupUserAddDialog : DialogFragment() {
         return addUser.any {
             it.uid == user.uid
         }
+    }
+
+    private fun isUserDelete(user:User) {
+        sharedViewModel.planUserRemove(user)
     }
 }

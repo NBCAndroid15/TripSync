@@ -34,13 +34,13 @@
 
     </LinearLayout>
 
-    <androidx.appcompat.widget.AppCompatButton
+    <ImageButton
         android:id="@+id/plan_user_add_btn"
         android:layout_width="50dp"
         android:layout_height="wrap_content"
         android:background="@drawable/setup_btn_round"
         android:text="추가"
         android:layout_gravity="center"
-        android:src="@drawable/ic_person_remove"/>
+        android:src="@drawable/ic_person_add"/>
 
 </LinearLayout>
