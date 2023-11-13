@@ -118,7 +118,7 @@ class PlanBoomarkListDialog : DialogFragment(), PlanBookmarkListAdapter.OnItemCl
     }
 
     override fun onItemClick(item: Travel) {
-        val fragment = DetailFragment(item)
+        val fragment = DetailFragment(item, false)
         requireActivity().supportFragmentManager.beginTransaction()
             .replace(R.id.main_frame, fragment)
             .addToBackStack(null)

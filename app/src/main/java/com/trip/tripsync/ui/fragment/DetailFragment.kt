@@ -30,7 +30,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class DetailFragment(val travel: Travel) : Fragment() {
+class DetailFragment(val travel: Travel, val menuVisible: Boolean) : Fragment() {
 
     lateinit var travelXY: Travel
 
@@ -69,6 +69,11 @@ class DetailFragment(val travel: Travel) : Fragment() {
 
         super.onViewCreated(view, savedInstanceState)
         bind(travel)
+
+        if (!menuVisible) {
+            binding.detailBtnGoPlan.visibility = View.GONE
+            binding.detailBtnWishList.visibility = View.GONE
+        }
 
         travel.contentId?.let { contentId ->
             val contentTypeId = travel.contentTypeId ?: 0
@@ -190,8 +195,8 @@ class DetailFragment(val travel: Travel) : Fragment() {
     }
 
     companion object {
-        fun newInstance(travel: Travel): DetailFragment {
-            return DetailFragment(travel)
+        fun newInstance(travel: Travel, menuVisible: Boolean): DetailFragment {
+            return DetailFragment(travel, menuVisible)
         }
     }
 }

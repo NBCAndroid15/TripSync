@@ -62,7 +62,7 @@ class HomeFestivalAdapter(private var items: List<Travel>): RecyclerView.Adapter
                     .transition(DrawableTransitionOptions().crossFade())
                     .into(image)
             }
-            
+
             startDate.text = "$formattedStartDate 부터"
             endDate.text = "$formattedEndDate 까지"
             city.text = item.area
