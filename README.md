@@ -39,7 +39,8 @@
 
 ## 📝 Design
 
-- **전체 기술 다이어그램**
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/7efed171-2f03-4358-a240-09bd2a91c4e8)
+
 
 
 ## 📱 Android
