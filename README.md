@@ -54,7 +54,6 @@
 | Retrofit         | HTTP 통신 라이브러리                         |
 | ShapableImageView | 이미지뷰 라이브러리                         |
 | Google Auth      | 구글 소셜 로그인                             |
-| Naver            | 네이버 소셜 로그인                           |
 | NaverMap        | 네이버 지도 라이브러리                         |
 | Firestore              | 파이어베이스 데이터베이스                       |
 | Firebase Storage              | 파이어베이스 스토리지                      |
