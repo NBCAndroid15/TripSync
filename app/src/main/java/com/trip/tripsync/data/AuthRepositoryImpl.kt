@@ -1,6 +1,7 @@
 package com.trip.tripsync.data
 
 
+import android.util.Log
 import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
@@ -114,7 +115,10 @@ class AuthRepositoryImpl {
         }
     }
 
-    suspend fun addFriend(user: User) = withContext(Dispatchers.IO) {
+    suspend fun addFriend(users: User) = withContext(Dispatchers.IO) {
+
+        val user = users.copy(friends = null)
+
         try {
             if (auth.currentUser == null) {
                 null
@@ -145,6 +149,7 @@ class AuthRepositoryImpl {
                 }
             }
         } catch (e: Exception) {
+            Log.d("addFriend", e.message.toString())
             null
         }
     }
