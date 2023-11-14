@@ -33,32 +33,8 @@
 
 ## 📝 Design
 
-> <h3><font color="green">전체 기술 스택</font></h3>
+- **전체 기술 스택**
 
-> ![image](./img/6.전체기술스택.png) > <br/>
-
-> <h3><font color="green">전체 시스템 구조</font></h3>
-
-> ![image](./img/7.전체시스템구조.png) > <br/>
-
-> <h3><font color="green">ERD 다이어그램</font></h3>
-
-> ![1](./img/8.ERD다이어그램.png) > [링크](https://www.erdcloud.com/d/uoAsmnv3gyCugnxno) 바로가기
-> <br/>
-
-> <h3><font color="green">요구사항 명세서</font></h3>
-
-> ![image](./img/9.요구사항명세서.gif) <br/>
-
-> <br/>
-> <br/>
-
-> <h3><font color="green">API 명세서</font></h3>
-
-> ![image](./img/10.API명세서.gif) <br/>
-
-> <br/>
-> <br/>
 
 ## 📱 Android
 
