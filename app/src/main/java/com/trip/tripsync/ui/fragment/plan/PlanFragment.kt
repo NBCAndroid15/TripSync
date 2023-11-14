@@ -1,7 +1,8 @@
 package com.trip.tripsync.ui.fragment.plan
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.MotionEvent
@@ -25,6 +26,7 @@ import com.trip.tripsync.ui.fragment.setup.PlanMemoDialog
 import com.trip.tripsync.ui.fragment.setup.SharedViewModel
 import com.trip.tripsync.ui.dialog.UserCheckDialogFragment
 import com.trip.tripsync.ui.fragment.DetailFragment
+import com.trip.tripsync.ui.fragment.PlanGuideFragment
 
 class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
 
@@ -32,6 +34,7 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
     private var _binding: FragmentPlanBinding? = null
     private val binding: FragmentPlanBinding
         get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
 
     private lateinit var recyclerView: RecyclerView
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -70,6 +73,18 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
         return binding.root
     }
 
+    private fun isFirstRun(fragmentTag: String): Boolean {
+        return sharedPreferences.getBoolean("isFirstRun_$fragmentTag", true)
+    }
+    private fun setFirstRunFlag(fragmentTag: String) {
+        sharedPreferences.edit().putBoolean("isFirstRun_$fragmentTag", false).apply()
+    }
+    private fun showGuideFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, PlanGuideFragment())
+            .commit()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -77,6 +92,15 @@ class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
             if (requireActivity().supportFragmentManager.backStackEntryCount > 0) {
                 requireActivity().supportFragmentManager.popBackStack()
             }
+        }
+
+        sharedPreferences = requireContext().getSharedPreferences(
+            "com.trip.tripsync.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        if (isFirstRun("plan")) {
+            showGuideFragment()
+            setFirstRunFlag("plan")
         }
 
         initView()
