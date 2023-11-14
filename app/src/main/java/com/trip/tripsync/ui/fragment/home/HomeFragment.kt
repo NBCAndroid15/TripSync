@@ -195,7 +195,7 @@ class HomeFragment : Fragment(),
 
 
     override fun onTravelClick(travel: Travel) {
-        val fragment = DetailFragment(travel)
+        val fragment = DetailFragment(travel, true)
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.enter_from_right,
@@ -209,7 +209,7 @@ class HomeFragment : Fragment(),
     }
 
     override fun onFestivalClick(travel: Travel) {
-        val fragment = DetailFragment(travel)
+        val fragment = DetailFragment(travel, true)
         requireActivity().supportFragmentManager.beginTransaction()
             .setCustomAnimations(
                 R.anim.enter_from_right,

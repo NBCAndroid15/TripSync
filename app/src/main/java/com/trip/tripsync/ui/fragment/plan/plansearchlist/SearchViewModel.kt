@@ -52,7 +52,7 @@ class SearchViewModel(private val travelRepositoryImpl: TravelRepositoryImpl): V
             }
         }
 
-        _getSearchItem.value = sortedItems
+        _getSearchItem.value = sortedItems.distinctBy { it.title }
     }
 
     fun searchItemAll() {
