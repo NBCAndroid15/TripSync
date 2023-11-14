@@ -48,8 +48,6 @@
 
 | Name             | Description                                  |
 | ---------------- | -------------------------------------------- |
-| Data Layer API   | Wear OS 네트워크 통신 라이브러리             |
-| Navigation       | 프래그먼트 전환 라이브러리                   |
 | Glide            | 이미지 로딩 라이브러리                       |
 | ViewModel        | 수명주기 고려 데이터를 저장, 관리 라이브러리 |
 | Coroutine        | 비동기 처리 라이브러리                       |
@@ -58,14 +56,9 @@
 | ShapableImageView | 이미지뷰 라이브러리                         |
 | Google Auth      | 구글 소셜 로그인                             |
 | Naver            | 네이버 소셜 로그인                           |
-| KaKao            | 카카오 소셜 로그인                           |
-| Lottie           | 안드로이드 애니메이션 라이브러리             |
-| GoogleMap        | 구글 지도 라이브러리                         |
-| FCM              | 파이어베이스 푸시 알림                       |
-| Paging 3         | 안드로이드 페이징 라이브러리                 |
-| Mp Android Chart | 안드로이드 차트 통계 라이브러리              |
-| Room             | 안드로이드 DB 라이브러리                     |
-| Weather Api      | 공공데이터포털 기상청 날씨 라이브러리        |
+| NaverMap        | 네이버 지도 라이브러리                         |
+| Firestore              | 파이어베이스 데이터베이스                       |
+| Firebase Storage              | 파이어베이스 스토리지                      |
 | CalendarView     | 캘린더 라이브러리                            |
 
 <br/>
