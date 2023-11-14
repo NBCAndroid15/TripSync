@@ -80,6 +80,3 @@
 |2|**김현준**|부팀장|[@boomshh](https://github.com/boomshh)|
 |3|**배근태**|팀원|[@kt2790](https://github.com/kt2790)|
 |4|**이인재**|팀원|[@tastystar97](https://github.com/tastystar97)|
-
-
-
