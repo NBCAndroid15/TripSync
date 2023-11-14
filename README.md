@@ -66,6 +66,9 @@
 
 ## 🏛️ 아키텍처 구조
 
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/b52e197d-9d4a-4847-b500-f1139f85fba8)
+
+
 ## 👨‍👦‍👦 Team Member
 
 
