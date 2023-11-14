@@ -1,4 +1,4 @@
-## ✈️ TripSync
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/866634f2-7b87-4bd4-9344-7b4147305814)## ✈️ TripSync
 **TripSync는 Android 모바일로 제공되는 여행 계획 작성 및 친구와 여행 계획 공유 서비스를 제공하는 앱 입니다.**
 <br/>
 <br/>
@@ -38,7 +38,10 @@
 
 ## 📝 Design
 
-![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/2961a605-98df-4afd-ab82-bc2ca18368ed)
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/1e9e2710-bb59-4073-b166-59bd55ee873f)
+
+
+
 
 
 
