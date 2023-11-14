@@ -38,7 +38,7 @@
 
 ## 📝 Design
 
-![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/c068a88e-d2b1-415a-ac19-fc54aad8e153)
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/2744f790-8e7a-432b-9b39-6e81bc0d7b4e)
 
 
 
