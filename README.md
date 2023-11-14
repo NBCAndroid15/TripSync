@@ -23,9 +23,12 @@
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/fd611715-0d91-4b73-86ef-e4b7d5af34aa)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/c3107969-8563-4506-8979-f184de00e2cd)
 
+<br/>
+
 - **서비스 전체 기능**
 
-	- 추천 여행지 기능 - 지역별로 갈 수 있는 여행지를 사용자에게 추천해주는 기능 
+	- 여행지 추천 기능 - 지역별로 갈 수 있는 여행지를 사용자에게 추천해주는 기능
+   	- 축제 추천 기능 - 현재 시간을 기준으로 전국 각지에서 열리고 있는 축제를 사용자에게 추천해주는 기능
 
 <br/>
 
