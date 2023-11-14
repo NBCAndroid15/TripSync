@@ -1,16 +1,10 @@
-<div align="left">
-<img width="200" src="https://lab.ssafy.com/s07-webmobile4-sub2/S07P12D101/uploads/0a9e04f048a227e4d11bb069518f5ad4/rwm_logo_white.jpg">
-</div>
-<br/>
-
 # ✈️ TripSync
 
 **TripSync 프로젝트는 Android 모바일로 제공되는 여행 계획 및 동선을 작성, 친구와 공유 할 수 있는 서비스를 제공하는 어플리케이션 입니다.**
 
 
 
-
-
+  
 ## 🤵 주요 타겟층
 
 - **친구들과 여행을 가기 전에 성향이 다른 친구를 철저하게 대비하고 싶은 분**
