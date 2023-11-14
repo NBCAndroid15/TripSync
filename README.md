@@ -21,14 +21,20 @@
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/e6257db2-6111-4e95-8624-b35f69a8c306)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/fd611715-0d91-4b73-86ef-e4b7d5af34aa)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/c3107969-8563-4506-8979-f184de00e2cd)
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/6f51fd3f-00a1-4af5-8ad1-7c7ce7367690)
+
 
 <br/>
 
 - **서비스 전체 기능**
-
 	- 여행지 추천 기능 - 지역별로 갈 수 있는 여행지를 사용자에게 추천해주는 기능
    	- 축제 추천 기능 - 현재 시간을 기준으로 전국 각지에서 열리고 있는 축제를 사용자에게 추천해주는 기능
-
+   	- 날짜별 여행 계획 작성 기능 - 여행 날짜를 설정하고 날짜별 세부 여행 계획 작성 기능
+	- 거리순 검색 기능 - 사용자의 현재 위치로 부터 가까운 여행지 순으로 보여주는 기능
+   	- 친구 기능 - 닉네임을 통해 친구를 검색하고 추가 및 삭제 할 수 있는 기능
+   	- 친구간 여행 계획 공유 기능 - 친구와 여행 계획을 공유 할 수 있는 기능
+   	- 여행지 북마크 기능 - 사용자가 가고 싶은 여행지를 북마크에 추가하고 열람 및 삭제 할 수 있는 기능
+   	- 게임 기능 - 친구간 여행 계획 작성시, 의사 결정을 도와줄 수 있는 동전던지기 게임 기능
 <br/>
 
 ## 📝 Design
@@ -48,11 +54,8 @@
 | ViewModel        | 수명주기 고려 데이터를 저장, 관리 라이브러리 |
 | Coroutine        | 비동기 처리 라이브러리                       |
 | Coroutine Flow   | 비동기 데이터 스트림                         |
-| TedPermission    | 안드로이드 권한 라이브러리                   |
 | Retrofit         | HTTP 통신 라이브러리                         |
-| SimpleRatingBar  | RatingBar 커스텀 라이브러리                  |
-| Dagger Hilt      | 의존성 주입 라이브러리                       |
-| Circle ImageView | 이미지뷰 라이브러리                          |
+| ShapableImageView | 이미지뷰 라이브러리                         |
 | Google Auth      | 구글 소셜 로그인                             |
 | Naver            | 네이버 소셜 로그인                           |
 | KaKao            | 카카오 소셜 로그인                           |
