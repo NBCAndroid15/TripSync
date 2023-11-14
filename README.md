@@ -18,7 +18,6 @@
 
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/9cf09c99-c407-4273-afa4-1af6efe3f320)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/89b21a25-1a88-4752-9289-ac19123377cf)
-![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/e6257db2-6111-4e95-8624-b35f69a8c306)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/c3107969-8563-4506-8979-f184de00e2cd)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/6f51fd3f-00a1-4af5-8ad1-7c7ce7367690)
 
@@ -39,7 +38,10 @@
 
 ## 📝 Design
 
-![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/05501924-58dc-4442-a23a-534c644e01ed)
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/2961a605-98df-4afd-ab82-bc2ca18368ed)
+
+
+
 
 
 
@@ -78,5 +80,6 @@
 |2|**김현준**|부팀장|[@boomshh](https://github.com/boomshh)|
 |3|**배근태**|팀원|[@kt2790](https://github.com/kt2790)|
 |4|**이인재**|팀원|[@tastystar97](https://github.com/tastystar97)|
+
 
 
