@@ -1,4 +1,4 @@
-✈️ TripSync
+## ✈️ TripSync
 **TripSync는 Android 모바일로 제공되는 여행 계획 작성 및 친구와 여행 계획 공유 서비스를 제공하는 앱 입니다.**
 <br/>
 <br/>
