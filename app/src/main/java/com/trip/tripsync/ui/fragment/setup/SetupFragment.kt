@@ -1,9 +1,10 @@
 package com.trip.tripsync.ui.fragment.setup
 
 import android.Manifest
+import android.content.Context
+import android.content.SharedPreferences
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +25,7 @@ import com.trip.tripsync.ui.fragment.plan.PlanFragment
 import com.trip.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.trip.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
+import com.trip.tripsync.ui.fragment.SetupGuideFragment
 import kotlinx.coroutines.launch
 
 class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
@@ -31,6 +33,7 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
     private var _binding: FragmentSetupBinding? = null
     private val binding: FragmentSetupBinding
         get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
 
     private val selectedDates = mutableSetOf<CalendarDay>()
     private val adapter = SetupListAdapter()
@@ -91,6 +94,18 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
         return view
     }
 
+    private fun isFirstRun(fragmentTag: String): Boolean {
+        return sharedPreferences.getBoolean("isFirstRun_$fragmentTag", true)
+    }
+    private fun setFirstRunFlag(fragmentTag: String) {
+        sharedPreferences.edit().putBoolean("isFirstRun_$fragmentTag", false).apply()
+    }
+    private fun showGuideFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, SetupGuideFragment())
+            .commit()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -98,6 +113,15 @@ class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {
             if (requireActivity().supportFragmentManager.backStackEntryCount > 0) {
                 requireActivity().supportFragmentManager.popBackStack()
             }
+        }
+
+        sharedPreferences = requireContext().getSharedPreferences(
+            "com.trip.tripsync.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        if (isFirstRun("setup")) {
+            showGuideFragment()
+            setFirstRunFlag("setup")
         }
     }
 
