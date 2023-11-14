@@ -1,5 +1,7 @@
 package com.trip.tripsync.ui.fragment.home
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -10,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.addCallback
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,6 +31,8 @@ import com.trip.tripsync.viewmodel.FestivalViewModelFactory
 import com.trip.tripsync.viewmodel.TravelViewModel
 import com.trip.tripsync.viewmodel.TravelViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
+import com.trip.tripsync.ui.dialog.UserManageFragment
+import com.trip.tripsync.ui.fragment.HomeGuideFragment
 
 class HomeFragment : Fragment(),
     HomeFestivalAdapter.onFestivalClick, HomeTravelAdapter.onTravelClick {
@@ -44,13 +49,13 @@ class HomeFragment : Fragment(),
     private var _binding: FragmentHomeBinding? = null
     private val binding: FragmentHomeBinding
         get() = _binding!!
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-
 
         // 지역
         val areaList = mutableListOf(
@@ -133,9 +138,28 @@ class HomeFragment : Fragment(),
         return binding.root
     }
 
-
+    private fun isFirstRun(fragmentTag: String): Boolean {
+        return sharedPreferences.getBoolean("isFirstRun_$fragmentTag", true)
+    }
+    private fun setFirstRunFlag(fragmentTag: String) {
+        sharedPreferences.edit().putBoolean("isFirstRun_$fragmentTag", false).apply()
+    }
+    private fun showGuideFragment() {
+        requireActivity().supportFragmentManager.beginTransaction()
+            .add(R.id.main_frame, HomeGuideFragment())
+            .commit()
+    }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        sharedPreferences = requireContext().getSharedPreferences(
+            "com.trip.tripsync.PREFERENCE_FILE_KEY",
+            Context.MODE_PRIVATE
+        )
+        if (isFirstRun("home")) {
+            showGuideFragment()
+            setFirstRunFlag("home")
+        }
 
         homeTravelAdapter.setOntravelClickListener(this)
         homeFestivalAdapter.setOnFestivalClickListener(this)
