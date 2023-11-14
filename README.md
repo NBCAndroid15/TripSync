@@ -17,7 +17,7 @@
 
 - **서비스 주요 기능**
 
-![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/9fca23cb-c7ed-4df4-a3cf-836462cdf0bb)
+![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/9cf09c99-c407-4273-afa4-1af6efe3f320)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/89b21a25-1a88-4752-9289-ac19123377cf)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/e6257db2-6111-4e95-8624-b35f69a8c306)
 ![image](https://github.com/NBCAndroid15/TripSync/assets/138543028/fd611715-0d91-4b73-86ef-e4b7d5af34aa)
