@@ -11,9 +11,8 @@ import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentNaverMapBinding
-import com.trip.tripsync.model.Travel
 import com.trip.tripsync.ui.fragment.setup.NaverMapFragment
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
+import com.trip.tripsync.viewmodel.SharedViewModel
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.CameraPosition
 import com.naver.maps.map.MapView

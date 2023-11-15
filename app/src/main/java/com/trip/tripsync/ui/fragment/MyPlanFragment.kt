@@ -17,12 +17,12 @@ import androidx.recyclerview.widget.LinearLayoutManager.VERTICAL
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentMyPlanBinding
 import com.trip.tripsync.model.Plan
-import com.trip.tripsync.ui.adapter.MyPlanAdapter
-import com.trip.tripsync.ui.dialog.ConfirmFriendDialog
+import com.trip.tripsync.ui.adapter.myplan.MyPlanAdapter
+import com.trip.tripsync.ui.dialog.confirm.ConfirmFriendDialog
 import com.trip.tripsync.ui.fragment.plan.PlanFragment
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
-import com.trip.tripsync.viewmodel.MyPlanViewModel
-import com.trip.tripsync.viewmodel.MyPlanViewModelFactory
+import com.trip.tripsync.viewmodel.SharedViewModel
+import com.trip.tripsync.viewmodel.myplan.MyPlanViewModel
+import com.trip.tripsync.viewmodel.myplan.MyPlanViewModelFactory
 
 class MyPlanFragment : Fragment() {
 

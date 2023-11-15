@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginHorizontal="20dp"
-    tools:context=".ui.fragment.search.SearchFragment">
+    tools:context=".ui.fragment.SearchFragment">
 
     <ImageView
         android:id="@+id/search_iv_logo"

@@ -3,21 +3,16 @@ package com.trip.tripsync.ui.dialog
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.inputmethod.EditorInfo
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trip.tripsync.R
-import com.trip.tripsync.databinding.FragmentFriendAddDialogBinding
 import com.trip.tripsync.databinding.FragmentUserCheckDialogBinding
-import com.trip.tripsync.ui.fragment.plan.PlanUserDialogAdapter
-import com.trip.tripsync.ui.fragment.plan.PlanUserNameAdapter
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
+import com.trip.tripsync.ui.adapter.plan.PlanUserDialogAdapter
+import com.trip.tripsync.viewmodel.SharedViewModel
 
 class UserCheckDialogFragment : DialogFragment() {
 

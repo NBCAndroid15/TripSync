@@ -1,27 +1,21 @@
 package com.trip.tripsync.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentFriendManageBinding
-import com.trip.tripsync.model.Travel
 import com.trip.tripsync.model.User
-import com.trip.tripsync.ui.adapter.FriendManageAdapter
-import com.trip.tripsync.ui.dialog.ConfirmDialog
-import com.trip.tripsync.ui.dialog.ConfirmFriendDialog
+import com.trip.tripsync.ui.adapter.friend.FriendManageAdapter
+import com.trip.tripsync.ui.dialog.confirm.ConfirmFriendDialog
 import com.trip.tripsync.ui.dialog.FriendAddDialogFragment
-import com.trip.tripsync.viewmodel.FriendManageViewModel
-import com.trip.tripsync.viewmodel.FriendManageViewModelFactory
+import com.trip.tripsync.viewmodel.friendmanage.FriendManageViewModel
+import com.trip.tripsync.viewmodel.friendmanage.FriendManageViewModelFactory
 
 class FriendManageFragment : Fragment() {
 

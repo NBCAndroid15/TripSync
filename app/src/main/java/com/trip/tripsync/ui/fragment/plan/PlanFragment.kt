@@ -19,14 +19,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentPlanBinding
 import com.trip.tripsync.model.Travel
-import com.trip.tripsync.ui.dialog.ConfirmDialog
-import com.trip.tripsync.ui.fragment.plan.planbookmarklist.PlanBoomarkListDialog
-import com.trip.tripsync.ui.fragment.plan.plansearchlist.PlanSearchListDialog
-import com.trip.tripsync.ui.fragment.setup.PlanMemoDialog
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
+import com.trip.tripsync.ui.adapter.plan.ItemDecoration
+import com.trip.tripsync.ui.adapter.plan.PlanListAdapter
+import com.trip.tripsync.ui.adapter.plan.PlanUserNameAdapter
+import com.trip.tripsync.ui.dialog.confirm.ConfirmDialog
+import com.trip.tripsync.ui.dialog.plan.PlanBoomarkListDialog
+import com.trip.tripsync.ui.dialog.plan.PlanSearchListDialog
+import com.trip.tripsync.ui.dialog.plan.PlanMemoDialog
+import com.trip.tripsync.viewmodel.SharedViewModel
 import com.trip.tripsync.ui.dialog.UserCheckDialogFragment
-import com.trip.tripsync.ui.fragment.DetailFragment
-import com.trip.tripsync.ui.fragment.PlanGuideFragment
+import com.trip.tripsync.ui.fragment.detail.DetailFragment
 
 class PlanFragment : Fragment(), PlanListAdapter.OnItemClickListener {
 

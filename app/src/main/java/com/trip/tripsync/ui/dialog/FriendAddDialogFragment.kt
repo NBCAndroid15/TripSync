@@ -12,13 +12,11 @@ import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.trip.tripsync.databinding.FragmentFriendAddDialogBinding
-import com.trip.tripsync.ui.adapter.FriendAddAdapter
-import com.trip.tripsync.viewmodel.FriendManageViewModel
-import com.trip.tripsync.viewmodel.FriendManageViewModelFactory
+import com.trip.tripsync.ui.adapter.friend.FriendAddAdapter
+import com.trip.tripsync.viewmodel.friendmanage.FriendManageViewModel
+import com.trip.tripsync.viewmodel.friendmanage.FriendManageViewModelFactory
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.channels.awaitClose

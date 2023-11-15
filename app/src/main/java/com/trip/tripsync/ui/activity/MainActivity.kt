@@ -1,22 +1,10 @@
 package com.trip.tripsync.ui.activity
 
-import android.Manifest
-import android.content.pm.PackageManager
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import com.trip.tripsync.databinding.ActivityMainBinding
 import com.trip.tripsync.R
-import com.trip.tripsync.model.Plan
-import com.trip.tripsync.ui.fragment.CommunityWriteFragment
 import com.trip.tripsync.ui.fragment.LoginFragment
-import com.trip.tripsync.ui.fragment.home.HomeFragment
-import com.trip.tripsync.ui.fragment.plan.PlanFragment
-import com.trip.tripsync.ui.fragment.setup.SetupFragment
 
 
 class MainActivity : AppCompatActivity() {

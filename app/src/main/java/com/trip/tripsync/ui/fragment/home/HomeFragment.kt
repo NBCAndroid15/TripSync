@@ -3,36 +3,29 @@ package com.trip.tripsync.ui.fragment.home
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.activity.addCallback
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.activityViewModels
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentHomeBinding
 import com.trip.tripsync.model.Travel
-import com.trip.tripsync.ui.fragment.CoinFragment
-import com.trip.tripsync.ui.fragment.DetailFragment
-import com.trip.tripsync.ui.fragment.LoginFragment
-import com.trip.tripsync.ui.fragment.SignupFragment
 import com.trip.tripsync.ui.fragment.setup.SetupFragment
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
-import com.trip.tripsync.viewmodel.FestivalViewModel
-import com.trip.tripsync.viewmodel.FestivalViewModelFactory
-import com.trip.tripsync.viewmodel.TravelViewModel
-import com.trip.tripsync.viewmodel.TravelViewModelFactory
+import com.trip.tripsync.viewmodel.SharedViewModel
+import com.trip.tripsync.viewmodel.home.FestivalViewModel
+import com.trip.tripsync.viewmodel.home.FestivalViewModelFactory
+import com.trip.tripsync.viewmodel.home.TravelViewModel
+import com.trip.tripsync.viewmodel.home.TravelViewModelFactory
 import com.google.firebase.auth.FirebaseAuth
-import com.trip.tripsync.ui.dialog.UserManageFragment
-import com.trip.tripsync.ui.fragment.HomeGuideFragment
+import com.trip.tripsync.ui.adapter.home.HomeAreaAdapter
+import com.trip.tripsync.ui.adapter.home.HomeFestivalAdapter
+import com.trip.tripsync.ui.adapter.home.HomeTravelAdapter
+import com.trip.tripsync.ui.fragment.detail.DetailFragment
+import com.trip.tripsync.ui.fragment.LoginFragment
 
 class HomeFragment : Fragment(),
     HomeFestivalAdapter.onFestivalClick, HomeTravelAdapter.onTravelClick {

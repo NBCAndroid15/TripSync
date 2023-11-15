@@ -14,9 +14,8 @@ import androidx.fragment.app.activityViewModels
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentLoginBinding
 import com.trip.tripsync.model.User
-import com.trip.tripsync.ui.fragment.setup.SharedViewModel
-import com.trip.tripsync.viewmodel.MyPageViewModel
-import com.trip.tripsync.viewmodel.MyPageViewModelFactory
+import com.trip.tripsync.viewmodel.mypage.MyPageViewModel
+import com.trip.tripsync.viewmodel.mypage.MyPageViewModelFactory
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient

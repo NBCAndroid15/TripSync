@@ -8,17 +8,17 @@ import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.clearFragmentResultListener
 import androidx.fragment.app.setFragmentResultListener
-import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentBookmarkManageBinding
 import com.trip.tripsync.model.Travel
-import com.trip.tripsync.ui.adapter.BookmarkAreaAdapter
-import com.trip.tripsync.ui.adapter.BookmarkManageAdapter
-import com.trip.tripsync.ui.dialog.ConfirmDialog
-import com.trip.tripsync.viewmodel.BookmarkManageViewModel
-import com.trip.tripsync.viewmodel.BookmarkManageViewModelFactory
+import com.trip.tripsync.ui.adapter.bookmark.BookmarkAreaAdapter
+import com.trip.tripsync.ui.adapter.bookmark.BookmarkManageAdapter
+import com.trip.tripsync.ui.dialog.confirm.ConfirmDialog
+import com.trip.tripsync.ui.fragment.detail.DetailFragment
+import com.trip.tripsync.viewmodel.bookmark.BookmarkManageViewModel
+import com.trip.tripsync.viewmodel.bookmark.BookmarkManageViewModelFactory
 
 class BookmarkManageFragment : Fragment() {
 

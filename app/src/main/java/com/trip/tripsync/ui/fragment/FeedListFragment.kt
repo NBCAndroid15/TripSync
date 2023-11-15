@@ -6,8 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.trip.tripsync.R
 import com.trip.tripsync.databinding.FragmentFeedListBinding
+import com.trip.tripsync.ui.adapter.FeedListAdapter
 
 
 class FeedListFragment : Fragment() {

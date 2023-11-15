@@ -22,10 +22,13 @@ import com.trip.tripsync.databinding.FragmentSetupBinding
 import com.trip.tripsync.model.Plan
 import com.trip.tripsync.ui.fragment.MainFragment
 import com.trip.tripsync.ui.fragment.plan.PlanFragment
-import com.trip.tripsync.ui.fragment.setup.setupuseradd.SetupUserAddDialog
+import com.trip.tripsync.ui.dialog.setup.SetupUserAddDialog
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.trip.tripsync.ui.activity.MainActivity.Companion.PERMISSION_REQUEST_CODE
-import com.trip.tripsync.ui.fragment.SetupGuideFragment
+import com.trip.tripsync.ui.adapter.setup.SetupListAdapter
+import com.trip.tripsync.ui.dialog.setup.SetupCalendarView
+import com.trip.tripsync.ui.dialog.setup.SetupTitleDialog
+import com.trip.tripsync.viewmodel.SharedViewModel
 import kotlinx.coroutines.launch
 
 class SetupFragment : Fragment(), SetupListAdapter.OnItemClickListener {

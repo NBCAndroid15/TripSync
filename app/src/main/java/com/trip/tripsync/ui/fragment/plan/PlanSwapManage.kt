@@ -3,6 +3,7 @@ package com.trip.tripsync.ui.fragment.plan
 import android.content.Context
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.trip.tripsync.ui.adapter.plan.PlanListAdapter
 
 class PlanSwapManage(adapter: PlanListAdapter, context: Context, dragDirs: Int, swipeDirs: Int) : ItemTouchHelper.SimpleCallback(dragDirs, swipeDirs)
 {
